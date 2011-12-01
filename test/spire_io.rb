@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'rspec'
 $:<<"src/shark/client/ruby"
-require 'spire'
+require 'spire_io'
 
 RSpec::Matchers.define :be_a_resource do
 	match do |actual|
@@ -184,7 +184,7 @@ describe "The spire.io API" do
 				describe "Create a subscription for a channel" do
 
 					before(:all) do
-						@subscription = spire.start($key).subscription("dan",@channel)
+						@subscription = spire.start($key).subscription("dan","foo")
 					end
 					
 					describe "Listen for the message we sent" do
@@ -215,7 +215,7 @@ describe "The spire.io API" do
 
 				before(:all) do
 					@channel = spire.start($key)["bar"]
-					@subscription = spire.start($key).subscription("dan",@channel)
+					@subscription = spire.start($key).subscription("dan","foo")
 				end
 				
 				describe "Waits for a message to be published" do
