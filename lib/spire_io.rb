@@ -60,6 +60,15 @@ class Spire
 		self
 	end
 	
+	def delete_account
+		@client.delete(
+			@description["resources"]["accounts"]["url"],
+			:headers => { 
+				"Accept" => mediaType("account"),"Content-Type" => mediaType("account"),
+				"Authorization" => "Capability #{@session["resources"]["account"]["capability"]}"
+		})
+	end
+
 	def update(info)
 		response = @client.put(
 			@session["resources"]["account"]["url"],
@@ -154,7 +163,7 @@ class Spire
 				@properties["url"],
 				:query => {
 					"timeout" => timeout,
-					"last" => @last||'0'
+					"last-message" => @last||'0'
 				},
 				:headers => {
 					"Authorization" => "Capability #{@properties["capability"]}",
@@ -162,7 +171,7 @@ class Spire
 				})
 			raise "Error listening for messages: (#{response.status}) #{response.body}" if response.status != 200
 			messages = JSON.parse(response.body)["messages"]
-			@last = messages[0]["timestamp"] unless messages.empty?
+			@last = messages.last["timestamp"] unless messages.empty?
 			messages.map { |m| m["content"] }
 		end
 		

@@ -17,7 +17,7 @@ RSpec::Matchers.define :be_a_privileged_resource do
 end
 
 def spire
-	Spire.new("http://api.spire.io/")
+	Spire.new("http://build.spire.io")
 end
 
 $email = "test+#{Time.now.to_i}@spire.io"
@@ -48,7 +48,7 @@ describe "The spire.io API" do
 
 					specify "Returns an error" do
 						lambda do 
-							spire.register(:email => "foo@bar.com", :password => "foobarbaz") 
+							spire.register(:email => $email, :password => "foobarbaz") 
 						end.should raise_error
 					end
 
@@ -58,7 +58,7 @@ describe "The spire.io API" do
 
 					before(:all) do
 						@spire = spire
-						@session = @spire.login("foo@bar.com","foobarbaz").instance_eval { @session }
+						@session = @spire.login($email,"foobarbaz").instance_eval { @session }
 					end
 				
 					specify "Returns a privileged session resource" do
@@ -72,7 +72,7 @@ describe "The spire.io API" do
 					describe "Change your password" do
 						
 						before(:all) do
-							@account = @spire.update(:email => "foo@bar.com", :password => "bazbarfoo").instance_eval { @session["resources"]["account"] }
+							@account = @spire.update(:email => $email, :password => "bazbarfoo").instance_eval { @session["resources"]["account"] }
 						end
 						
 						specify "Returns the updated account" do
@@ -82,7 +82,7 @@ describe "The spire.io API" do
 						describe "Log in with the new password" do
 							
 							before(:all) do
-								@session = spire.login("foo@bar.com","bazbarfoo").instance_eval { @session }
+								@session = spire.login($email, "bazbarfoo").instance_eval { @session }
 							end
 							
 							specify "Returns a privileged session resource" do
@@ -215,9 +215,21 @@ describe "The spire.io API" do
 
 				before(:all) do
 					@channel = spire.start($key)["bar"]
-					@subscription = spire.start($key).subscription("dan","foo")
+					@subscription = spire.start($key).subscription("dan","bar")
 				end
 				
+				specify "Will only return single message once" do
+					channel = spire.start($key)["multiple"]
+					subscription = spire.start($key).subscription("dan","multiple")
+					channel.publish("Message 1")
+					channel.publish("Message 2")
+					messages = subscription.listen
+					messages.should == ["Message 1", "Message 2"]
+					channel.publish("Message 3")
+					messages = subscription.listen
+					messages.should == ["Message 3"]
+				end
+
 				describe "Waits for a message to be published" do
 
 					# This test will fail until we switch to an http client
