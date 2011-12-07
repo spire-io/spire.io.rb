@@ -10,7 +10,7 @@ Let's create a second session and get our messages.
 
     spire2 = Spire.new
     spire2.start(key)
-    subscription = spire2.subscribe("dan","foo")
+    subscription = spire2.subscription("dan","foo")
     puts subscription.listen.first # => "Hello World!"
     
     

@@ -218,7 +218,7 @@ describe "The spire.io API" do
 					@subscription = spire.start($key).subscription("dan","bar")
 				end
 				
-				specify "Will only return single message once" do
+				specify "Will only return a single message once" do
 					channel = spire.start($key)["multiple"]
 					subscription = spire.start($key).subscription("dan","multiple")
 					channel.publish("Message 1")
