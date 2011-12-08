@@ -159,11 +159,13 @@ class Spire
 			@messages = []
 			@listening_thread = nil
 			@listeners = {}
-			@mutex = Mutex.new
+			@listening_threads = {}
+			@listener_mutex = Mutex.new
+			@listener_thread_mutex = Mutex.new
 		end
 
 		def add_listener(name = nil, &block)
-			@mutex.synchronize do
+			@listener_mutex.synchronize do
 				while !name
 					new_name = "Listener-#{rand(9999999)}"
 					name = new_name unless @listeners.has_key?(new_name)
@@ -173,15 +175,23 @@ class Spire
 			name
 		end
 
-		def remove_listener(name)
-			@mutex.synchronize do
+		def remove_listener(name, kill_current_threads = true)
+			@listener_mutex.synchronize do
 				@listeners.delete(name)
 			end
+			kill_listening_threads(name) if kill_current_threads
 		end
 
-		def remove_all_listeners
-			@mutex.synchronize do
+		def remove_all_listeners(kill_current_threads = true)
+			@listener_mutex.synchronize do
 				@listeners = {}
+			end
+			kill_listening_threads if kill_current_threads
+		end
+
+		def current_listeners
+			@listener_mutex.synchronize do #To prevent synch problems adding a new listener while looping
+				@listeners.dup
 			end
 		end
 
@@ -191,21 +201,35 @@ class Spire
 				while true
 					new_messages = self.listen
 					next unless new_messages.size > 0
-					current_listeners = nil #For scope
-					@mutex.synchronize do #To prevent synch problems adding a new listener while looping
-						current_listeners = @listeners.values
-					end
-					current_listeners.each do |listener|
+					self.current_listeners.each do |name, listener|
 						new_messages.each do |m|
-							listener.call(m)
+							thread = Thread.new { listener.call(m) }
+							@listener_thread_mutex.synchronize do
+								@listening_threads[name] ||= []
+								@listening_threads[name] << thread
+							end
 						end
 					end
 				end
 			}
 		end
 
-		def stop_listening
-			@listening_thread.kill if @listening_thread
+		def stop_listening(kill_current_threads = true)
+			@listener_thread_mutex.synchronize do
+				@listening_thread.kill if @listening_thread
+				@listening_thread = nil
+			end
+			kill_listening_threads if kill_current_threads
+		end
+
+		def kill_listening_threads(name_to_kill = nil)
+			@listener_thread_mutex.synchronize do
+				@listening_threads.each do |name, threads|
+					next if name_to_kill and name_to_kill != name
+					threads.each {|t| t.kill }
+					@listening_threads[name] = []
+				end
+			end
 		end
 
 		def listen(timeout=30)
@@ -221,7 +245,7 @@ class Spire
 				})
 			raise "Error listening for messages: (#{response.status}) #{response.body}" if response.status != 200
 			new_messages = JSON.parse(response.body)["messages"]
-			@mutex.synchronize do
+			@listener_mutex.synchronize do
 				@last = new_messages.last["timestamp"] unless new_messages.empty?
 				new_messages.map! { |m| m["content"] }
 				@messages += new_messages
