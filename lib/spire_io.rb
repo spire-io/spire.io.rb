@@ -151,11 +151,61 @@ class Spire
 	end
 	
 	class Subscription
-		
+		attr_accessor :messages
 		
 		def initialize(spire,properties)
 			@spire = spire
 			@properties = properties
+			@messages = []
+			@listening_thread = nil
+			@listeners = {}
+			@mutex = Mutex.new
+		end
+
+		def add_listener(name = nil, &block)
+			@mutex.synchronize do
+				while !name
+					new_name = "Listener-#{rand(9999999)}"
+					name = new_name unless @listeners.has_key?(new_name)
+				end
+				@listeners[name] = block
+			end
+			name
+		end
+
+		def remove_listener(name)
+			@mutex.synchronize do
+				@listeners.delete(name)
+			end
+		end
+
+		def remove_all_listeners
+			@mutex.synchronize do
+				@listeners = {}
+			end
+		end
+
+		def start_listening
+			raise "Already listening" if @listening_thread
+			@listening_thread = Thread.new {
+				while true
+					new_messages = self.listen
+					next unless new_messages.size > 0
+					current_listeners = nil #For scope
+					@mutex.synchronize do #To prevent synch problems adding a new listener while looping
+						current_listeners = @listeners.values
+					end
+					current_listeners.each do |listener|
+						new_messages.each do |m|
+							listener.call(m)
+						end
+					end
+				end
+			}
+		end
+
+		def stop_listening
+			@listening_thread.kill if @listening_thread
 		end
 
 		def listen(timeout=30)
@@ -170,9 +220,13 @@ class Spire
 					"Accept" => mediaType("events")
 				})
 			raise "Error listening for messages: (#{response.status}) #{response.body}" if response.status != 200
-			messages = JSON.parse(response.body)["messages"]
-			@last = messages.last["timestamp"] unless messages.empty?
-			messages.map { |m| m["content"] }
+			new_messages = JSON.parse(response.body)["messages"]
+			@mutex.synchronize do
+				@last = new_messages.last["timestamp"] unless new_messages.empty?
+				new_messages.map! { |m| m["content"] }
+				@messages += new_messages
+			end
+			new_messages
 		end
 		
 		def mediaType(name)
@@ -180,6 +234,4 @@ class Spire
 		end
 	
 	end
-	
 end
-	

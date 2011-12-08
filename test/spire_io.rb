@@ -211,6 +211,60 @@ describe "The spire.io API" do
 
 			end
 			
+			describe "Event listening on a channel" do
+
+				before(:all) do
+					@channel = spire.start($key)["event_channel"]
+					@subscription = spire.start($key).subscription("dan","event_channel")
+					@subscription.start_listening
+				end
+				
+				specify "A listener is called each time a message is received" do
+					@subscription.add_listener("test1") {|m| @last_message = m}
+					@channel.publish("Message1")
+					sleep 1
+					@last_message.should == "Message1"
+					@subscription.remove_listener("test1")
+				end
+
+				specify "You can have multiple listeners on a subscription" do
+					@subscription.add_listener("test2") {|m| @last_message2 = m}
+					@subscription.add_listener("test3") {|m| @last_message3 = m}
+					@channel.publish("Message2")
+					sleep 1
+					@last_message2.should == "Message2"
+					@last_message3.should == "Message2"
+					@subscription.remove_listener("test2")
+					@subscription.remove_listener("test3")
+				end
+				
+				specify "You can have remove a listener on a subscription" do
+					@subscription.add_listener("test4") {|m| @last_message4 = m}
+					@subscription.add_listener("test5") {|m| @last_message5 = m}
+					@channel.publish("Message3")
+					sleep 1
+					@last_message4.should == "Message3"
+					@last_message5.should == "Message3"
+					@last_message4 = nil
+					@last_message5 = nil
+					@subscription.remove_listener("test4")
+					@channel.publish("Message4")
+					sleep 1
+					@last_message4.should be_nil
+					@last_message5.should == "Message4"
+					@subscription.remove_listener("test5")
+				end
+				
+				specify "A listener will be assigned a name if none is given" do
+					@last_message6 = nil
+					name = @subscription.add_listener() {|m| @last_message6 = m}
+					@subscription.remove_listener(name)
+					@channel.publish("Message5")
+					sleep 1
+					@last_message6.should == nil
+				end
+			end
+
 			describe "Long-polling on a channel" do
 
 				before(:all) do
