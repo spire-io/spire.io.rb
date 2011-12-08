@@ -184,7 +184,7 @@ describe "The spire.io API" do
 				describe "Create a subscription for a channel" do
 
 					before(:all) do
-						@subscription = spire.start($key).subscription("dan","foo")
+						@subscription = spire.start($key).subscribe('sub_name', "foo")
 					end
 					
 					describe "Listen for the message we sent" do
@@ -215,7 +215,7 @@ describe "The spire.io API" do
 
 				before(:all) do
 					@channel = spire.start($key)["event_channel"]
-					@subscription = spire.start($key).subscription("dan","event_channel")
+					@subscription = spire.start($key).subscribe('sub_name', "event_channel")
 					@subscription.start_listening
 				end
 				
@@ -269,12 +269,12 @@ describe "The spire.io API" do
 
 				before(:all) do
 					@channel = spire.start($key)["bar"]
-					@subscription = spire.start($key).subscription("dan","bar")
+					@subscription = spire.start($key).subscribe('sub_name', "bar")
 				end
 				
 				specify "Will only return a single message once" do
 					channel = spire.start($key)["multiple"]
-					subscription = spire.start($key).subscription("dan","multiple")
+					subscription = spire.start($key).subscribe('sub_name', "multiple")
 					channel.publish("Message 1")
 					channel.publish("Message 2")
 					messages = subscription.listen

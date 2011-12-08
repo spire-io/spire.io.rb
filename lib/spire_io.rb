@@ -95,10 +95,10 @@ class Spire
 		Channel.new(self,JSON.parse(response.body))
 	end
 	
-	def subscription(nick,*channels)
+	def subscribe(subscription_name, *channels)
 		response = @client.post(
 			@session["resources"]["subscriptions"]["url"],
-			:body => { :channels => channels.map { |name| self[name].url } }.to_json,
+			:body => { :channels => channels.flatten.map { |name| self[name].url } }.to_json,
 			:headers => {
 				"Authorization" => "Capability #{@session["resources"]["subscriptions"]["capability"]}",
 				"Accept" => mediaType("subscription"),
@@ -107,7 +107,8 @@ class Spire
 		raise "Error creating a subscription: (#{response.status}) #{response.body}" if !(response.status == 201 || response.status == 200)
 		Subscription.new(self,JSON.parse(response.body))
 	end
-	
+	alias :subscription :subscribe
+
 	def key
 		@session["resources"]["account"]["key"]
 	end
@@ -131,6 +132,14 @@ class Spire
 			@properties["key"]
 		end
 
+		def name
+			@properties["name"]
+		end
+
+		def subscribe(subscription_name = nil)
+			@spire.subscribe(subscription_name, self.name)
+		end
+
 		def publish(message)
 			response = @spire.client.post(
 				@properties["url"],
@@ -150,6 +159,15 @@ class Spire
 	
 	end
 	
+	# The subscription class represents a read connection to a Spire channel
+	# You can get a subscription by calling subscribe on a spire object with the name of the channel or
+	# by calling subscribe on a channel object
+	# spire = Spire.new
+	# spire.start("your api key")
+	# subscription = spire.subscribe("channel1")
+	# # OR #
+	# channel = spire["channel1"]
+	# subscription = channel.subscribe
 	class Subscription
 		attr_accessor :messages
 		
