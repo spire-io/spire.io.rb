@@ -141,16 +141,21 @@ class Spire
 		end
 
 		def publish(message)
+			response = _publish({:content => message}.to_json)
+			raise "Error publishing a message: (#{response.status}) #{response.body}" if response.status != 201
+			JSON.parse(response.body)
+		end
+
+		def _publish(body)
 			response = @spire.client.post(
 				@properties["url"],
-				:body => { :content => message }.to_json,
+				:body => body,
 				:headers => {
 					"Authorization" => "Capability #{@properties["capability"]}",
 					"Accept" => mediaType("message"),
 					"Content-Type" => mediaType("message")
-				})
-			raise "Error publishing a message: (#{response.status}) #{response.body}" if response.status != 201
-			JSON.parse(response.body)
+				}
+			)
 		end
 
 		def mediaType(name)
@@ -170,6 +175,7 @@ class Spire
 	# subscription = channel.subscribe
 	class Subscription
 		attr_accessor :messages
+		attr_reader :last
 		
 		def initialize(spire,properties)
 			@spire = spire
@@ -180,6 +186,10 @@ class Spire
 			@listening_threads = {}
 			@listener_mutex = Mutex.new
 			@listener_thread_mutex = Mutex.new
+		end
+
+		def key
+			@properties["key"]
 		end
 
 		def add_listener(name = nil, &block)
