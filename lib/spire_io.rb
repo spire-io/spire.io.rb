@@ -103,6 +103,7 @@ class Spire
 	# Returns a subscription object for the given channels
 	# @param [String] subscription_name Name for the subscription
 	# @param [String] channels One or more channel names for the subscription to listen on
+	# @return [Subscription]
 	def subscribe(subscription_name, *channels)
 		response = @client.post(
 			@session["resources"]["subscriptions"]["url"],
@@ -117,7 +118,10 @@ class Spire
 	end
 	alias :subscription :subscribe #For compatibility with other clients
 
-	def billing(params)
+	# Returns a billing object than contains a list of all the plans available
+	# @param [String] params optional object description
+	# @return [Billing]
+	def billing(params=nil)
 		response = @client.get(
 			@description["resources"]["billing"]["url"],
 			:headers => {
@@ -358,6 +362,12 @@ class Spire
 		end
 	end
 
+	# Object representing a Spire billing
+	#
+	# You can get all the billing plans by calling the method billing in Spire object
+	# * spire = Spire.new
+	# * billing = spire.billing()
+	# * plans = billing.plans
 	class Billing
 		def initialize(spire,properties)
 			@spire = spire

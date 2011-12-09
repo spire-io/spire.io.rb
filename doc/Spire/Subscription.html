@@ -102,31 +102,36 @@ You can get a subscription by calling subscribe on a spire object with the
 name of the channel or by calling subscribe on a channel object
 </p>
 <ul>
-<li>spire = Spire.new
-
+<li><p>
+spire = Spire.new
+</p>
 </li>
-<li>spire.start(&quot;your api key&quot;)
-
+<li><p>
+spire.start(&#8220;your api key&#8221;)
+</p>
 </li>
 </ul>
 <p>
 <b>THEN</b>
 </p>
 <ul>
-<li>subscription = spire.subscribe(&quot;subscription name&quot;, &quot;channel
-name&quot;)
-
+<li><p>
+subscription = spire.subscribe(&#8220;subscription name&#8221;,
+&#8220;channel name&#8221;)
+</p>
 </li>
 </ul>
 <p>
 <b>OR</b>
 </p>
 <ul>
-<li>channel = spire[&quot;channel name&quot;]
-
+<li><p>
+channel = spire[&#8220;channel name&#8221;]
+</p>
 </li>
-<li>subscription = channel.subscribe(&quot;subscription name&quot;)
-
+<li><p>
+subscription = channel.subscribe(&#8220;subscription name&#8221;)
+</p>
 </li>
 </ul>
 
@@ -476,31 +481,30 @@ A new instance of Subscription
       <pre class="lines">
 
 
-214
-215
-216
-217
-218
-219
-220
-221
-222
-223</pre>
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 214</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 228</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_spire identifier id'>spire</span><span class='comma token'>,</span><span class='rubyid_properties identifier id'>properties</span><span class='rparen token'>)</span>
-  <span class='rubyid_@spire ivar id'>@spire</span> <span class='assign token'>=</span> <span class='rubyid_spire identifier id'>spire</span>
-  <span class='rubyid_@properties ivar id'>@properties</span> <span class='assign token'>=</span> <span class='rubyid_properties identifier id'>properties</span>
-  <span class='rubyid_@messages ivar id'>@messages</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
-  <span class='rubyid_@listening_thread ivar id'>@listening_thread</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span>
-  <span class='rubyid_@listeners ivar id'>@listeners</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
-  <span class='rubyid_@listening_threads ivar id'>@listening_threads</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
-  <span class='rubyid_@listener_mutex ivar id'>@listener_mutex</span> <span class='assign token'>=</span> <span class='rubyid_Mutex constant id'>Mutex</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span>
-  <span class='rubyid_@listener_thread_mutex ivar id'>@listener_thread_mutex</span> <span class='assign token'>=</span> <span class='rubyid_Mutex constant id'>Mutex</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_spire'>spire</span><span class='comma'>,</span><span class='id identifier rubyid_properties'>properties</span><span class='rparen'>)</span>
+	<span class='ivar'>@spire</span> <span class='op'>=</span> <span class='id identifier rubyid_spire'>spire</span>
+	<span class='ivar'>@properties</span> <span class='op'>=</span> <span class='id identifier rubyid_properties'>properties</span>
+	<span class='ivar'>@messages</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+	<span class='ivar'>@listening_thread</span> <span class='op'>=</span> <span class='kw'>nil</span>
+	<span class='ivar'>@listeners</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+	<span class='ivar'>@listening_threads</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+	<span class='ivar'>@listener_mutex</span> <span class='op'>=</span> <span class='const'>Mutex</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+	<span class='ivar'>@listener_thread_mutex</span> <span class='op'>=</span> <span class='const'>Mutex</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -539,17 +543,16 @@ Returns the value of attribute last
       <pre class="lines">
 
 
-212
-213
-214</pre>
+226
+227
+228</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 212</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 226</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_last identifier id'>last</span>
-  <span class='rubyid_@last ivar id'>@last</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_last'>last</span>
+  <span class='ivar'>@last</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -583,17 +586,16 @@ Returns the value of attribute messages
       <pre class="lines">
 
 
-211
-212
-213</pre>
+225
+226
+227</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 211</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 225</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_messages identifier id'>messages</span>
-  <span class='rubyid_@messages ivar id'>@messages</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_messages'>messages</span>
+  <span class='ivar'>@messages</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -653,7 +655,7 @@ You must call #start_listening to actually start listening for messages
       
         &mdash;
         <div class='inline'><p>
-Name for the listener. One will be generated if not provided
+Name for the listener.  One will be generated if not provided
 </p>
 </div>
       
@@ -687,31 +689,30 @@ Name of the listener
       <pre class="lines">
 
 
-235
-236
-237
-238
-239
-240
-241
-242
-243
-244</pre>
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 235</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 249</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_add_listener identifier id'>add_listener</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='rubyid_block identifier id'>block</span><span class='rparen token'>)</span>
-  <span class='rubyid_@listener_mutex ivar id'>@listener_mutex</span><span class='dot token'>.</span><span class='rubyid_synchronize identifier id'>synchronize</span> <span class='rubyid_do do kw'>do</span>
-    <span class='rubyid_while while kw'>while</span> <span class='notop op'>!</span><span class='rubyid_name identifier id'>name</span>
-      <span class='rubyid_new_name identifier id'>new_name</span> <span class='assign token'>=</span> <span class='dstring node'>&quot;Listener-#{rand(9999999)}&quot;</span>
-      <span class='rubyid_name identifier id'>name</span> <span class='assign token'>=</span> <span class='rubyid_new_name identifier id'>new_name</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_@listeners ivar id'>@listeners</span><span class='dot token'>.</span><span class='rubyid_has_key? fid id'>has_key?</span><span class='lparen token'>(</span><span class='rubyid_new_name identifier id'>new_name</span><span class='rparen token'>)</span>
-    <span class='rubyid_end end kw'>end</span>
-    <span class='rubyid_@listeners ivar id'>@listeners</span><span class='lbrack token'>[</span><span class='rubyid_name identifier id'>name</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_block identifier id'>block</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_name identifier id'>name</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_add_listener'>add_listener</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+	<span class='ivar'>@listener_mutex</span><span class='period'>.</span><span class='id identifier rubyid_synchronize'>synchronize</span> <span class='kw'>do</span>
+		<span class='kw'>while</span> <span class='op'>!</span><span class='id identifier rubyid_name'>name</span>
+			<span class='id identifier rubyid_new_name'>new_name</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Listener-</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_rand'>rand</span><span class='lparen'>(</span><span class='int'>9999999</span><span class='rparen'>)</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+			<span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_new_name'>new_name</span> <span class='kw'>unless</span> <span class='ivar'>@listeners</span><span class='period'>.</span><span class='id identifier rubyid_has_key?'>has_key?</span><span class='lparen'>(</span><span class='id identifier rubyid_new_name'>new_name</span><span class='rparen'>)</span>
+		<span class='kw'>end</span>
+		<span class='ivar'>@listeners</span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_block'>block</span>
+	<span class='kw'>end</span>
+	<span class='id identifier rubyid_name'>name</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -730,17 +731,16 @@ Name of the listener
       <pre class="lines">
 
 
-225
-226
-227</pre>
+239
+240
+241</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 225</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 239</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_key identifier id'>key</span>
-  <span class='rubyid_@properties ivar id'>@properties</span><span class='lbrack token'>[</span><span class='string val'>&quot;key&quot;</span><span class='rbrack token'>]</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_key'>key</span>
+	<span class='ivar'>@properties</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>key</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -794,29 +794,28 @@ Kill only currently executing listeners that have this name
       <pre class="lines">
 
 
-305
-306
-307
-308
-309
-310
-311
-312
-313</pre>
+319
+320
+321
+322
+323
+324
+325
+326
+327</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 305</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 319</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_kill_listening_threads identifier id'>kill_listening_threads</span><span class='lparen token'>(</span><span class='rubyid_name_to_kill identifier id'>name_to_kill</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='rparen token'>)</span>
-  <span class='rubyid_@listener_thread_mutex ivar id'>@listener_thread_mutex</span><span class='dot token'>.</span><span class='rubyid_synchronize identifier id'>synchronize</span> <span class='rubyid_do do kw'>do</span>
-    <span class='rubyid_@listening_threads ivar id'>@listening_threads</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_name identifier id'>name</span><span class='comma token'>,</span> <span class='rubyid_threads identifier id'>threads</span><span class='bitor op'>|</span>
-      <span class='rubyid_next next kw'>next</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_name_to_kill identifier id'>name_to_kill</span> <span class='rubyid_and and kw'>and</span> <span class='rubyid_name_to_kill identifier id'>name_to_kill</span> <span class='neq op'>!=</span> <span class='rubyid_name identifier id'>name</span>
-      <span class='rubyid_threads identifier id'>threads</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='rubyid_t identifier id'>t</span><span class='bitor op'>|</span> <span class='rubyid_t identifier id'>t</span><span class='dot token'>.</span><span class='rubyid_kill identifier id'>kill</span> <span class='rbrace token'>}</span>
-      <span class='rubyid_@listening_threads ivar id'>@listening_threads</span><span class='lbrack token'>[</span><span class='rubyid_name identifier id'>name</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
-    <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_end end kw'>end</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_kill_listening_threads'>kill_listening_threads</span><span class='lparen'>(</span><span class='id identifier rubyid_name_to_kill'>name_to_kill</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+	<span class='ivar'>@listener_thread_mutex</span><span class='period'>.</span><span class='id identifier rubyid_synchronize'>synchronize</span> <span class='kw'>do</span>
+		<span class='ivar'>@listening_threads</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_threads'>threads</span><span class='op'>|</span>
+			<span class='kw'>next</span> <span class='kw'>if</span> <span class='id identifier rubyid_name_to_kill'>name_to_kill</span> <span class='kw'>and</span> <span class='id identifier rubyid_name_to_kill'>name_to_kill</span> <span class='op'>!=</span> <span class='id identifier rubyid_name'>name</span>
+			<span class='id identifier rubyid_threads'>threads</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_t'>t</span><span class='op'>|</span> <span class='id identifier rubyid_t'>t</span><span class='period'>.</span><span class='id identifier rubyid_kill'>kill</span> <span class='rbrace'>}</span>
+			<span class='ivar'>@listening_threads</span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+		<span class='kw'>end</span>
+	<span class='kw'>end</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -889,51 +888,50 @@ An array of messages received
       <pre class="lines">
 
 
-318
-319
-320
-321
-322
-323
-324
-325
-326
-327
-328
-329
-330
-331
 332
 333
 334
 335
 336
-337</pre>
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 318</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 332</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_listen identifier id'>listen</span><span class='lparen token'>(</span><span class='rubyid_timeout identifier id'>timeout</span><span class='assign token'>=</span><span class='integer val'>30</span><span class='rparen token'>)</span>
-  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_@spire ivar id'>@spire</span><span class='dot token'>.</span><span class='rubyid_client identifier id'>client</span><span class='dot token'>.</span><span class='rubyid_get identifier id'>get</span><span class='lparen token'>(</span>
-    <span class='rubyid_@properties ivar id'>@properties</span><span class='lbrack token'>[</span><span class='string val'>&quot;url&quot;</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
-    <span class='symbol val'>:query</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span>
-      <span class='string val'>&quot;timeout&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_timeout identifier id'>timeout</span><span class='comma token'>,</span>
-      <span class='string val'>&quot;last-message&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_@last ivar id'>@last</span><span class='orop op'>||</span><span class='string val'>'0'</span>
-    <span class='rbrace token'>}</span><span class='comma token'>,</span>
-    <span class='symbol val'>:headers</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span>
-      <span class='string val'>&quot;Authorization&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='dstring node'>&quot;Capability #{@properties[&quot;capability&quot;]}&quot;</span><span class='comma token'>,</span>
-      <span class='string val'>&quot;Accept&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='string val'>&quot;events&quot;</span><span class='rparen token'>)</span>
-    <span class='rbrace token'>}</span><span class='rparen token'>)</span>
-  <span class='rubyid_raise identifier id'>raise</span> <span class='dstring node'>&quot;Error listening for messages: (#{response.status}) #{response.body}&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_status identifier id'>status</span> <span class='neq op'>!=</span> <span class='integer val'>200</span>
-  <span class='rubyid_new_messages identifier id'>new_messages</span> <span class='assign token'>=</span> <span class='rubyid_JSON constant id'>JSON</span><span class='dot token'>.</span><span class='rubyid_parse identifier id'>parse</span><span class='lparen token'>(</span><span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_body identifier id'>body</span><span class='rparen token'>)</span><span class='lbrack token'>[</span><span class='string val'>&quot;messages&quot;</span><span class='rbrack token'>]</span>
-  <span class='rubyid_@listener_mutex ivar id'>@listener_mutex</span><span class='dot token'>.</span><span class='rubyid_synchronize identifier id'>synchronize</span> <span class='rubyid_do do kw'>do</span>
-    <span class='rubyid_@last ivar id'>@last</span> <span class='assign token'>=</span> <span class='rubyid_new_messages identifier id'>new_messages</span><span class='dot token'>.</span><span class='rubyid_last identifier id'>last</span><span class='lbrack token'>[</span><span class='string val'>&quot;timestamp&quot;</span><span class='rbrack token'>]</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_new_messages identifier id'>new_messages</span><span class='dot token'>.</span><span class='rubyid_empty? fid id'>empty?</span>
-    <span class='rubyid_new_messages identifier id'>new_messages</span><span class='dot token'>.</span><span class='rubyid_map! fid id'>map!</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_m identifier id'>m</span><span class='bitor op'>|</span> <span class='rubyid_m identifier id'>m</span><span class='lbrack token'>[</span><span class='string val'>&quot;content&quot;</span><span class='rbrack token'>]</span> <span class='rbrace token'>}</span>
-    <span class='rubyid_@messages ivar id'>@messages</span> <span class='opasgn op'>+=</span> <span class='rubyid_new_messages identifier id'>new_messages</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_new_messages identifier id'>new_messages</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_listen'>listen</span><span class='lparen'>(</span><span class='id identifier rubyid_timeout'>timeout</span><span class='op'>=</span><span class='int'>30</span><span class='rparen'>)</span>
+	<span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='ivar'>@spire</span><span class='period'>.</span><span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span>
+		<span class='ivar'>@properties</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>url</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
+		<span class='symbol'>:query</span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
+			<span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>timeout</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_timeout'>timeout</span><span class='comma'>,</span>
+			<span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>last-message</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='ivar'>@last</span><span class='op'>||</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>0</span><span class='tstring_end'>'</span></span>
+		<span class='rbrace'>}</span><span class='comma'>,</span>
+		<span class='symbol'>:headers</span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
+			<span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Authorization</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Capability </span><span class='embexpr_beg'>#{</span><span class='ivar'>@properties</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>capability</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+			<span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Accept</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_mediaType'>mediaType</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>events</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+		<span class='rbrace'>}</span><span class='rparen'>)</span>
+	<span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Error listening for messages: (</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span><span class='rbrace'>}</span><span class='tstring_content'>) </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span> <span class='op'>!=</span> <span class='int'>200</span>
+	<span class='id identifier rubyid_new_messages'>new_messages</span> <span class='op'>=</span> <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>messages</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+	<span class='ivar'>@listener_mutex</span><span class='period'>.</span><span class='id identifier rubyid_synchronize'>synchronize</span> <span class='kw'>do</span>
+		<span class='ivar'>@last</span> <span class='op'>=</span> <span class='id identifier rubyid_new_messages'>new_messages</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>timestamp</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_new_messages'>new_messages</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+		<span class='id identifier rubyid_new_messages'>new_messages</span><span class='period'>.</span><span class='id identifier rubyid_map!'>map!</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_m'>m</span><span class='op'>|</span> <span class='id identifier rubyid_m'>m</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>content</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
+		<span class='ivar'>@messages</span> <span class='op'>+=</span> <span class='id identifier rubyid_new_messages'>new_messages</span>
+	<span class='kw'>end</span>
+	<span class='id identifier rubyid_new_messages'>new_messages</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -952,17 +950,16 @@ An array of messages received
       <pre class="lines">
 
 
-339
-340
-341</pre>
+353
+354
+355</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 339</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 353</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
-  <span class='rubyid_@spire ivar id'>@spire</span><span class='dot token'>.</span><span class='rubyid_mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_mediaType'>mediaType</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+	<span class='ivar'>@spire</span><span class='period'>.</span><span class='id identifier rubyid_mediaType'>mediaType</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1016,25 +1013,24 @@ Kill any currently running threads of the removed listener.
       <pre class="lines">
 
 
-262
-263
-264
-265
-266
-267
-268</pre>
+276
+277
+278
+279
+280
+281
+282</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 262</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 276</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_remove_all_listeners identifier id'>remove_all_listeners</span><span class='lparen token'>(</span><span class='rubyid_kill_current_threads identifier id'>kill_current_threads</span> <span class='assign token'>=</span> <span class='rubyid_true true kw'>true</span><span class='rparen token'>)</span>
-  <span class='rubyid_@listener_mutex ivar id'>@listener_mutex</span><span class='dot token'>.</span><span class='rubyid_synchronize identifier id'>synchronize</span> <span class='rubyid_do do kw'>do</span>
-    <span class='rubyid_@listeners ivar id'>@listeners</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_kill_listening_threads identifier id'>kill_listening_threads</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_kill_current_threads identifier id'>kill_current_threads</span>
-  <span class='rubyid_true true kw'>true</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_remove_all_listeners'>remove_all_listeners</span><span class='lparen'>(</span><span class='id identifier rubyid_kill_current_threads'>kill_current_threads</span> <span class='op'>=</span> <span class='kw'>true</span><span class='rparen'>)</span>
+	<span class='ivar'>@listener_mutex</span><span class='period'>.</span><span class='id identifier rubyid_synchronize'>synchronize</span> <span class='kw'>do</span>
+		<span class='ivar'>@listeners</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+	<span class='kw'>end</span>
+	<span class='id identifier rubyid_kill_listening_threads'>kill_listening_threads</span> <span class='kw'>if</span> <span class='id identifier rubyid_kill_current_threads'>kill_current_threads</span>
+	<span class='kw'>true</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1124,27 +1120,26 @@ Listener that was removed
       <pre class="lines">
 
 
-251
-252
-253
-254
-255
-256
-257
-258</pre>
+265
+266
+267
+268
+269
+270
+271
+272</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 251</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 265</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_remove_listener identifier id'>remove_listener</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='comma token'>,</span> <span class='rubyid_kill_current_threads identifier id'>kill_current_threads</span> <span class='assign token'>=</span> <span class='rubyid_true true kw'>true</span><span class='rparen token'>)</span>
-  <span class='rubyid_l identifier id'>l</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span> <span class='comment val'>#scope</span>
-  <span class='rubyid_@listener_mutex ivar id'>@listener_mutex</span><span class='dot token'>.</span><span class='rubyid_synchronize identifier id'>synchronize</span> <span class='rubyid_do do kw'>do</span>
-    <span class='rubyid_l identifier id'>l</span> <span class='assign token'>=</span> <span class='rubyid_@listeners ivar id'>@listeners</span><span class='dot token'>.</span><span class='rubyid_delete identifier id'>delete</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_kill_listening_threads identifier id'>kill_listening_threads</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_kill_current_threads identifier id'>kill_current_threads</span>
-  <span class='rubyid_l identifier id'>l</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_remove_listener'>remove_listener</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_kill_current_threads'>kill_current_threads</span> <span class='op'>=</span> <span class='kw'>true</span><span class='rparen'>)</span>
+	<span class='id identifier rubyid_l'>l</span> <span class='op'>=</span> <span class='kw'>nil</span> <span class='comment'>#scope
+</span>	<span class='ivar'>@listener_mutex</span><span class='period'>.</span><span class='id identifier rubyid_synchronize'>synchronize</span> <span class='kw'>do</span>
+		<span class='id identifier rubyid_l'>l</span> <span class='op'>=</span> <span class='ivar'>@listeners</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+	<span class='kw'>end</span>
+	<span class='id identifier rubyid_kill_listening_threads'>kill_listening_threads</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_kill_current_threads'>kill_current_threads</span>
+	<span class='id identifier rubyid_l'>l</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1169,7 +1164,7 @@ Will raise an exception if listening has already been started
   </div>
 
 <p>
-Starts the listening thread. This must be called to enable any listeners
+Starts the listening thread.  This must be called to enable any listeners
 you have added.
 </p>
 <p>
@@ -1188,47 +1183,46 @@ You can continue to add more listeners after starting the listening process
       <pre class="lines">
 
 
-274
-275
-276
-277
-278
-279
-280
-281
-282
-283
-284
-285
-286
-287
 288
 289
 290
-291</pre>
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 274</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 288</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_start_listening identifier id'>start_listening</span>
-  <span class='rubyid_raise identifier id'>raise</span> <span class='string val'>&quot;Already listening&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_@listening_thread ivar id'>@listening_thread</span>
-  <span class='rubyid_@listening_thread ivar id'>@listening_thread</span> <span class='assign token'>=</span> <span class='rubyid_Thread constant id'>Thread</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span> <span class='lbrace token'>{</span>
-    <span class='rubyid_while while kw'>while</span> <span class='rubyid_true true kw'>true</span>
-      <span class='rubyid_new_messages identifier id'>new_messages</span> <span class='assign token'>=</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_listen identifier id'>listen</span>
-      <span class='rubyid_next next kw'>next</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_new_messages identifier id'>new_messages</span><span class='dot token'>.</span><span class='rubyid_size identifier id'>size</span> <span class='gt op'>&gt;</span> <span class='integer val'>0</span>
-      <span class='rubyid_current_listeners identifier id'>current_listeners</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_name identifier id'>name</span><span class='comma token'>,</span> <span class='rubyid_listener identifier id'>listener</span><span class='bitor op'>|</span>
-        <span class='rubyid_new_messages identifier id'>new_messages</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_m identifier id'>m</span><span class='bitor op'>|</span>
-          <span class='rubyid_thread identifier id'>thread</span> <span class='assign token'>=</span> <span class='rubyid_Thread constant id'>Thread</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span> <span class='lbrace token'>{</span> <span class='rubyid_listener identifier id'>listener</span><span class='dot token'>.</span><span class='rubyid_call identifier id'>call</span><span class='lparen token'>(</span><span class='rubyid_m identifier id'>m</span><span class='rparen token'>)</span> <span class='rbrace token'>}</span>
-          <span class='rubyid_@listener_thread_mutex ivar id'>@listener_thread_mutex</span><span class='dot token'>.</span><span class='rubyid_synchronize identifier id'>synchronize</span> <span class='rubyid_do do kw'>do</span>
-            <span class='rubyid_@listening_threads ivar id'>@listening_threads</span><span class='lbrack token'>[</span><span class='rubyid_name identifier id'>name</span><span class='rbrack token'>]</span> <span class='opasgn op'>||=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
-            <span class='rubyid_@listening_threads ivar id'>@listening_threads</span><span class='lbrack token'>[</span><span class='rubyid_name identifier id'>name</span><span class='rbrack token'>]</span> <span class='lshft op'>&lt;&lt;</span> <span class='rubyid_thread identifier id'>thread</span>
-          <span class='rubyid_end end kw'>end</span>
-        <span class='rubyid_end end kw'>end</span>
-      <span class='rubyid_end end kw'>end</span>
-    <span class='rubyid_end end kw'>end</span>
-  <span class='rbrace token'>}</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_start_listening'>start_listening</span>
+	<span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Already listening</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@listening_thread</span>
+	<span class='ivar'>@listening_thread</span> <span class='op'>=</span> <span class='const'>Thread</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='lbrace'>{</span>
+		<span class='kw'>while</span> <span class='kw'>true</span>
+			<span class='id identifier rubyid_new_messages'>new_messages</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_listen'>listen</span>
+			<span class='kw'>next</span> <span class='kw'>unless</span> <span class='id identifier rubyid_new_messages'>new_messages</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span> <span class='op'>&gt;</span> <span class='int'>0</span>
+			<span class='id identifier rubyid_current_listeners'>current_listeners</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_listener'>listener</span><span class='op'>|</span>
+				<span class='id identifier rubyid_new_messages'>new_messages</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_m'>m</span><span class='op'>|</span>
+					<span class='id identifier rubyid_thread'>thread</span> <span class='op'>=</span> <span class='const'>Thread</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_listener'>listener</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_m'>m</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+					<span class='ivar'>@listener_thread_mutex</span><span class='period'>.</span><span class='id identifier rubyid_synchronize'>synchronize</span> <span class='kw'>do</span>
+						<span class='ivar'>@listening_threads</span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+						<span class='ivar'>@listening_threads</span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_thread'>thread</span>
+					<span class='kw'>end</span>
+				<span class='kw'>end</span>
+			<span class='kw'>end</span>
+		<span class='kw'>end</span>
+	<span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1282,25 +1276,24 @@ Kills any currently running listener threads
       <pre class="lines">
 
 
-295
-296
-297
-298
-299
-300
-301</pre>
+309
+310
+311
+312
+313
+314
+315</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 295</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 309</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_stop_listening identifier id'>stop_listening</span><span class='lparen token'>(</span><span class='rubyid_kill_current_threads identifier id'>kill_current_threads</span> <span class='assign token'>=</span> <span class='rubyid_true true kw'>true</span><span class='rparen token'>)</span>
-  <span class='rubyid_@listener_thread_mutex ivar id'>@listener_thread_mutex</span><span class='dot token'>.</span><span class='rubyid_synchronize identifier id'>synchronize</span> <span class='rubyid_do do kw'>do</span>
-    <span class='rubyid_@listening_thread ivar id'>@listening_thread</span><span class='dot token'>.</span><span class='rubyid_kill identifier id'>kill</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_@listening_thread ivar id'>@listening_thread</span>
-    <span class='rubyid_@listening_thread ivar id'>@listening_thread</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_kill_listening_threads identifier id'>kill_listening_threads</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_kill_current_threads identifier id'>kill_current_threads</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_stop_listening'>stop_listening</span><span class='lparen'>(</span><span class='id identifier rubyid_kill_current_threads'>kill_current_threads</span> <span class='op'>=</span> <span class='kw'>true</span><span class='rparen'>)</span>
+	<span class='ivar'>@listener_thread_mutex</span><span class='period'>.</span><span class='id identifier rubyid_synchronize'>synchronize</span> <span class='kw'>do</span>
+		<span class='ivar'>@listening_thread</span><span class='period'>.</span><span class='id identifier rubyid_kill'>kill</span> <span class='kw'>if</span> <span class='ivar'>@listening_thread</span>
+		<span class='ivar'>@listening_thread</span> <span class='op'>=</span> <span class='kw'>nil</span>
+	<span class='kw'>end</span>
+	<span class='id identifier rubyid_kill_listening_threads'>kill_listening_threads</span> <span class='kw'>if</span> <span class='id identifier rubyid_kill_current_threads'>kill_current_threads</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1311,9 +1304,9 @@ Kills any currently running listener threads
 </div>
     
     <div id="footer">
-  Generated on Thu Dec  8 16:45:05 2011 by 
+  Generated on Thu Dec  8 17:43:27 2011 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.7.4 (ruby-1.8.7).
+  0.7.4 (ruby-1.9.2).
 </div>
 
   </body>
