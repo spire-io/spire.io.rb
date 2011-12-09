@@ -6,7 +6,7 @@
 <title>
   Class: Spire
   
-    &mdash; Documentation by YARD 0.7.3
+    &mdash; Documentation by YARD 0.7.4
   
 </title>
 
@@ -150,7 +150,7 @@ Returns the value of attribute client.
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#%5B%5D-instance_method" title="#[] (instance method)">- (Object) <strong>[]</strong>(name) </a>
+      <a href="#%5B%5D-instance_method" title="#[] (instance method)">- (Channel) <strong>[]</strong>(name) </a>
     
 
     
@@ -163,7 +163,10 @@ Returns the value of attribute client.
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'><p>
+Returns a channel object for the named channel.
+</p>
+</div></span>
   
 </li>
 
@@ -171,7 +174,7 @@ Returns the value of attribute client.
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#discover-instance_method" title="#discover (instance method)">- (Object) <strong>discover</strong> </a>
+      <a href="#delete_account-instance_method" title="#delete_account (instance method)">- (Object) <strong>delete_account</strong> </a>
     
 
     
@@ -184,7 +187,10 @@ Returns the value of attribute client.
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'><p>
+Deletes the currently authenticated account.
+</p>
+</div></span>
   
 </li>
 
@@ -252,7 +258,10 @@ A new instance of Spire.
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'><p>
+Authenticates a session using a login and password.
+</p>
+</div></span>
   
 </li>
 
@@ -294,7 +303,11 @@ A new instance of Spire.
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'><p>
+Register for a new spire account, and authenticates as the newly created
+account.
+</p>
+</div></span>
   
 </li>
 
@@ -315,7 +328,10 @@ A new instance of Spire.
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'><p>
+Authenticates a session using a Spire API key.
+</p>
+</div></span>
   
 </li>
 
@@ -323,9 +339,11 @@ A new instance of Spire.
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#subscription-instance_method" title="#subscription (instance method)">- (Object) <strong>subscription</strong>(nick, *channels) </a>
+      <a href="#subscribe-instance_method" title="#subscribe (instance method)">- (Object) <strong>subscribe</strong>(subscription_name, *channels) </a>
     
 
+    
+      (also: #subscription)
     
   </span>
   
@@ -336,7 +354,10 @@ A new instance of Spire.
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'><p>
+Returns a subscription object for the given channels.
+</p>
+</div></span>
   
 </li>
 
@@ -357,7 +378,11 @@ A new instance of Spire.
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'><p>
+Updates the current account with the new account information See Spire docs
+for available settings.
+</p>
+</div></span>
   
 </li>
 
@@ -404,13 +429,13 @@ A new instance of Spire
     <td>
       <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 9</span>
 
-<span class='def def kw'>def</span> <span class='initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='url identifier id'>url</span><span class='assign token'>=</span><span class='string val'>&quot;https://api.spire.io&quot;</span><span class='rparen token'>)</span>
-  <span class='@client ivar id'>@client</span> <span class='assign token'>=</span> <span class='Excon constant id'>Excon</span>
-  <span class='@url ivar id'>@url</span> <span class='assign token'>=</span> <span class='url identifier id'>url</span>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_url identifier id'>url</span><span class='assign token'>=</span><span class='string val'>&quot;https://api.spire.io&quot;</span><span class='rparen token'>)</span>
+  <span class='rubyid_@client ivar id'>@client</span> <span class='assign token'>=</span> <span class='rubyid_Excon constant id'>Excon</span>
+  <span class='rubyid_@url ivar id'>@url</span> <span class='assign token'>=</span> <span class='rubyid_url identifier id'>url</span>
   <span class='comment val'># @headers = { &quot;User-Agent&quot; =&gt; &quot;Ruby spire.io client&quot; }</span>
   <span class='comment val'># @timeout = 1</span>
-  <span class='discover identifier id'>discover</span>
-<span class='end end kw'>end</span>
+  <span class='rubyid_discover identifier id'>discover</span>
+<span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
   </tr>
@@ -457,9 +482,9 @@ Returns the value of attribute client
     <td>
       <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 7</span>
 
-<span class='def def kw'>def</span> <span class='client identifier id'>client</span>
-  <span class='@client ivar id'>@client</span>
-<span class='end end kw'>end</span>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_client identifier id'>client</span>
+  <span class='rubyid_@client ivar id'>@client</span>
+<span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
   </tr>
@@ -476,44 +501,90 @@ Returns the value of attribute client
       <div class="method_details first">
   <p class="signature first" id="[]-instance_method">
   
-    - (<tt>Object</tt>) <strong>[]</strong>(name) 
+    - (<tt><span class='object_link'><a href="Spire/Channel.html" title="Spire::Channel (class)">Channel</a></span></tt>) <strong>[]</strong>(name) 
   
 
   
-</p><table class="source_code">
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns a channel object for the named channel
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+Name of channel returned
+</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Spire/Channel.html" title="Spire::Channel (class)">Channel</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-76
-77
-78
-79
-80
-81
-82
-83
-84
-85
-86
-87</pre>
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 76</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 90</span>
 
-<span class='def def kw'>def</span> <span class='aref op'>[]</span><span class='lparen token'>(</span><span class='name identifier id'>name</span><span class='rparen token'>)</span>
-  <span class='response identifier id'>response</span> <span class='assign token'>=</span> <span class='@client ivar id'>@client</span><span class='dot token'>.</span><span class='post identifier id'>post</span><span class='lparen token'>(</span>
-    <span class='@session ivar id'>@session</span><span class='lbrack token'>[</span><span class='string val'>&quot;resources&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;channels&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;url&quot;</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
-    <span class='symbol val'>:body</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span> <span class='symbol val'>:name</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='name identifier id'>name</span> <span class='rbrace token'>}</span><span class='dot token'>.</span><span class='to_json identifier id'>to_json</span><span class='comma token'>,</span>
+<span class='rubyid_def def kw'>def</span> <span class='aref op'>[]</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
+  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_post identifier id'>post</span><span class='lparen token'>(</span>
+    <span class='rubyid_@session ivar id'>@session</span><span class='lbrack token'>[</span><span class='string val'>&quot;resources&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;channels&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;url&quot;</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
+    <span class='symbol val'>:body</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span> <span class='symbol val'>:name</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_name identifier id'>name</span> <span class='rbrace token'>}</span><span class='dot token'>.</span><span class='rubyid_to_json identifier id'>to_json</span><span class='comma token'>,</span>
     <span class='symbol val'>:headers</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span>
       <span class='string val'>&quot;Authorization&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='dstring node'>&quot;Capability #{@session[&quot;resources&quot;][&quot;channels&quot;][&quot;capability&quot;]}&quot;</span><span class='comma token'>,</span>
-      <span class='string val'>&quot;Accept&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='string val'>&quot;channel&quot;</span><span class='rparen token'>)</span><span class='comma token'>,</span>
-      <span class='string val'>&quot;Content-Type&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='string val'>&quot;channel&quot;</span><span class='rparen token'>)</span>
+      <span class='string val'>&quot;Accept&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='string val'>&quot;channel&quot;</span><span class='rparen token'>)</span><span class='comma token'>,</span>
+      <span class='string val'>&quot;Content-Type&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='string val'>&quot;channel&quot;</span><span class='rparen token'>)</span>
     <span class='rbrace token'>}</span><span class='rparen token'>)</span>
-  <span class='raise identifier id'>raise</span> <span class='dstring node'>&quot;Error creating or accessing a channel: (#{response.status}) #{response.body}&quot;</span> <span class='if if_mod kw'>if</span> <span class='notop op'>!</span><span class='lparen token'>(</span><span class='response identifier id'>response</span><span class='dot token'>.</span><span class='status identifier id'>status</span> <span class='eq op'>==</span> <span class='integer val'>201</span> <span class='orop op'>||</span> <span class='response identifier id'>response</span><span class='dot token'>.</span><span class='status identifier id'>status</span> <span class='eq op'>==</span> <span class='integer val'>200</span><span class='rparen token'>)</span>
-  <span class='Channel constant id'>Channel</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='self self kw'>self</span><span class='comma token'>,</span><span class='JSON constant id'>JSON</span><span class='dot token'>.</span><span class='parse identifier id'>parse</span><span class='lparen token'>(</span><span class='response identifier id'>response</span><span class='dot token'>.</span><span class='body identifier id'>body</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
-<span class='end end kw'>end</span>
+  <span class='rubyid_raise identifier id'>raise</span> <span class='dstring node'>&quot;Error creating or accessing a channel: (#{response.status}) #{response.body}&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='notop op'>!</span><span class='lparen token'>(</span><span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_status identifier id'>status</span> <span class='eq op'>==</span> <span class='integer val'>201</span> <span class='orop op'>||</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_status identifier id'>status</span> <span class='eq op'>==</span> <span class='integer val'>200</span><span class='rparen token'>)</span>
+  <span class='rubyid_Channel constant id'>Channel</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_self self kw'>self</span><span class='comma token'>,</span><span class='rubyid_JSON constant id'>JSON</span><span class='dot token'>.</span><span class='rubyid_parse identifier id'>parse</span><span class='lparen token'>(</span><span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_body identifier id'>body</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
   </tr>
@@ -521,34 +592,50 @@ Returns the value of attribute client
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="discover-instance_method">
+  <p class="signature " id="delete_account-instance_method">
   
-    - (<tt>Object</tt>) <strong>discover</strong> 
+    - (<tt>Object</tt>) <strong>delete_account</strong> 
   
 
   
-</p><table class="source_code">
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Deletes the currently authenticated account
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-17
-18
-19
-20
-21
-22</pre>
+63
+64
+65
+66
+67
+68
+69
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 63</span>
 
-<span class='def def kw'>def</span> <span class='discover identifier id'>discover</span>
-  <span class='response identifier id'>response</span> <span class='assign token'>=</span> <span class='@client ivar id'>@client</span><span class='dot token'>.</span><span class='get identifier id'>get</span><span class='lparen token'>(</span><span class='@url ivar id'>@url</span><span class='comma token'>,</span> <span class='symbol val'>:headers</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span><span class='string val'>&quot;Accept&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;application/json&quot;</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
-  <span class='raise identifier id'>raise</span> <span class='dstring node'>&quot;Error during discovery: #{response.status}&quot;</span> <span class='if if_mod kw'>if</span> <span class='response identifier id'>response</span><span class='dot token'>.</span><span class='status identifier id'>status</span> <span class='neq op'>!=</span> <span class='integer val'>200</span>
-  <span class='@description ivar id'>@description</span> <span class='assign token'>=</span> <span class='JSON constant id'>JSON</span><span class='dot token'>.</span><span class='parse identifier id'>parse</span><span class='lparen token'>(</span><span class='response identifier id'>response</span><span class='dot token'>.</span><span class='body identifier id'>body</span><span class='rparen token'>)</span>
-  <span class='self self kw'>self</span>
-<span class='end end kw'>end</span>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_delete_account identifier id'>delete_account</span>
+  <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_delete identifier id'>delete</span><span class='lparen token'>(</span>
+    <span class='rubyid_@description ivar id'>@description</span><span class='lbrack token'>[</span><span class='string val'>&quot;resources&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;accounts&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;url&quot;</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
+    <span class='symbol val'>:headers</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span> 
+      <span class='string val'>&quot;Accept&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='string val'>&quot;account&quot;</span><span class='rparen token'>)</span><span class='comma token'>,</span><span class='string val'>&quot;Content-Type&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='string val'>&quot;account&quot;</span><span class='rparen token'>)</span><span class='comma token'>,</span>
+      <span class='string val'>&quot;Authorization&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='dstring node'>&quot;Capability #{@session[&quot;resources&quot;][&quot;account&quot;][&quot;capability&quot;]}&quot;</span>
+  <span class='rbrace token'>}</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
   </tr>
@@ -568,16 +655,16 @@ Returns the value of attribute client
       <pre class="lines">
 
 
-102
-103
-104</pre>
+120
+121
+122</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 102</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 120</span>
 
-<span class='def def kw'>def</span> <span class='key identifier id'>key</span>
-  <span class='@session ivar id'>@session</span><span class='lbrack token'>[</span><span class='string val'>&quot;resources&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;account&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;key&quot;</span><span class='rbrack token'>]</span>
-<span class='end end kw'>end</span>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_key identifier id'>key</span>
+  <span class='rubyid_@session ivar id'>@session</span><span class='lbrack token'>[</span><span class='string val'>&quot;resources&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;account&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;key&quot;</span><span class='rbrack token'>]</span>
+<span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
   </tr>
@@ -591,12 +678,28 @@ Returns the value of attribute client
   
 
   
-</p><table class="source_code">
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Authenticates a session using a login and password
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
+33
+34
+35
+36
 37
 38
 39
@@ -604,27 +707,23 @@ Returns the value of attribute client
 41
 42
 43
-44
-45
-46
-47
-48</pre>
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 33</span>
 
-<span class='def def kw'>def</span> <span class='login identifier id'>login</span><span class='lparen token'>(</span><span class='login identifier id'>login</span><span class='comma token'>,</span><span class='password identifier id'>password</span><span class='rparen token'>)</span>
-  <span class='response identifier id'>response</span> <span class='assign token'>=</span> <span class='@client ivar id'>@client</span><span class='dot token'>.</span><span class='post identifier id'>post</span><span class='lparen token'>(</span>
-    <span class='@description ivar id'>@description</span><span class='lbrack token'>[</span><span class='string val'>&quot;resources&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;sessions&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;url&quot;</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
-    <span class='symbol val'>:body</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span> <span class='symbol val'>:email</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='login identifier id'>login</span><span class='comma token'>,</span> <span class='symbol val'>:password</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='password identifier id'>password</span> <span class='rbrace token'>}</span><span class='dot token'>.</span><span class='to_json identifier id'>to_json</span><span class='comma token'>,</span>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_login identifier id'>login</span><span class='lparen token'>(</span><span class='rubyid_login identifier id'>login</span><span class='comma token'>,</span><span class='rubyid_password identifier id'>password</span><span class='rparen token'>)</span>
+  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_post identifier id'>post</span><span class='lparen token'>(</span>
+    <span class='rubyid_@description ivar id'>@description</span><span class='lbrack token'>[</span><span class='string val'>&quot;resources&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;sessions&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;url&quot;</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
+    <span class='symbol val'>:body</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span> <span class='symbol val'>:email</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_login identifier id'>login</span><span class='comma token'>,</span> <span class='symbol val'>:password</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_password identifier id'>password</span> <span class='rbrace token'>}</span><span class='dot token'>.</span><span class='rubyid_to_json identifier id'>to_json</span><span class='comma token'>,</span>
     <span class='symbol val'>:headers</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span>
-      <span class='string val'>&quot;Accept&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='string val'>&quot;session&quot;</span><span class='rparen token'>)</span><span class='comma token'>,</span>
-      <span class='string val'>&quot;Content-Type&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='string val'>&quot;account&quot;</span><span class='rparen token'>)</span>
+      <span class='string val'>&quot;Accept&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='string val'>&quot;session&quot;</span><span class='rparen token'>)</span><span class='comma token'>,</span>
+      <span class='string val'>&quot;Content-Type&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='string val'>&quot;account&quot;</span><span class='rparen token'>)</span>
     <span class='rbrace token'>}</span><span class='rparen token'>)</span>
-  <span class='raise identifier id'>raise</span> <span class='dstring node'>&quot;Error attemping to login:  (#{response.status}) #{response.body}&quot;</span> <span class='if if_mod kw'>if</span> <span class='response identifier id'>response</span><span class='dot token'>.</span><span class='status identifier id'>status</span> <span class='neq op'>!=</span> <span class='integer val'>201</span>
-  <span class='@session ivar id'>@session</span> <span class='assign token'>=</span> <span class='JSON constant id'>JSON</span><span class='dot token'>.</span><span class='parse identifier id'>parse</span><span class='lparen token'>(</span><span class='response identifier id'>response</span><span class='dot token'>.</span><span class='body identifier id'>body</span><span class='rparen token'>)</span>
-  <span class='self self kw'>self</span>
-<span class='end end kw'>end</span>
+  <span class='rubyid_raise identifier id'>raise</span> <span class='dstring node'>&quot;Error attemping to login:  (#{response.status}) #{response.body}&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_status identifier id'>status</span> <span class='neq op'>!=</span> <span class='integer val'>201</span>
+  <span class='rubyid_@session ivar id'>@session</span> <span class='assign token'>=</span> <span class='rubyid_JSON constant id'>JSON</span><span class='dot token'>.</span><span class='rubyid_parse identifier id'>parse</span><span class='lparen token'>(</span><span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_body identifier id'>body</span><span class='rparen token'>)</span>
+  <span class='rubyid_self self kw'>self</span>
+<span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
   </tr>
@@ -644,16 +743,16 @@ Returns the value of attribute client
       <pre class="lines">
 
 
-106
-107
-108</pre>
+124
+125
+126</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 106</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 124</span>
 
-<span class='def def kw'>def</span> <span class='mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='name identifier id'>name</span><span class='rparen token'>)</span>
-  <span class='@description ivar id'>@description</span><span class='lbrack token'>[</span><span class='string val'>&quot;schema&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;1.0&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='name identifier id'>name</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;mediaType&quot;</span><span class='rbrack token'>]</span>
-<span class='end end kw'>end</span>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
+  <span class='rubyid_@description ivar id'>@description</span><span class='lbrack token'>[</span><span class='string val'>&quot;schema&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;1.0&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='rubyid_name identifier id'>name</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;mediaType&quot;</span><span class='rbrack token'>]</span>
+<span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
   </tr>
@@ -667,12 +766,64 @@ Returns the value of attribute client
   
 
   
-</p><table class="source_code">
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Register for a new spire account, and authenticates as the newly created
+account
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>:email</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+Email address of new account
+</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>:password</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+Password of new account
+</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
+49
 50
 51
 52
@@ -683,24 +834,23 @@ Returns the value of attribute client
 57
 58
 59
-60
-61</pre>
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 49</span>
 
-<span class='def def kw'>def</span> <span class='register identifier id'>register</span><span class='lparen token'>(</span><span class='info identifier id'>info</span><span class='rparen token'>)</span>
-  <span class='response identifier id'>response</span> <span class='assign token'>=</span> <span class='@client ivar id'>@client</span><span class='dot token'>.</span><span class='post identifier id'>post</span><span class='lparen token'>(</span>
-    <span class='@description ivar id'>@description</span><span class='lbrack token'>[</span><span class='string val'>&quot;resources&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;accounts&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;url&quot;</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
-    <span class='symbol val'>:body</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span> <span class='symbol val'>:email</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='info identifier id'>info</span><span class='lbrack token'>[</span><span class='symbol val'>:email</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='symbol val'>:password</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='info identifier id'>info</span><span class='lbrack token'>[</span><span class='symbol val'>:password</span><span class='rbrack token'>]</span> <span class='rbrace token'>}</span><span class='dot token'>.</span><span class='to_json identifier id'>to_json</span><span class='comma token'>,</span>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_register identifier id'>register</span><span class='lparen token'>(</span><span class='rubyid_info identifier id'>info</span><span class='rparen token'>)</span>
+  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_post identifier id'>post</span><span class='lparen token'>(</span>
+    <span class='rubyid_@description ivar id'>@description</span><span class='lbrack token'>[</span><span class='string val'>&quot;resources&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;accounts&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;url&quot;</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
+    <span class='symbol val'>:body</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span> <span class='symbol val'>:email</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_info identifier id'>info</span><span class='lbrack token'>[</span><span class='symbol val'>:email</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='symbol val'>:password</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_info identifier id'>info</span><span class='lbrack token'>[</span><span class='symbol val'>:password</span><span class='rbrack token'>]</span> <span class='rbrace token'>}</span><span class='dot token'>.</span><span class='rubyid_to_json identifier id'>to_json</span><span class='comma token'>,</span>
     <span class='symbol val'>:headers</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span> 
-      <span class='string val'>&quot;Accept&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='string val'>&quot;session&quot;</span><span class='rparen token'>)</span><span class='comma token'>,</span>
-      <span class='string val'>&quot;Content-Type&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='string val'>&quot;account&quot;</span><span class='rparen token'>)</span>
+      <span class='string val'>&quot;Accept&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='string val'>&quot;session&quot;</span><span class='rparen token'>)</span><span class='comma token'>,</span>
+      <span class='string val'>&quot;Content-Type&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='string val'>&quot;account&quot;</span><span class='rparen token'>)</span>
     <span class='rbrace token'>}</span><span class='rparen token'>)</span>
-  <span class='raise identifier id'>raise</span> <span class='dstring node'>&quot;Error attempting to register: (#{response.status}) #{response.body}&quot;</span> <span class='if if_mod kw'>if</span> <span class='response identifier id'>response</span><span class='dot token'>.</span><span class='status identifier id'>status</span> <span class='neq op'>!=</span> <span class='integer val'>201</span>
-  <span class='@session ivar id'>@session</span> <span class='assign token'>=</span> <span class='JSON constant id'>JSON</span><span class='dot token'>.</span><span class='parse identifier id'>parse</span><span class='lparen token'>(</span><span class='response identifier id'>response</span><span class='dot token'>.</span><span class='body identifier id'>body</span><span class='rparen token'>)</span>  
-  <span class='self self kw'>self</span>
-<span class='end end kw'>end</span>
+  <span class='rubyid_raise identifier id'>raise</span> <span class='dstring node'>&quot;Error attempting to register: (#{response.status}) #{response.body}&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_status identifier id'>status</span> <span class='neq op'>!=</span> <span class='integer val'>201</span>
+  <span class='rubyid_@session ivar id'>@session</span> <span class='assign token'>=</span> <span class='rubyid_JSON constant id'>JSON</span><span class='dot token'>.</span><span class='rubyid_parse identifier id'>parse</span><span class='lparen token'>(</span><span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_body identifier id'>body</span><span class='rparen token'>)</span>  
+  <span class='rubyid_self self kw'>self</span>
+<span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
   </tr>
@@ -714,40 +864,73 @@ Returns the value of attribute client
   
 
   
-</p><table class="source_code">
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Authenticates a session using a Spire API key
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>key</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+API key
+</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
+19
+20
+21
+22
+23
 24
 25
 26
 27
 28
 29
-30
-31
-32
-33
-34
-35</pre>
+30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 19</span>
 
-<span class='def def kw'>def</span> <span class='start identifier id'>start</span><span class='lparen token'>(</span><span class='key identifier id'>key</span><span class='rparen token'>)</span>
-  <span class='response identifier id'>response</span> <span class='assign token'>=</span> <span class='@client ivar id'>@client</span><span class='dot token'>.</span><span class='post identifier id'>post</span><span class='lparen token'>(</span>
-    <span class='@description ivar id'>@description</span><span class='lbrack token'>[</span><span class='string val'>&quot;resources&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;sessions&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;url&quot;</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
-    <span class='symbol val'>:body</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span> <span class='symbol val'>:key</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='key identifier id'>key</span> <span class='rbrace token'>}</span><span class='dot token'>.</span><span class='to_json identifier id'>to_json</span><span class='comma token'>,</span>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_start identifier id'>start</span><span class='lparen token'>(</span><span class='rubyid_key identifier id'>key</span><span class='rparen token'>)</span>
+  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_post identifier id'>post</span><span class='lparen token'>(</span>
+    <span class='rubyid_@description ivar id'>@description</span><span class='lbrack token'>[</span><span class='string val'>&quot;resources&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;sessions&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;url&quot;</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
+    <span class='symbol val'>:body</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span> <span class='symbol val'>:key</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_key identifier id'>key</span> <span class='rbrace token'>}</span><span class='dot token'>.</span><span class='rubyid_to_json identifier id'>to_json</span><span class='comma token'>,</span>
     <span class='symbol val'>:headers</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span>
-      <span class='string val'>&quot;Accept&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='string val'>&quot;session&quot;</span><span class='rparen token'>)</span><span class='comma token'>,</span>
-      <span class='string val'>&quot;Content-Type&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='string val'>&quot;account&quot;</span><span class='rparen token'>)</span>
+      <span class='string val'>&quot;Accept&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='string val'>&quot;session&quot;</span><span class='rparen token'>)</span><span class='comma token'>,</span>
+      <span class='string val'>&quot;Content-Type&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='string val'>&quot;account&quot;</span><span class='rparen token'>)</span>
     <span class='rbrace token'>}</span><span class='rparen token'>)</span>
-  <span class='raise identifier id'>raise</span> <span class='string val'>&quot;Error starting a key-based session&quot;</span> <span class='if if_mod kw'>if</span> <span class='response identifier id'>response</span><span class='dot token'>.</span><span class='status identifier id'>status</span> <span class='neq op'>!=</span> <span class='integer val'>201</span>
-  <span class='@session ivar id'>@session</span> <span class='assign token'>=</span> <span class='JSON constant id'>JSON</span><span class='dot token'>.</span><span class='parse identifier id'>parse</span><span class='lparen token'>(</span><span class='response identifier id'>response</span><span class='dot token'>.</span><span class='body identifier id'>body</span><span class='rparen token'>)</span>  
-  <span class='self self kw'>self</span>
-<span class='end end kw'>end</span>
+  <span class='rubyid_raise identifier id'>raise</span> <span class='string val'>&quot;Error starting a key-based session&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_status identifier id'>status</span> <span class='neq op'>!=</span> <span class='integer val'>201</span>
+  <span class='rubyid_@session ivar id'>@session</span> <span class='assign token'>=</span> <span class='rubyid_JSON constant id'>JSON</span><span class='dot token'>.</span><span class='rubyid_parse identifier id'>parse</span><span class='lparen token'>(</span><span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_body identifier id'>body</span><span class='rparen token'>)</span>  
+  <span class='rubyid_self self kw'>self</span>
+<span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
   </tr>
@@ -755,46 +938,100 @@ Returns the value of attribute client
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="subscription-instance_method">
+  <p class="signature " id="subscribe-instance_method">
   
-    - (<tt>Object</tt>) <strong>subscription</strong>(nick, *channels) 
+    - (<tt>Object</tt>) <strong>subscribe</strong>(subscription_name, *channels) 
   
 
   
-</p><table class="source_code">
+    <span class="aliases">Also known as:
+    <span class="names"><span id='subscription-instance_method'>subscription</span></span>
+    </span>
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns a subscription object for the given channels
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>subscription_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+Name for the subscription
+</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>channels</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+One or more channel names for the subscription to listen on
+</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-89
-90
-91
-92
-93
-94
-95
-96
-97
-98
-99
-100</pre>
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 89</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 106</span>
 
-<span class='def def kw'>def</span> <span class='subscription identifier id'>subscription</span><span class='lparen token'>(</span><span class='nick identifier id'>nick</span><span class='comma token'>,</span><span class='mult op'>*</span><span class='channels identifier id'>channels</span><span class='rparen token'>)</span>
-  <span class='response identifier id'>response</span> <span class='assign token'>=</span> <span class='@client ivar id'>@client</span><span class='dot token'>.</span><span class='post identifier id'>post</span><span class='lparen token'>(</span>
-    <span class='@session ivar id'>@session</span><span class='lbrack token'>[</span><span class='string val'>&quot;resources&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;subscriptions&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;url&quot;</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
-    <span class='symbol val'>:body</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span> <span class='symbol val'>:channels</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='channels identifier id'>channels</span><span class='dot token'>.</span><span class='map identifier id'>map</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='name identifier id'>name</span><span class='bitor op'>|</span> <span class='self self kw'>self</span><span class='lbrack token'>[</span><span class='name identifier id'>name</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='url identifier id'>url</span> <span class='rbrace token'>}</span> <span class='rbrace token'>}</span><span class='dot token'>.</span><span class='to_json identifier id'>to_json</span><span class='comma token'>,</span>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_subscribe identifier id'>subscribe</span><span class='lparen token'>(</span><span class='rubyid_subscription_name identifier id'>subscription_name</span><span class='comma token'>,</span> <span class='mult op'>*</span><span class='rubyid_channels identifier id'>channels</span><span class='rparen token'>)</span>
+  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_post identifier id'>post</span><span class='lparen token'>(</span>
+    <span class='rubyid_@session ivar id'>@session</span><span class='lbrack token'>[</span><span class='string val'>&quot;resources&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;subscriptions&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;url&quot;</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
+    <span class='symbol val'>:body</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span> <span class='symbol val'>:channels</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_channels identifier id'>channels</span><span class='dot token'>.</span><span class='rubyid_flatten identifier id'>flatten</span><span class='dot token'>.</span><span class='rubyid_map identifier id'>map</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_name identifier id'>name</span><span class='bitor op'>|</span> <span class='rubyid_self self kw'>self</span><span class='lbrack token'>[</span><span class='rubyid_name identifier id'>name</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_url identifier id'>url</span> <span class='rbrace token'>}</span> <span class='rbrace token'>}</span><span class='dot token'>.</span><span class='rubyid_to_json identifier id'>to_json</span><span class='comma token'>,</span>
     <span class='symbol val'>:headers</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span>
       <span class='string val'>&quot;Authorization&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='dstring node'>&quot;Capability #{@session[&quot;resources&quot;][&quot;subscriptions&quot;][&quot;capability&quot;]}&quot;</span><span class='comma token'>,</span>
-      <span class='string val'>&quot;Accept&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='string val'>&quot;subscription&quot;</span><span class='rparen token'>)</span><span class='comma token'>,</span>
-      <span class='string val'>&quot;Content-Type&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='string val'>&quot;subscription&quot;</span><span class='rparen token'>)</span>
+      <span class='string val'>&quot;Accept&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='string val'>&quot;subscription&quot;</span><span class='rparen token'>)</span><span class='comma token'>,</span>
+      <span class='string val'>&quot;Content-Type&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='string val'>&quot;subscription&quot;</span><span class='rparen token'>)</span>
     <span class='rbrace token'>}</span><span class='rparen token'>)</span>
-  <span class='raise identifier id'>raise</span> <span class='dstring node'>&quot;Error creating a subscription: (#{response.status}) #{response.body}&quot;</span> <span class='if if_mod kw'>if</span> <span class='notop op'>!</span><span class='lparen token'>(</span><span class='response identifier id'>response</span><span class='dot token'>.</span><span class='status identifier id'>status</span> <span class='eq op'>==</span> <span class='integer val'>201</span> <span class='orop op'>||</span> <span class='response identifier id'>response</span><span class='dot token'>.</span><span class='status identifier id'>status</span> <span class='eq op'>==</span> <span class='integer val'>200</span><span class='rparen token'>)</span>
-  <span class='Subscription constant id'>Subscription</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='self self kw'>self</span><span class='comma token'>,</span><span class='JSON constant id'>JSON</span><span class='dot token'>.</span><span class='parse identifier id'>parse</span><span class='lparen token'>(</span><span class='response identifier id'>response</span><span class='dot token'>.</span><span class='body identifier id'>body</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
-<span class='end end kw'>end</span>
+  <span class='rubyid_raise identifier id'>raise</span> <span class='dstring node'>&quot;Error creating a subscription: (#{response.status}) #{response.body}&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='notop op'>!</span><span class='lparen token'>(</span><span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_status identifier id'>status</span> <span class='eq op'>==</span> <span class='integer val'>201</span> <span class='orop op'>||</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_status identifier id'>status</span> <span class='eq op'>==</span> <span class='integer val'>200</span><span class='rparen token'>)</span>
+  <span class='rubyid_Subscription constant id'>Subscription</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_self self kw'>self</span><span class='comma token'>,</span><span class='rubyid_JSON constant id'>JSON</span><span class='dot token'>.</span><span class='rubyid_parse identifier id'>parse</span><span class='lparen token'>(</span><span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_body identifier id'>body</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
   </tr>
@@ -808,40 +1045,53 @@ Returns the value of attribute client
   
 
   
-</p><table class="source_code">
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Updates the current account with the new account information See Spire docs
+for available settings
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-63
-64
-65
-66
-67
-68
-69
-70
-71
-72
-73
-74</pre>
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 74</span>
 
-<span class='def def kw'>def</span> <span class='update identifier id'>update</span><span class='lparen token'>(</span><span class='info identifier id'>info</span><span class='rparen token'>)</span>
-  <span class='response identifier id'>response</span> <span class='assign token'>=</span> <span class='@client ivar id'>@client</span><span class='dot token'>.</span><span class='put identifier id'>put</span><span class='lparen token'>(</span>
-    <span class='@session ivar id'>@session</span><span class='lbrack token'>[</span><span class='string val'>&quot;resources&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;account&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;url&quot;</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
-    <span class='symbol val'>:body</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='info identifier id'>info</span><span class='dot token'>.</span><span class='to_json identifier id'>to_json</span><span class='comma token'>,</span>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_update identifier id'>update</span><span class='lparen token'>(</span><span class='rubyid_info identifier id'>info</span><span class='rparen token'>)</span>
+  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_put identifier id'>put</span><span class='lparen token'>(</span>
+    <span class='rubyid_@session ivar id'>@session</span><span class='lbrack token'>[</span><span class='string val'>&quot;resources&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;account&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;url&quot;</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
+    <span class='symbol val'>:body</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_info identifier id'>info</span><span class='dot token'>.</span><span class='rubyid_to_json identifier id'>to_json</span><span class='comma token'>,</span>
     <span class='symbol val'>:headers</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span>
-      <span class='string val'>&quot;Accept&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='string val'>&quot;account&quot;</span><span class='rparen token'>)</span><span class='comma token'>,</span><span class='string val'>&quot;Content-Type&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='string val'>&quot;account&quot;</span><span class='rparen token'>)</span><span class='comma token'>,</span>
+      <span class='string val'>&quot;Accept&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='string val'>&quot;account&quot;</span><span class='rparen token'>)</span><span class='comma token'>,</span><span class='string val'>&quot;Content-Type&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='string val'>&quot;account&quot;</span><span class='rparen token'>)</span><span class='comma token'>,</span>
       <span class='string val'>&quot;Authorization&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='dstring node'>&quot;Capability #{@session[&quot;resources&quot;][&quot;account&quot;][&quot;capability&quot;]}&quot;</span> 
     <span class='rbrace token'>}</span><span class='rparen token'>)</span>
-  <span class='raise identifier id'>raise</span> <span class='dstring node'>&quot;Error attempting to update account: (#{response.status}) #{response.body}&quot;</span> <span class='if if_mod kw'>if</span> <span class='response identifier id'>response</span><span class='dot token'>.</span><span class='status identifier id'>status</span> <span class='neq op'>!=</span> <span class='integer val'>200</span>
-  <span class='@session ivar id'>@session</span><span class='lbrack token'>[</span><span class='string val'>&quot;resources&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;account&quot;</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='JSON constant id'>JSON</span><span class='dot token'>.</span><span class='parse identifier id'>parse</span><span class='lparen token'>(</span><span class='response identifier id'>response</span><span class='dot token'>.</span><span class='body identifier id'>body</span><span class='rparen token'>)</span>
-  <span class='self self kw'>self</span>
-<span class='end end kw'>end</span>
+  <span class='rubyid_raise identifier id'>raise</span> <span class='dstring node'>&quot;Error attempting to update account: (#{response.status}) #{response.body}&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_status identifier id'>status</span> <span class='neq op'>!=</span> <span class='integer val'>200</span>
+  <span class='rubyid_@session ivar id'>@session</span><span class='lbrack token'>[</span><span class='string val'>&quot;resources&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;account&quot;</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_JSON constant id'>JSON</span><span class='dot token'>.</span><span class='rubyid_parse identifier id'>parse</span><span class='lparen token'>(</span><span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_body identifier id'>body</span><span class='rparen token'>)</span>
+  <span class='rubyid_self self kw'>self</span>
+<span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
   </tr>
@@ -853,9 +1103,9 @@ Returns the value of attribute client
 </div>
     
     <div id="footer">
-  Generated on Thu Dec  1 11:43:18 2011 by 
+  Generated on Thu Dec  8 16:45:05 2011 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.7.3 (ruby-1.8.7).
+  0.7.4 (ruby-1.8.7).
 </div>
 
   </body>

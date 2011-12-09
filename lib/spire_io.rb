@@ -13,14 +13,9 @@ class Spire
 		# @timeout = 1
 		discover
 	end
-	
-	def discover
-		response = @client.get(@url, :headers => {"Accept" => "application/json"})
-		raise "Error during discovery: #{response.status}" if response.status != 200
-		@description = JSON.parse(response.body)
-		self
-	end
-	
+
+	# Authenticates a session using a Spire API key
+	# @param [String] key API key
 	def start(key)
 		response = @client.post(
 			@description["resources"]["sessions"]["url"],
@@ -34,6 +29,7 @@ class Spire
 		self
 	end
 	
+	# Authenticates a session using a login and password
 	def login(login,password)
 		response = @client.post(
 			@description["resources"]["sessions"]["url"],
@@ -47,6 +43,9 @@ class Spire
 		self
 	end
 	
+	# Register for a new spire account, and authenticates as the newly created account
+	# @param [String] :email Email address of new account
+	# @param [String] :password Password of new account
 	def register(info)
 		response = @client.post(
 			@description["resources"]["accounts"]["url"],
@@ -60,6 +59,7 @@ class Spire
 		self
 	end
 	
+	# Deletes the currently authenticated account
 	def delete_account
 		@client.delete(
 			@description["resources"]["accounts"]["url"],
@@ -69,6 +69,8 @@ class Spire
 		})
 	end
 
+	# Updates the current account with the new account information
+	# See Spire docs for available settings
 	def update(info)
 		response = @client.put(
 			@session["resources"]["account"]["url"],
@@ -82,6 +84,9 @@ class Spire
 		self
 	end
 	
+	# Returns a channel object for the named channel
+	# @param [String] name Name of channel returned
+	# @return [Channel]
 	def [](name)
 		response = @client.post(
 			@session["resources"]["channels"]["url"],
@@ -95,6 +100,9 @@ class Spire
 		Channel.new(self,JSON.parse(response.body))
 	end
 	
+	# Returns a subscription object for the given channels
+	# @param [String] subscription_name Name for the subscription
+	# @param [String] channels One or more channel names for the subscription to listen on
 	def subscribe(subscription_name, *channels)
 		response = @client.post(
 			@session["resources"]["subscriptions"]["url"],
@@ -107,7 +115,7 @@ class Spire
 		raise "Error creating a subscription: (#{response.status}) #{response.body}" if !(response.status == 201 || response.status == 200)
 		Subscription.new(self,JSON.parse(response.body))
 	end
-	alias :subscription :subscribe
+	alias :subscription :subscribe #For compatibility with other clients
 
 	def key
 		@session["resources"]["account"]["key"]
@@ -117,6 +125,22 @@ class Spire
 		@description["schema"]["1.0"][name]["mediaType"]
 	end
 	
+	private
+	def discover
+		response = @client.get(@url, :headers => {"Accept" => "application/json"})
+		raise "Error during discovery: #{response.status}" if response.status != 200
+		@description = JSON.parse(response.body)
+		self
+	end
+	
+	public
+	
+	# Object representing a Spire channel
+	#
+	# You can get a channel object by calling [] on a Spire object
+	# * spire = Spire.new
+	# * spire.start("your api key")
+	# * channel = spire["channel name"]
 	class Channel
 
 		def initialize(spire,properties)
@@ -136,18 +160,25 @@ class Spire
 			@properties["name"]
 		end
 
+		# Obtain a subscription for the channel
+		# @param [String] subscription_name Name of the subscription
+		# @return [Subscription]
 		def subscribe(subscription_name = nil)
 			@spire.subscribe(subscription_name, self.name)
 		end
 
+		#Publishes a message to the channel
+		# @param [String] message Message to be posted
+		# @return [Hash] response from the server
 		def publish(message)
 			response = _publish({:content => message}.to_json)
 			raise "Error publishing a message: (#{response.status}) #{response.body}" if response.status != 201
 			JSON.parse(response.body)
 		end
 
+		# @private
 		def _publish(body)
-			response = @spire.client.post(
+			@spire.client.post(
 				@properties["url"],
 				:body => body,
 				:headers => {
@@ -165,14 +196,17 @@ class Spire
 	end
 	
 	# The subscription class represents a read connection to a Spire channel
+	#
 	# You can get a subscription by calling subscribe on a spire object with the name of the channel or
 	# by calling subscribe on a channel object
-	# spire = Spire.new
-	# spire.start("your api key")
-	# subscription = spire.subscribe("channel1")
-	# # OR #
-	# channel = spire["channel1"]
-	# subscription = channel.subscribe
+	#
+	# * spire = Spire.new
+	# * spire.start("your api key")
+	# *THEN*
+	# * subscription = spire.subscribe("subscription name", "channel name")
+	# *OR*
+	# * channel = spire["channel name"]
+	# * subscription = channel.subscribe("subscription name")
 	class Subscription
 		attr_accessor :messages
 		attr_reader :last
@@ -192,6 +226,12 @@ class Spire
 			@properties["key"]
 		end
 
+		# Adds a listener (ruby block) to be called each time a message is received on the channel
+		#
+		# You must call #start_listening to actually start listening for messages
+		# @note Listeners are executed in their own thread, so practice proper thread safety!
+		# @param [String] name Name for the listener.  One will be generated if not provided
+		# @return [String] Name of the listener
 		def add_listener(name = nil, &block)
 			@listener_mutex.synchronize do
 				while !name
@@ -203,33 +243,41 @@ class Spire
 			name
 		end
 
+		# Removes a listener by name
+		#
+		# @param [String] name Name of the listener to remove
+		# @param [Boolean] kill_current_threads Kill any currently running threads of the removed listener
+		# @return [Proc] Listener that was removed
 		def remove_listener(name, kill_current_threads = true)
+			l = nil #scope
 			@listener_mutex.synchronize do
-				@listeners.delete(name)
+				l = @listeners.delete(name)
 			end
 			kill_listening_threads(name) if kill_current_threads
+			l
 		end
 
+		# Removes all current listeners
+		# @param [Boolean] kill_current_threads Kill any currently running threads of the removed listener.
 		def remove_all_listeners(kill_current_threads = true)
 			@listener_mutex.synchronize do
 				@listeners = {}
 			end
 			kill_listening_threads if kill_current_threads
+			true
 		end
 
-		def current_listeners
-			@listener_mutex.synchronize do #To prevent synch problems adding a new listener while looping
-				@listeners.dup
-			end
-		end
-
+		# Starts the listening thread.  This must be called to enable any listeners you have added.
+		#
+		# You can continue to add more listeners after starting the listening process
+		# @note Will raise an exception if listening has already been started
 		def start_listening
 			raise "Already listening" if @listening_thread
 			@listening_thread = Thread.new {
 				while true
 					new_messages = self.listen
 					next unless new_messages.size > 0
-					self.current_listeners.each do |name, listener|
+					current_listeners.each do |name, listener|
 						new_messages.each do |m|
 							thread = Thread.new { listener.call(m) }
 							@listener_thread_mutex.synchronize do
@@ -242,6 +290,8 @@ class Spire
 			}
 		end
 
+		# Stops the listening process
+		# @param [Boolean] kill_current_threads Kills any currently running listener threads
 		def stop_listening(kill_current_threads = true)
 			@listener_thread_mutex.synchronize do
 				@listening_thread.kill if @listening_thread
@@ -250,6 +300,8 @@ class Spire
 			kill_listening_threads if kill_current_threads
 		end
 
+		# Kills any currently executing listeners
+		# @param [String] name_to_kill Kill only currently executing listeners that have this name
 		def kill_listening_threads(name_to_kill = nil)
 			@listener_thread_mutex.synchronize do
 				@listening_threads.each do |name, threads|
@@ -260,6 +312,9 @@ class Spire
 			end
 		end
 
+		# Listen (and block) for any new incoming messages.
+		# @param [Integer] timeout Max time to wait for a new message before returning
+		# @return [Array] An array of messages received
 		def listen(timeout=30)
 			response = @spire.client.get(
 				@properties["url"],
@@ -280,10 +335,16 @@ class Spire
 			end
 			new_messages
 		end
-		
+
 		def mediaType(name)
 			@spire.mediaType(name)
 		end
-	
+
+		private
+		def current_listeners
+			@listener_mutex.synchronize do #To prevent synch problems adding a new listener while looping
+				@listeners.dup
+			end
+		end
 	end
 end

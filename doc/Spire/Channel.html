@@ -6,7 +6,7 @@
 <title>
   Class: Spire::Channel
   
-    &mdash; Documentation by YARD 0.7.3
+    &mdash; Documentation by YARD 0.7.4
   
 </title>
 
@@ -92,7 +92,33 @@
 </dl>
 <div class="clear"></div>
 
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>
+Object representing a Spire channel
+</p>
+<p>
+You can get a channel object by calling [] on a Spire object
+</p>
+<ul>
+<li>spire = Spire.new
 
+</li>
+<li>spire.start(&quot;your api key&quot;)
+
+</li>
+<li>channel = spire[&quot;channel name&quot;]
+
+</li>
+</ul>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
 
 
 
@@ -104,6 +130,27 @@
     </h2>
 
     <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#_publish-instance_method" title="#_publish (instance method)">- (Object) <strong>_publish</strong>(body) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
       
         <li class="public ">
   <span class="summary_signature">
@@ -176,7 +223,7 @@ A new instance of Channel.
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#publish-instance_method" title="#publish (instance method)">- (Object) <strong>publish</strong>(message) </a>
+      <a href="#name-instance_method" title="#name (instance method)">- (Object) <strong>name</strong> </a>
     
 
     
@@ -190,6 +237,54 @@ A new instance of Channel.
 
   
     <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#publish-instance_method" title="#publish (instance method)">- (Hash) <strong>publish</strong>(message) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Publishes a message to the channel.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#subscribe-instance_method" title="#subscribe (instance method)">- (Subscription) <strong>subscribe</strong>(subscription_name = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Obtain a subscription for the channel.
+</p>
+</div></span>
   
 </li>
 
@@ -246,18 +341,18 @@ A new instance of Channel
       <pre class="lines">
 
 
-112
-113
-114
-115</pre>
+146
+147
+148
+149</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 112</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 146</span>
 
-<span class='def def kw'>def</span> <span class='initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='spire identifier id'>spire</span><span class='comma token'>,</span><span class='properties identifier id'>properties</span><span class='rparen token'>)</span>
-  <span class='@spire ivar id'>@spire</span> <span class='assign token'>=</span> <span class='spire identifier id'>spire</span>
-  <span class='@properties ivar id'>@properties</span> <span class='assign token'>=</span> <span class='properties identifier id'>properties</span>
-<span class='end end kw'>end</span>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_spire identifier id'>spire</span><span class='comma token'>,</span><span class='rubyid_properties identifier id'>properties</span><span class='rparen token'>)</span>
+  <span class='rubyid_@spire ivar id'>@spire</span> <span class='assign token'>=</span> <span class='rubyid_spire identifier id'>spire</span>
+  <span class='rubyid_@properties ivar id'>@properties</span> <span class='assign token'>=</span> <span class='rubyid_properties identifier id'>properties</span>
+<span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
   </tr>
@@ -272,7 +367,52 @@ A new instance of Channel
     
     
       <div class="method_details first">
-  <p class="signature first" id="key-instance_method">
+  <p class="signature first" id="_publish-instance_method">
+  
+    - (<tt>Object</tt>) <strong>_publish</strong>(body) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 180</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid__publish identifier id'>_publish</span><span class='lparen token'>(</span><span class='rubyid_body identifier id'>body</span><span class='rparen token'>)</span>
+  <span class='rubyid_@spire ivar id'>@spire</span><span class='dot token'>.</span><span class='rubyid_client identifier id'>client</span><span class='dot token'>.</span><span class='rubyid_post identifier id'>post</span><span class='lparen token'>(</span>
+    <span class='rubyid_@properties ivar id'>@properties</span><span class='lbrack token'>[</span><span class='string val'>&quot;url&quot;</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
+    <span class='symbol val'>:body</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_body identifier id'>body</span><span class='comma token'>,</span>
+    <span class='symbol val'>:headers</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span>
+      <span class='string val'>&quot;Authorization&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='dstring node'>&quot;Capability #{@properties[&quot;capability&quot;]}&quot;</span><span class='comma token'>,</span>
+      <span class='string val'>&quot;Accept&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='string val'>&quot;message&quot;</span><span class='rparen token'>)</span><span class='comma token'>,</span>
+      <span class='string val'>&quot;Content-Type&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='string val'>&quot;message&quot;</span><span class='rparen token'>)</span>
+    <span class='rbrace token'>}</span>
+  <span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="key-instance_method">
   
     - (<tt>Object</tt>) <strong>key</strong> 
   
@@ -284,16 +424,16 @@ A new instance of Channel
       <pre class="lines">
 
 
-121
-122
-123</pre>
+155
+156
+157</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 121</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 155</span>
 
-<span class='def def kw'>def</span> <span class='key identifier id'>key</span>
-  <span class='@properties ivar id'>@properties</span><span class='lbrack token'>[</span><span class='string val'>&quot;key&quot;</span><span class='rbrack token'>]</span>
-<span class='end end kw'>end</span>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_key identifier id'>key</span>
+  <span class='rubyid_@properties ivar id'>@properties</span><span class='lbrack token'>[</span><span class='string val'>&quot;key&quot;</span><span class='rbrack token'>]</span>
+<span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
   </tr>
@@ -313,16 +453,16 @@ A new instance of Channel
       <pre class="lines">
 
 
-138
-139
-140</pre>
+192
+193
+194</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 138</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 192</span>
 
-<span class='def def kw'>def</span> <span class='mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='name identifier id'>name</span><span class='rparen token'>)</span>
-  <span class='@spire ivar id'>@spire</span><span class='dot token'>.</span><span class='mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='name identifier id'>name</span><span class='rparen token'>)</span>
-<span class='end end kw'>end</span>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
+  <span class='rubyid_@spire ivar id'>@spire</span><span class='dot token'>.</span><span class='rubyid_mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
   </tr>
@@ -330,9 +470,9 @@ A new instance of Channel
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="publish-instance_method">
+  <p class="signature " id="name-instance_method">
   
-    - (<tt>Object</tt>) <strong>publish</strong>(message) 
+    - (<tt>Object</tt>) <strong>name</strong> 
   
 
   
@@ -342,34 +482,178 @@ A new instance of Channel
       <pre class="lines">
 
 
-125
-126
-127
-128
-129
-130
-131
-132
-133
-134
-135
-136</pre>
+159
+160
+161</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 125</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 159</span>
 
-<span class='def def kw'>def</span> <span class='publish identifier id'>publish</span><span class='lparen token'>(</span><span class='message identifier id'>message</span><span class='rparen token'>)</span>
-  <span class='response identifier id'>response</span> <span class='assign token'>=</span> <span class='@spire ivar id'>@spire</span><span class='dot token'>.</span><span class='client identifier id'>client</span><span class='dot token'>.</span><span class='post identifier id'>post</span><span class='lparen token'>(</span>
-    <span class='@properties ivar id'>@properties</span><span class='lbrack token'>[</span><span class='string val'>&quot;url&quot;</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
-    <span class='symbol val'>:body</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span> <span class='symbol val'>:content</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='message identifier id'>message</span> <span class='rbrace token'>}</span><span class='dot token'>.</span><span class='to_json identifier id'>to_json</span><span class='comma token'>,</span>
-    <span class='symbol val'>:headers</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span>
-      <span class='string val'>&quot;Authorization&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='dstring node'>&quot;Capability #{@properties[&quot;capability&quot;]}&quot;</span><span class='comma token'>,</span>
-      <span class='string val'>&quot;Accept&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='string val'>&quot;message&quot;</span><span class='rparen token'>)</span><span class='comma token'>,</span>
-      <span class='string val'>&quot;Content-Type&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='string val'>&quot;message&quot;</span><span class='rparen token'>)</span>
-    <span class='rbrace token'>}</span><span class='rparen token'>)</span>
-  <span class='raise identifier id'>raise</span> <span class='dstring node'>&quot;Error publishing a message: (#{response.status}) #{response.body}&quot;</span> <span class='if if_mod kw'>if</span> <span class='response identifier id'>response</span><span class='dot token'>.</span><span class='status identifier id'>status</span> <span class='neq op'>!=</span> <span class='integer val'>201</span>
-  <span class='JSON constant id'>JSON</span><span class='dot token'>.</span><span class='parse identifier id'>parse</span><span class='lparen token'>(</span><span class='response identifier id'>response</span><span class='dot token'>.</span><span class='body identifier id'>body</span><span class='rparen token'>)</span>
-<span class='end end kw'>end</span>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_name identifier id'>name</span>
+  <span class='rubyid_@properties ivar id'>@properties</span><span class='lbrack token'>[</span><span class='string val'>&quot;name&quot;</span><span class='rbrack token'>]</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="publish-instance_method">
+  
+    - (<tt>Hash</tt>) <strong>publish</strong>(message) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Publishes a message to the channel
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>message</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+Message to be posted
+</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+response from the server
+</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+173
+174
+175
+176
+177</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 173</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_publish identifier id'>publish</span><span class='lparen token'>(</span><span class='rubyid_message identifier id'>message</span><span class='rparen token'>)</span>
+  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid__publish identifier id'>_publish</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='symbol val'>:content</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_message identifier id'>message</span><span class='rbrace token'>}</span><span class='dot token'>.</span><span class='rubyid_to_json identifier id'>to_json</span><span class='rparen token'>)</span>
+  <span class='rubyid_raise identifier id'>raise</span> <span class='dstring node'>&quot;Error publishing a message: (#{response.status}) #{response.body}&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_status identifier id'>status</span> <span class='neq op'>!=</span> <span class='integer val'>201</span>
+  <span class='rubyid_JSON constant id'>JSON</span><span class='dot token'>.</span><span class='rubyid_parse identifier id'>parse</span><span class='lparen token'>(</span><span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_body identifier id'>body</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="subscribe-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Subscription.html" title="Spire::Subscription (class)">Subscription</a></span></tt>) <strong>subscribe</strong>(subscription_name = nil) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Obtain a subscription for the channel
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>subscription_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>
+Name of the subscription
+</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Subscription.html" title="Spire::Subscription (class)">Subscription</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+166
+167
+168</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 166</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_subscribe identifier id'>subscribe</span><span class='lparen token'>(</span><span class='rubyid_subscription_name identifier id'>subscription_name</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='rparen token'>)</span>
+  <span class='rubyid_@spire ivar id'>@spire</span><span class='dot token'>.</span><span class='rubyid_subscribe identifier id'>subscribe</span><span class='lparen token'>(</span><span class='rubyid_subscription_name identifier id'>subscription_name</span><span class='comma token'>,</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
   </tr>
@@ -389,16 +673,16 @@ A new instance of Channel
       <pre class="lines">
 
 
-117
-118
-119</pre>
+151
+152
+153</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 117</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 151</span>
 
-<span class='def def kw'>def</span> <span class='url identifier id'>url</span>
-  <span class='@properties ivar id'>@properties</span><span class='lbrack token'>[</span><span class='string val'>&quot;url&quot;</span><span class='rbrack token'>]</span>
-<span class='end end kw'>end</span>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_url identifier id'>url</span>
+  <span class='rubyid_@properties ivar id'>@properties</span><span class='lbrack token'>[</span><span class='string val'>&quot;url&quot;</span><span class='rbrack token'>]</span>
+<span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
   </tr>
@@ -410,9 +694,9 @@ A new instance of Channel
 </div>
     
     <div id="footer">
-  Generated on Thu Dec  1 11:43:17 2011 by 
+  Generated on Thu Dec  8 16:45:05 2011 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.7.3 (ruby-1.8.7).
+  0.7.4 (ruby-1.8.7).
 </div>
 
   </body>
