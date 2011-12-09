@@ -6,7 +6,7 @@
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.7.3
+    &mdash; Documentation by YARD 0.7.4
   
 </title>
 
@@ -58,24 +58,49 @@
 
 <p>This is a Ruby client for using the spire.io service. Here's an example using the message service.</p>
 
-<pre class="code"><span class='spire identifier id'>spire</span> <span class='assign token'>=</span> <span class='Spire constant id'>Spire</span><span class='dot token'>.</span><span class='new identifier id'>new</span>
-<span class='spire identifier id'>spire</span><span class='dot token'>.</span><span class='start identifier id'>start</span><span class='lparen token'>(</span><span class='key identifier id'>key</span><span class='rparen token'>)</span> <span class='comment val'># key is your account key</span>
-<span class='spire identifier id'>spire</span><span class='lbrack token'>[</span><span class='string val'>&quot;foo&quot;</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='publish identifier id'>publish</span><span class='lparen token'>(</span><span class='string val'>&quot;Hello World!&quot;</span><span class='rparen token'>)</span>
+<pre class="code"><span class='rubyid_spire identifier id'>spire</span> <span class='assign token'>=</span> <span class='rubyid_Spire constant id'>Spire</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span>
+<span class='rubyid_spire identifier id'>spire</span><span class='dot token'>.</span><span class='rubyid_start identifier id'>start</span><span class='lparen token'>(</span><span class='rubyid_key identifier id'>key</span><span class='rparen token'>)</span> <span class='comment val'># key is your account key</span>
+<span class='rubyid_spire identifier id'>spire</span><span class='lbrack token'>[</span><span class='string val'>&quot;foo&quot;</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_publish identifier id'>publish</span><span class='lparen token'>(</span><span class='string val'>&quot;Hello World!&quot;</span><span class='rparen token'>)</span>
 </pre>
 
 <p>Let's create a second session and get our messages.</p>
 
-<pre class="code"><span class='spire2 identifier id'>spire2</span> <span class='assign token'>=</span> <span class='Spire constant id'>Spire</span><span class='dot token'>.</span><span class='new identifier id'>new</span>
-<span class='spire2 identifier id'>spire2</span><span class='dot token'>.</span><span class='start identifier id'>start</span><span class='lparen token'>(</span><span class='key identifier id'>key</span><span class='rparen token'>)</span>
-<span class='subscription identifier id'>subscription</span> <span class='assign token'>=</span> <span class='spire2 identifier id'>spire2</span><span class='dot token'>.</span><span class='subscribe identifier id'>subscribe</span><span class='lparen token'>(</span><span class='string val'>&quot;dan&quot;</span><span class='comma token'>,</span><span class='string val'>&quot;foo&quot;</span><span class='rparen token'>)</span>
-<span class='puts identifier id'>puts</span> <span class='subscription identifier id'>subscription</span><span class='dot token'>.</span><span class='listen identifier id'>listen</span><span class='dot token'>.</span><span class='first identifier id'>first</span> <span class='comment val'># =&gt; &quot;Hello World!&quot;</span>
+<pre class="code"><span class='rubyid_spire2 identifier id'>spire2</span> <span class='assign token'>=</span> <span class='rubyid_Spire constant id'>Spire</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span>
+<span class='rubyid_spire2 identifier id'>spire2</span><span class='dot token'>.</span><span class='rubyid_start identifier id'>start</span><span class='lparen token'>(</span><span class='rubyid_key identifier id'>key</span><span class='rparen token'>)</span>
+<span class='rubyid_subscription identifier id'>subscription</span> <span class='assign token'>=</span> <span class='rubyid_spire2 identifier id'>spire2</span><span class='dot token'>.</span><span class='rubyid_subscribe identifier id'>subscribe</span><span class='lparen token'>(</span><span class='string val'>&quot;subscription_name&quot;</span><span class='comma token'>,</span> <span class='string val'>&quot;channel_name&quot;</span><span class='rparen token'>)</span>
+<span class='rubyid_puts identifier id'>puts</span> <span class='rubyid_subscription identifier id'>subscription</span><span class='dot token'>.</span><span class='rubyid_listen identifier id'>listen</span><span class='dot token'>.</span><span class='rubyid_first identifier id'>first</span> <span class='comment val'># =&gt; &quot;Hello World!&quot;</span>
 </pre>
+
+<p>You can also assign listener blocks to a subscription which will be called with each message received:</p>
+
+<pre class="code"><span class='rubyid_spire3 identifier id'>spire3</span> <span class='assign token'>=</span> <span class='rubyid_Spire constant id'>Spire</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span>
+<span class='rubyid_spire3 identifier id'>spire3</span><span class='dot token'>.</span><span class='rubyid_start identifier id'>start</span><span class='lparen token'>(</span><span class='rubyid_key identifier id'>key</span><span class='rparen token'>)</span>
+<span class='rubyid_subscription identifier id'>subscription</span> <span class='assign token'>=</span> <span class='rubyid_spire3 identifier id'>spire3</span><span class='dot token'>.</span><span class='rubyid_subscribe identifier id'>subscribe</span><span class='lparen token'>(</span><span class='string val'>&quot;subscription_name&quot;</span><span class='comma token'>,</span> <span class='string val'>&quot;bar&quot;</span><span class='rparen token'>)</span>
+<span class='rubyid_subscription identifier id'>subscription</span><span class='dot token'>.</span><span class='rubyid_add_listener identifier id'>add_listener</span> <span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='rubyid_m identifier id'>m</span><span class='bitor op'>|</span> <span class='rubyid_puts identifier id'>puts</span> <span class='dstring node'>&quot;Got a message: #{m}&quot;</span><span class='rbrace token'>}</span>
+<span class='rubyid_subscription identifier id'>subscription</span><span class='dot token'>.</span><span class='rubyid_start_listening identifier id'>start_listening</span>
+</pre>
+
+<p>The subscription object will continue to monitor the channel until you call #stop_listening on it.</p>
+
+<p>You can add as many listeners as you want.  They can be removed by name:</p>
+
+<pre class="code"><span class='rubyid_listener_name identifier id'>listener_name</span> <span class='assign token'>=</span> <span class='rubyid_subscription identifier id'>subscription</span><span class='dot token'>.</span><span class='rubyid_add_listener identifier id'>add_listener</span> <span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='rubyid_m identifier id'>m</span><span class='bitor op'>|</span> <span class='rubyid_puts identifier id'>puts</span> <span class='dstring node'>&quot;Got a message: #{m}&quot;</span><span class='rbrace token'>}</span>
+<span class='rubyid_subscription identifier id'>subscription</span><span class='dot token'>.</span><span class='rubyid_remove_listener identifier id'>remove_listener</span><span class='lparen token'>(</span><span class='rubyid_listener_name identifier id'>listener_name</span><span class='rparen token'>)</span>
+</pre>
+
+<p>You can also assign your own name when you add the listener as well:</p>
+
+<pre class="code"><span class='rubyid_subscription identifier id'>subscription</span><span class='dot token'>.</span><span class='rubyid_add_listener identifier id'>add_listener</span><span class='lparen token'>(</span><span class='string val'>&quot;Listener1&quot;</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='rubyid_m identifier id'>m</span><span class='bitor op'>|</span> <span class='rubyid_puts identifier id'>puts</span> <span class='dstring node'>&quot;Got a message: #{m}&quot;</span><span class='rbrace token'>}</span>
+<span class='rubyid_subscription identifier id'>subscription</span><span class='dot token'>.</span><span class='rubyid_remove_listener identifier id'>remove_listener</span><span class='lparen token'>(</span><span class='string val'>&quot;Listener1&quot;</span><span class='rparen token'>)</span>
+</pre>
+
+<p><em>Note</em> Listener blocks will be executed in a separate thread, so please be careful when accessing shared resources.</p>
 </div></div>
     
     <div id="footer">
-  Generated on Thu Dec  1 11:43:17 2011 by 
+  Generated on Thu Dec  8 16:45:04 2011 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.7.3 (ruby-1.8.7).
+  0.7.4 (ruby-1.8.7).
 </div>
 
   </body>
