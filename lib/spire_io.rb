@@ -109,6 +109,16 @@ class Spire
 	end
 	alias :subscription :subscribe
 
+	def billing(params)
+	  response = @client.get(
+  	  @description["resources"]["billing"]["url"],
+  	  :headers => {
+  	    "Accept" => "application/json"
+	    })
+		raise "Error getting billing plans: #{response.status}" if response.status != 200
+		Billing.new(self,JSON.parse(response.body))
+	end
+
 	def key
 		@session["resources"]["account"]["key"]
 	end
@@ -286,4 +296,19 @@ class Spire
 		end
 	
 	end
+
+	class Billing
+	  def initialize(spire,properties)
+			@spire = spire
+			@properties = properties
+		end
+		
+		def url
+			@properties["url"]
+		end
+		
+		def plans
+			@properties["plans"]
+		end
+  end
 end
