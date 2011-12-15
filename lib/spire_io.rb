@@ -31,17 +31,22 @@ class Spire
 	
 	# Authenticates a session using a login and password
 	def login(login,password)
-		response = @client.post(
-			@description["resources"]["sessions"]["url"],
-			:body => { :email => login, :password => password }.to_json,
-			:headers => {
-				"Accept" => mediaType("session"),
-				"Content-Type" => mediaType("account")
-			})
+    response = _login(login, password)
 		raise "Error attemping to login:  (#{response.status}) #{response.body}" if response.status != 201
 		@session = JSON.parse(response.body)
 		self
 	end
+
+  def _login(email, password)
+		@client.post(
+			@description["resources"]["sessions"]["url"],
+			:body => { :email => email, :password => password }.to_json,
+			:headers => {
+				"Accept" => mediaType("session"),
+				"Content-Type" => mediaType("account")
+			}
+    )
+  end
 	
 	# Register for a new spire account, and authenticates as the newly created account
 	# @param [String] :email Email address of new account
@@ -62,7 +67,7 @@ class Spire
 	# Deletes the currently authenticated account
 	def delete_account
 		@client.delete(
-			@description["resources"]["accounts"]["url"],
+			@session["resources"]["account"]["url"],
 			:headers => { 
 				"Accept" => mediaType("account"),"Content-Type" => mediaType("account"),
 				"Authorization" => "Capability #{@session["resources"]["account"]["capability"]}"
