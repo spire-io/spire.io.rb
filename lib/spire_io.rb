@@ -67,7 +67,7 @@ class Spire
 	# Deletes the currently authenticated account
 	def delete_account
 		@client.delete(
-			@description["resources"]["accounts"]["url"],
+			@session["resources"]["account"]["url"],
 			:headers => { 
 				"Accept" => mediaType("account"),"Content-Type" => mediaType("account"),
 				"Authorization" => "Capability #{@session["resources"]["account"]["capability"]}"
