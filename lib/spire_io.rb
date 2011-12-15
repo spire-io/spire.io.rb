@@ -314,6 +314,7 @@ class Spire
 									listener.call(m)
 								rescue
 									puts "Error while running listener #{name}: #{$!.inspect}"
+									puts $!.backtrace.join("\n")
 								end
 							}
 							@listener_thread_mutex.synchronize do
