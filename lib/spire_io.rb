@@ -135,6 +135,23 @@ class Spire
 		raise "Error getting billing plans: #{response.status}" if response.status != 200
 		Billing.new(self,JSON.parse(response.body))
 	end
+	
+	# Updates the current account with the new account information
+	# See Spire docs for available settings
+	def set_billing(info)
+		pp @session["resources"]["account"]["billing"]["url"]
+		response = @client.put(
+			@session["resources"]["account"]["billing"]["url"],
+			:body => info.to_json,
+			:headers => {
+				"Accept" => mediaType("account"),"Content-Type" => mediaType("account"),
+				"Authorization" => "Capability #{@session["resources"]["account"]["capability"]}"
+			})
+		raise "Error attempting to update account: (#{response.status}) #{response.body}" if response.status != 200
+		@session["resources"]["account"] = JSON.parse(response.body)
+		self
+	end
+	
 
 	def key
 		@session["resources"]["account"]["key"]
