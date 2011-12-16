@@ -17,5 +17,5 @@ task :package => :doc do
 end
 
 task :install => :package do
-	`gem install --dev spire_io-*.gem`
+	`gem install spire_io-*.gem`
 end
