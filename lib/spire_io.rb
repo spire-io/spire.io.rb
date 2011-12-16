@@ -124,9 +124,9 @@ class Spire
 	alias :subscription :subscribe #For compatibility with other clients
 
 	# Returns a billing object than contains a list of all the plans available
-	# @param [String] params optional object description
+	# @param [String] info optional object description
 	# @return [Billing]
-	def billing(params=nil)
+	def billing(info=nil)
 		response = @client.get(
 			@description["resources"]["billing"]["url"],
 			:headers => {
@@ -136,10 +136,10 @@ class Spire
 		Billing.new(self,JSON.parse(response.body))
 	end
 	
-	# Updates the current account with the new account information
-	# See Spire docs for available settings
-	def set_billing(info)
-		pp @session["resources"]["account"]["billing"]["url"]
+	# Updates and subscribe the account to a billing plan
+	# @param [Object] info data containing billing description
+	# @return [Account]
+	def billing_subscription(info)
 		response = @client.put(
 			@session["resources"]["account"]["billing"]["url"],
 			:body => info.to_json,
@@ -147,7 +147,7 @@ class Spire
 				"Accept" => mediaType("account"),"Content-Type" => mediaType("account"),
 				"Authorization" => "Capability #{@session["resources"]["account"]["capability"]}"
 			})
-		raise "Error attempting to update account: (#{response.status}) #{response.body}" if response.status != 200
+		raise "Error attempting to update account billing: (#{response.status}) #{response.body}" if response.status != 200
 		@session["resources"]["account"] = JSON.parse(response.body)
 		self
 	end
