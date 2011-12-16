@@ -102,17 +102,14 @@ You can get all the billing plans by calling the method billing in Spire
 object
 </p>
 <ul>
-<li><p>
-spire = Spire.new
-</p>
+<li>spire = Spire.new
+
 </li>
-<li><p>
-billing = spire.billing()
-</p>
+<li>billing = spire.billing()
+
 </li>
-<li><p>
-plans = billing.plans
-</p>
+<li>plans = billing.plans
+
 </li>
 </ul>
 
@@ -234,18 +231,19 @@ A new instance of Billing
       <pre class="lines">
 
 
-372
-373
-374
-375</pre>
+395
+396
+397
+398</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 372</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 395</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_spire'>spire</span><span class='comma'>,</span><span class='id identifier rubyid_properties'>properties</span><span class='rparen'>)</span>
-	<span class='ivar'>@spire</span> <span class='op'>=</span> <span class='id identifier rubyid_spire'>spire</span>
-	<span class='ivar'>@properties</span> <span class='op'>=</span> <span class='id identifier rubyid_properties'>properties</span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_spire identifier id'>spire</span><span class='comma token'>,</span><span class='rubyid_properties identifier id'>properties</span><span class='rparen token'>)</span>
+  <span class='rubyid_@spire ivar id'>@spire</span> <span class='assign token'>=</span> <span class='rubyid_spire identifier id'>spire</span>
+  <span class='rubyid_@properties ivar id'>@properties</span> <span class='assign token'>=</span> <span class='rubyid_properties identifier id'>properties</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -271,16 +269,17 @@ A new instance of Billing
       <pre class="lines">
 
 
-381
-382
-383</pre>
+404
+405
+406</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 381</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 404</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_plans'>plans</span>
-	<span class='ivar'>@properties</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>plans</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_plans identifier id'>plans</span>
+  <span class='rubyid_@properties ivar id'>@properties</span><span class='lbrack token'>[</span><span class='string val'>&quot;plans&quot;</span><span class='rbrack token'>]</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -299,16 +298,17 @@ A new instance of Billing
       <pre class="lines">
 
 
-377
-378
-379</pre>
+400
+401
+402</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 377</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 400</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_url'>url</span>
-	<span class='ivar'>@properties</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>url</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_url identifier id'>url</span>
+  <span class='rubyid_@properties ivar id'>@properties</span><span class='lbrack token'>[</span><span class='string val'>&quot;url&quot;</span><span class='rbrack token'>]</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -319,9 +319,9 @@ A new instance of Billing
 </div>
     
     <div id="footer">
-  Generated on Thu Dec  8 17:43:27 2011 by 
+  Generated on Thu Dec 15 12:48:01 2011 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.7.4 (ruby-1.9.2).
+  0.7.4 (ruby-1.8.7).
 </div>
 
   </body>
