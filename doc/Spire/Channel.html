@@ -344,13 +344,13 @@ A new instance of Channel
       <pre class="lines">
 
 
-160
-161
-162
-163</pre>
+182
+183
+184
+185</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 160</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 182</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_spire'>spire</span><span class='comma'>,</span><span class='id identifier rubyid_properties'>properties</span><span class='rparen'>)</span>
 	<span class='ivar'>@spire</span> <span class='op'>=</span> <span class='id identifier rubyid_spire'>spire</span>
@@ -381,20 +381,20 @@ A new instance of Channel
       <pre class="lines">
 
 
-194
-195
-196
-197
-198
-199
-200
-201
-202
-203
-204</pre>
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 194</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 216</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid__publish'>_publish</span><span class='lparen'>(</span><span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span>
 	<span class='ivar'>@spire</span><span class='period'>.</span><span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span>
@@ -425,12 +425,12 @@ A new instance of Channel
       <pre class="lines">
 
 
-169
-170
-171</pre>
+191
+192
+193</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 169</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 191</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_key'>key</span>
 	<span class='ivar'>@properties</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>key</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
@@ -453,12 +453,12 @@ A new instance of Channel
       <pre class="lines">
 
 
-206
-207
-208</pre>
+228
+229
+230</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 206</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 228</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mediaType'>mediaType</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
 	<span class='ivar'>@spire</span><span class='period'>.</span><span class='id identifier rubyid_mediaType'>mediaType</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
@@ -481,12 +481,12 @@ A new instance of Channel
       <pre class="lines">
 
 
-173
-174
-175</pre>
+195
+196
+197</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 173</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 195</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_name'>name</span>
 	<span class='ivar'>@properties</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>name</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
@@ -561,14 +561,14 @@ response from the server
       <pre class="lines">
 
 
-187
-188
-189
-190
-191</pre>
+209
+210
+211
+212
+213</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 187</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 209</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_publish'>publish</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
 	<span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid__publish'>_publish</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='symbol'>:content</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_message'>message</span><span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span><span class='rparen'>)</span>
@@ -641,12 +641,12 @@ Name of the subscription
       <pre class="lines">
 
 
-180
-181
-182</pre>
+202
+203
+204</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 180</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 202</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_subscribe'>subscribe</span><span class='lparen'>(</span><span class='id identifier rubyid_subscription_name'>subscription_name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
 	<span class='ivar'>@spire</span><span class='period'>.</span><span class='id identifier rubyid_subscribe'>subscribe</span><span class='lparen'>(</span><span class='id identifier rubyid_subscription_name'>subscription_name</span><span class='comma'>,</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
@@ -669,12 +669,12 @@ Name of the subscription
       <pre class="lines">
 
 
-165
-166
-167</pre>
+187
+188
+189</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 165</span>
+      <pre class="code"><span class="info file"># File 'lib/spire_io.rb', line 187</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_url'>url</span>
 	<span class='ivar'>@properties</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>url</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
@@ -689,7 +689,7 @@ Name of the subscription
 </div>
     
     <div id="footer">
-  Generated on Thu Dec  8 17:43:27 2011 by 
+  Generated on Thu Dec 15 19:13:27 2011 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.4 (ruby-1.9.2).
 </div>
