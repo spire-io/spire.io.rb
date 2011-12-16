@@ -67,7 +67,7 @@ class Spire
 	# Deletes the currently authenticated account
 	def delete_account
 		@client.delete(
-			@description["resources"]["accounts"]["url"],
+			@session["resources"]["account"]["url"],
 			:headers => { 
 				"Accept" => mediaType("account"),"Content-Type" => mediaType("account"),
 				"Authorization" => "Capability #{@session["resources"]["account"]["capability"]}"
@@ -196,6 +196,10 @@ class Spire
 			@properties["name"]
 		end
 
+		def capability
+			@properties["capability"]
+		end
+
 		# Obtain a subscription for the channel
 		# @param [String] subscription_name Name of the subscription
 		# @return [Subscription]
@@ -244,8 +248,7 @@ class Spire
 	# * channel = spire["channel name"]
 	# * subscription = channel.subscribe("subscription name")
 	class Subscription
-		attr_accessor :messages
-		attr_reader :last
+		attr_accessor :messages, :last
 		
 		def initialize(spire,properties)
 			@spire = spire
@@ -260,6 +263,14 @@ class Spire
 
 		def key
 			@properties["key"]
+		end
+
+		def capability
+			@properties["capability"]
+		end
+
+		def url
+			@properties["url"]
 		end
 
 		# Adds a listener (ruby block) to be called each time a message is received on the channel
@@ -315,7 +326,14 @@ class Spire
 					next unless new_messages.size > 0
 					current_listeners.each do |name, listener|
 						new_messages.each do |m|
-							thread = Thread.new { listener.call(m) }
+							thread = Thread.new {
+								begin
+									listener.call(m)
+								rescue
+									puts "Error while running listener #{name}: #{$!.inspect}"
+									puts $!.backtrace.join("\n")
+								end
+							}
 							@listener_thread_mutex.synchronize do
 								@listening_threads[name] ||= []
 								@listening_threads[name] << thread
