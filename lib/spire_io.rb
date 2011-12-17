@@ -140,16 +140,20 @@ class Spire
 	# @param [Object] info data containing billing description
 	# @return [Account]
 	def billing_subscription(info)
-		response = @client.put(
+		response = _billing_subscription(info)
+		raise "Error attempting to update account billing: (#{response.status}) #{response.body}" if response.status != 200
+		@session["resources"]["account"] = JSON.parse(response.body)
+		self
+	end
+
+	def _billing_subscription(info)
+		@client.put(
 			@session["resources"]["account"]["billing"]["url"],
 			:body => info.to_json,
 			:headers => {
 				"Accept" => mediaType("account"),"Content-Type" => mediaType("account"),
 				"Authorization" => "Capability #{@session["resources"]["account"]["capability"]}"
 			})
-		raise "Error attempting to update account billing: (#{response.status}) #{response.body}" if response.status != 200
-		@session["resources"]["account"] = JSON.parse(response.body)
-		self
 	end
 	
 
