@@ -63,6 +63,18 @@ class Spire
 		@session = JSON.parse(response.body)	
 		self
 	end
+
+  def password_reset_request(email)
+    response = @client.post(
+      @description["resources"]["accounts"]["url"],
+      :query => {:email => email},
+      :body => ""
+    )
+    unless response.status == 202
+      raise "Error requesting password reset: (#{response.status}) #{response.body}"
+    end
+    response
+  end
 	
 	# Deletes the currently authenticated account
 	def delete_account
