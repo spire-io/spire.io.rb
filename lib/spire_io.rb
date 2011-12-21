@@ -164,7 +164,7 @@ class Spire
 			:body => info.to_json,
 			:headers => {
 				"Accept" => mediaType("account"),"Content-Type" => mediaType("account"),
-				"Authorization" => "Capability #{@session["resources"]["account"]["capability"]}"
+				"Authorization" => "Capability #{@session["resources"]["account"]["billing"]["capability"]}"
 			})
 	end
 	
