@@ -168,7 +168,24 @@ class Spire
 			})
 	end
 	
-
+	def _billing_invoices(info=nil)
+		@client.get(
+			@session["resources"]["account"]["billing"]["invoices"]["url"],
+			:headers => {
+				"Accept" => "application/json",
+				"Authorization" => "Capability #{@session["resources"]["account"]["billing"]["invoices"]["capability"]}"
+			})
+	end
+	
+	def _billing_invoices_upcoming(info=nil)
+		@client.get(
+			@session["resources"]["account"]["billing"]["invoices"]["upcoming"]["url"],
+			:headers => {
+				"Accept" => "application/json",
+				"Authorization" => "Capability #{@session["resources"]["account"]["billing"]["invoices"]["upcoming"]["capability"]}"
+			})
+	end
+	
 	def key
 		@session["resources"]["account"]["key"]
 	end
