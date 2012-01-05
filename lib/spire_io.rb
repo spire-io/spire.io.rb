@@ -5,10 +5,12 @@ require 'json'
 class Spire
 	
 	attr_accessor :client
+	attr_accessor :channels
 	
 	def initialize(url="https://api.spire.io")
 		@client = Excon
 		@url = url
+    @channels = {}
 		# @headers = { "User-Agent" => "Ruby spire.io client" }
 		# @timeout = 1
 		discover
@@ -26,6 +28,7 @@ class Spire
 			})
 		raise "Error starting a key-based session" if response.status != 201
 		@session = JSON.parse(response.body)	
+    store_channels
 		self
 	end
 	
@@ -34,6 +37,7 @@ class Spire
     response = _login(login, password)
 		raise "Error attemping to login:  (#{response.status}) #{response.body}" if response.status != 201
 		@session = JSON.parse(response.body)
+    store_channels
 		self
 	end
 
@@ -46,6 +50,13 @@ class Spire
 				"Content-Type" => mediaType("account")
 			}
     )
+  end
+
+  def store_channels
+    @channels = {}
+    @session['resources']['channels']['resources'].each do |key, hash|
+      @channels[hash['name']] = Channel.new(@session, hash)
+    end
   end
 	
 	# Register for a new spire account, and authenticates as the newly created account
@@ -105,6 +116,13 @@ class Spire
 	# @param [String] name Name of channel returned
 	# @return [Channel]
 	def [](name)
+    return @channels[name] if @channels[name]
+    _create_channel(name)
+	end
+
+  # Creates a channel on spire.  Returns a Channel object.  Note that this will
+  # fail with a 409 if a channel with the same name exists.
+  def _create_channel(name)
 		response = @client.post(
 			@session["resources"]["channels"]["url"],
 			:body => { :name => name }.to_json,
@@ -113,9 +131,13 @@ class Spire
 				"Accept" => mediaType("channel"),
 				"Content-Type" => mediaType("channel")
 			})
-		raise "Error creating or accessing a channel: (#{response.status}) #{response.body}" if !(response.status == 201 || response.status == 200)
-		Channel.new(self,JSON.parse(response.body))
-	end
+    if !(response.status == 201 || response.status == 200)
+      raise "Error creating or accessing a channel: (#{response.status}) #{response.body}" 
+    end
+    new_channel = Channel.new(self,JSON.parse(response.body))
+    @channels[name] = new_channel
+    new_channel
+  end
 	
 	# Returns a subscription object for the given channels
 	# @param [String] subscription_name Name for the subscription
