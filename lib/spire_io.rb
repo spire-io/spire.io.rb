@@ -146,7 +146,10 @@ class Spire
 	def subscribe(subscription_name, *channels)
 		response = @client.post(
 			@session["resources"]["subscriptions"]["url"],
-			:body => { :channels => channels.flatten.map { |name| self[name].url } }.to_json,
+			:body => {
+        :channels => channels.flatten.map { |name| self[name].url },
+        :name => subscription_name
+      }.to_json,
 			:headers => {
 				"Authorization" => "Capability #{@session["resources"]["subscriptions"]["capability"]}",
 				"Accept" => mediaType("subscription"),
@@ -318,6 +321,10 @@ class Spire
 
 		def key
 			@properties["key"]
+		end
+
+		def name
+			@properties["name"]
 		end
 
 		def capability
