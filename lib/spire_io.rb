@@ -258,6 +258,16 @@ class Spire
 			@properties["capability"]
 		end
 
+    def delete
+      response = @spire.client.delete(
+        url,
+        :headers => {
+          "Authorization" => "Capability #{capability}"
+        }
+      )
+			raise "Error deleting a channel" if response.status != 204
+    end
+
 		# Obtain a subscription for the channel
 		# @param [String] subscription_name Name of the subscription
 		# @return [Subscription]
@@ -334,6 +344,16 @@ class Spire
 		def url
 			@properties["url"]
 		end
+
+    def delete
+      response = @spire.client.delete(
+        url,
+        :headers => {
+          "Authorization" => "Capability #{capability}"
+        }
+      )
+			raise "Error deleting a subscription" if response.status != 204
+    end
 
 		# Adds a listener (ruby block) to be called each time a message is received on the channel
 		#
