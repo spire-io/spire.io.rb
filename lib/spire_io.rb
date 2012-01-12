@@ -55,7 +55,7 @@ class Spire
   def store_channels
     @channels = {}
     @session['resources']['channels']['resources'].each do |key, hash|
-      @channels[hash['name']] = Channel.new(@session, hash)
+      @channels[hash['name']] = Channel.new(self, hash)
     end
   end
   
@@ -449,14 +449,20 @@ class Spire
     end
 
     # Listen (and block) for any new incoming messages.
-    # @param [Integer] timeout Max time to wait for a new message before returning
+    # @params [Hash] A hash of containing:
+    #   [Integer] timeout Max time to wait for a new message before returning
+    #   [String] order_by Either "desc" or "asc"
     # @return [Array] An array of messages received
-    def listen(timeout=30)
+    def listen(options={})
+      timeout = options[:timeout]||30
+      order_by = options[:order_by]||'desc'
+
       response = @spire.client.get(
         @properties["url"],
         :query => {
           "timeout" => timeout,
-          "last-message" => @last||'0'
+          "last-message" => @last||'0',
+          "order-by" => order_by
         },
         :headers => {
           "Authorization" => "Capability #{@properties["capability"]}",
