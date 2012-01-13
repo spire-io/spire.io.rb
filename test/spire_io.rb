@@ -320,7 +320,7 @@ describe "The spire.io API" do
 					describe "Listen for the message we sent" do
 
 						before(:all) do
-							@messages = @subscription.listen(2)
+							@messages = @subscription.listen(:timeout => 2)
 						end
 						
 						specify "We should get back an array of messages" do
