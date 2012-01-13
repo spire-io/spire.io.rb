@@ -3,14 +3,18 @@ gem 'json'
 require 'json'
 
 class Spire
-  
-  attr_accessor :client
-  attr_accessor :channels
+	#How many times we will try to create a channel or subscription after getting a 409
+  RETRY_CREATION_LIMIT = 3
+
+  attr_accessor :client, :channels, :session
   
   def initialize(url="https://api.spire.io")
     @client = Excon
     @url = url
     @channels = {}
+    @subscriptions = {}
+    @channel_error_counts = {}
+    @subscription_error_counts = {}
     # @headers = { "User-Agent" => "Ruby spire.io client" }
     # @timeout = 1
     discover
@@ -41,6 +45,19 @@ class Spire
     self
   end
 
+	def reload_session
+		response = @client.get(
+      @session["url"],
+      :headers => {
+        "Accept" => mediaType("session"),
+        "Authorization" => "Capability #{@session["capability"]}"
+      })
+    @session = JSON.parse(response.body)
+    store_channels
+    raise "Error reloading session: #{response.status}" if response.status != 200
+    self
+	end
+
   def _login(email, password)
     @client.post(
       @description["resources"]["sessions"]["url"],
@@ -55,10 +72,17 @@ class Spire
   def store_channels
     @channels = {}
     @session['resources']['channels']['resources'].each do |key, hash|
-      @channels[hash['name']] = Channel.new(@session, hash)
+      @channels[hash['name']] = Channel.new(self, hash)
+      store_channel_subscriptions(hash["subscriptions"])
     end
   end
-  
+
+	def store_channel_subscriptions(hash)
+		hash.each do |key, sub_hash|
+			@subscriptions[sub_hash['name']] = Subscription.new(self, sub_hash)
+		end
+	end
+
   # Register for a new spire account, and authenticates as the newly created account
   # @param [String] :email Email address of new account
   # @param [String] :password Password of new account
@@ -123,6 +147,7 @@ class Spire
   # Creates a channel on spire.  Returns a Channel object.  Note that this will
   # fail with a 409 if a channel with the same name exists.
   def _create_channel(name)
+  	@channel_error_counts[name] ||= 0
     response = @client.post(
       @session["resources"]["channels"]["url"],
       :body => { :name => name }.to_json,
@@ -131,6 +156,7 @@ class Spire
         "Accept" => mediaType("channel"),
         "Content-Type" => mediaType("channel")
       })
+    return find_existing_channel(name) if response.status == 409 and @channel_error_counts[name] < RETRY_CREATION_LIMIT
     if !(response.status == 201 || response.status == 200)
       raise "Error creating or accessing a channel: (#{response.status}) #{response.body}" 
     end
@@ -138,12 +164,20 @@ class Spire
     @channels[name] = new_channel
     new_channel
   end
-  
+
+	def find_existing_channel(name)
+		@channel_error_counts[name] += 1
+		reload_session
+		self[name]
+	end
+
   # Returns a subscription object for the given channels
   # @param [String] subscription_name Name for the subscription
   # @param [String] channels One or more channel names for the subscription to listen on
   # @return [Subscription]
   def subscribe(subscription_name, *channels)
+  	@subscription_error_counts[subscription_name] ||= 0
+  	return @subscriptions[subscription_name] if subscription_name and @subscriptions[subscription_name]
     response = @client.post(
       @session["resources"]["subscriptions"]["url"],
       :body => {
@@ -155,10 +189,20 @@ class Spire
         "Accept" => mediaType("subscription"),
         "Content-Type" => mediaType("subscription")
       })
+    return find_existing_subscription(subscription_name, channels) if response.status == 409 and
+    	@subscription_error_counts[subscription_name] < RETRY_CREATION_LIMIT
     raise "Error creating a subscription: (#{response.status}) #{response.body}" if !(response.status == 201 || response.status == 200)
-    Subscription.new(self,JSON.parse(response.body))
+    s = Subscription.new(self,JSON.parse(response.body))
+    @subscriptions[s.name] = s
+    s
   end
   alias :subscription :subscribe #For compatibility with other clients
+
+	def find_existing_subscription(name, channels)
+		@subscription_error_counts[name] += 1
+		reload_session
+		self.subscribe(name, *channels)
+	end
 
   # Returns a billing object than contains a list of all the plans available
   # @param [String] info optional object description
@@ -361,15 +405,15 @@ class Spire
     # @note Listeners are executed in their own thread, so practice proper thread safety!
     # @param [String] name Name for the listener.  One will be generated if not provided
     # @return [String] Name of the listener
-    def add_listener(name = nil, &block)
+    def add_listener(listener_name = nil, &block)
       @listener_mutex.synchronize do
-        while !name
+        while !listener_name
           new_name = "Listener-#{rand(9999999)}"
-          name = new_name unless @listeners.has_key?(new_name)
+          listener_name = new_name unless @listeners.has_key?(new_name)
         end
-        @listeners[name] = block
+        @listeners[listener_name] = block
       end
-      name
+      listener_name
     end
 
     # Removes a listener by name
