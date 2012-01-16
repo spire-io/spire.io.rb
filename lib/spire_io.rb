@@ -1,12 +1,175 @@
-require 'excon'
-gem 'json'
-require 'json'
+gem "excon"
+require "excon"
+gem "json"
+require "json"
+
+require "requestable"
 
 class Spire
+
 	#How many times we will try to create a channel or subscription after getting a 409
   RETRY_CREATION_LIMIT = 3
 
-  attr_accessor :client, :channels, :session
+  include Requestable
+
+  define_request(:start) do |key|
+    {
+      :method => :post,
+      :url => @description["resources"]["sessions"]["url"],
+      :body => {:key => key}.to_json,
+      :headers => {
+        "Accept" => mediaType("session"),
+        "Content-Type" => mediaType("account")
+      }
+    }
+  end
+
+  define_request(:login) do |email, password|
+    {
+      :method => :post,
+      :url => @description["resources"]["sessions"]["url"],
+      :body => { :email => email, :password => password }.to_json,
+      :headers => {
+        "Accept" => mediaType("session"),
+        "Content-Type" => mediaType("account")
+      }
+    }
+  end
+
+  define_request(:register) do |info|
+    {
+      :method => :post,
+      :url => @description["resources"]["accounts"]["url"],
+      :body => {
+        :email => info[:email],
+        :password => info[:password],
+        :password_confirmation => info[:password_confirmation]
+      }.to_json,
+      :headers => { 
+        "Accept" => mediaType("session"),
+        "Content-Type" => mediaType("account")
+      }
+    }
+  end
+
+  define_request(:session) do
+    {
+      :method => :get,
+      :url => @session["url"],
+      :headers => {
+        "Accept" => mediaType("session"),
+        "Authorization" => "Capability #{@session["capability"]}"
+      }
+    }
+  end
+
+  define_request(:password_reset) do |email|
+    {
+      :method => :post,
+      :url => @description["resources"]["accounts"]["url"],
+      :body => ""
+    }
+  end
+
+  define_request(:delete_account) do
+    {
+      :method => :delete,
+      :url => @resources["account"]["url"],
+      :headers => { 
+        "Accept" => mediaType("account"),"Content-Type" => mediaType("account"),
+        "Authorization" =>
+          "Capability #{@resources["account"]["capability"]}"
+      }
+    }
+  end
+  
+  define_request(:update_account) do |info|
+    {
+      :method => :put,
+      :url => @resources["account"]["url"],
+      :body => info.to_json,
+      :headers => {
+        "Accept" => mediaType("account"),"Content-Type" => mediaType("account"),
+        "Authorization" => "Capability #{@resources["account"]["capability"]}" 
+      }
+    }
+  end
+
+  define_request(:create_channel) do |name|
+    {
+      :method => :post,
+      :url => @resources["channels"]["url"],
+      :body => { :name => name }.to_json,
+      :headers => {
+        "Authorization" =>
+          "Capability #{@resources["channels"]["capability"]}",
+        "Accept" => mediaType("channel"),
+        "Content-Type" => mediaType("channel")
+      }
+    }
+  end
+
+  define_request(:subscribe) do |subscription_name, channels|
+    {
+      :method => :post,
+      :url => @resources["subscriptions"]["url"],
+      :body => {
+        :channels => channels.flatten.map { |name| self[name].url },
+        :name => subscription_name
+      }.to_json,
+      :headers => {
+        "Authorization" => "Capability #{@resources["subscriptions"]["capability"]}",
+        "Accept" => mediaType("subscription"),
+        "Content-Type" => mediaType("subscription")
+      }
+    }
+  end
+
+  define_request(:billing) do
+    {
+      :method => :get,
+      :url => @description["resources"]["billing"]["url"],
+      :headers => {
+        "Accept" => "application/json"
+      }
+    }
+  end
+
+  define_request(:billing_subscription) do |info|
+    {
+      :method => :put,
+      :url => @resources["account"]["billing"]["url"],
+      :body => info.to_json,
+      :headers => {
+        "Accept" => mediaType("account"),"Content-Type" => mediaType("account"),
+        "Authorization" => "Capability #{@resources["account"]["billing"]["capability"]}"
+      }
+    }
+  end
+
+  define_request(:billing_invoices) do
+    {
+      :method => :get,
+      :url => @resources["account"]["billing"]["invoices"]["url"],
+      :headers => {
+        "Accept" => "application/json",
+        "Authorization" => "Capability #{@resources["account"]["billing"]["invoices"]["capability"]}"
+      }
+    }
+  end
+
+  define_request(:billing_invoices_upcoming) do
+    {
+      :method => :get,
+      :url => @resources["account"]["billing"]["invoices"]["upcoming"]["url"],
+      :headers => {
+        "Accept" => "application/json",
+        "Authorization" => "Capability #{@resources["account"]["billing"]["invoices"]["upcoming"]["capability"]}"
+      }
+    }
+  end
+
+  attr_accessor :client, :channels, :session, :resources
   
   def initialize(url="https://api.spire.io")
     @client = Excon
@@ -20,58 +183,37 @@ class Spire
     discover
   end
 
-  # Authenticates a session using a Spire API key
-  # @param [String] key API key
-  def start(key)
-    response = @client.post(
-      @description["resources"]["sessions"]["url"],
-      :body => { :key => key }.to_json,
-      :headers => {
-        "Accept" => mediaType("session"),
-        "Content-Type" => mediaType("account")
-      })
-    raise "Error starting a key-based session" if response.status != 201
-    @session = JSON.parse(response.body)  
+  def update_session(data)
+    @session = data
+    @resources = @session["resources"]
     store_channels
+  end
+
+  def start(key)
+    response = request(:start, key)
+    raise "Error starting a key-based session" if response.status != 201
+    update_session(JSON.parse(response.body))
     self
   end
-  
+
   # Authenticates a session using a login and password
-  def login(login,password)
-    response = _login(login, password)
+  def login(login, password)
+    response = request(:login, login, password)
     raise "Error attemping to login:  (#{response.status}) #{response.body}" if response.status != 201
-    @session = JSON.parse(response.body)
-    store_channels
+    update_session(JSON.parse(response.body))
     self
   end
 
 	def reload_session
-		response = @client.get(
-      @session["url"],
-      :headers => {
-        "Accept" => mediaType("session"),
-        "Authorization" => "Capability #{@session["capability"]}"
-      })
-    @session = JSON.parse(response.body)
-    store_channels
+    response = request(:session)
+    update_session(JSON.parse(response.body))
     raise "Error reloading session: #{response.status}" if response.status != 200
     self
 	end
 
-  def _login(email, password)
-    @client.post(
-      @description["resources"]["sessions"]["url"],
-      :body => { :email => email, :password => password }.to_json,
-      :headers => {
-        "Accept" => mediaType("session"),
-        "Content-Type" => mediaType("account")
-      }
-    )
-  end
-
   def store_channels
     @channels = {}
-    @session['resources']['channels']['resources'].each do |key, hash|
+    @resources['channels']['resources'].each do |key, hash|
       @channels[hash['name']] = Channel.new(self, hash)
       store_channel_subscriptions(hash["subscriptions"])
     end
@@ -88,56 +230,32 @@ class Spire
   # @param [String] :password Password of new account
   # @param [String] :password_confirmation Password confirmation (optional)
   def register(info)
-    response = @client.post(
-      @description["resources"]["accounts"]["url"],
-      :body => {
-        :email => info[:email],
-        :password => info[:password],
-        :password_confirmation => info[:password_confirmation]
-      }.to_json,
-      :headers => { 
-        "Accept" => mediaType("session"),
-        "Content-Type" => mediaType("account")
-      })
+    response = request(:register, info)
     raise "Error attempting to register: (#{response.status}) #{response.body}" if response.status != 201
-    @session = JSON.parse(response.body)  
+    update_session(JSON.parse(response.body))
     self
   end
 
   def password_reset_request(email)
-    response = @client.post(
-      @description["resources"]["accounts"]["url"],
-      :query => {:email => email},
-      :body => ""
-    )
+    response = request(:password_reset)
     unless response.status == 202
       raise "Error requesting password reset: (#{response.status}) #{response.body}"
     end
     response
   end
-  
+
+
   # Deletes the currently authenticated account
   def delete_account
-    @client.delete(
-      @session["resources"]["account"]["url"],
-      :headers => { 
-        "Accept" => mediaType("account"),"Content-Type" => mediaType("account"),
-        "Authorization" => "Capability #{@session["resources"]["account"]["capability"]}"
-    })
+    request(:delete_account)
   end
 
   # Updates the current account with the new account information
   # See Spire docs for available settings
   def update(info)
-    response = @client.put(
-      @session["resources"]["account"]["url"],
-      :body => info.to_json,
-      :headers => {
-        "Accept" => mediaType("account"),"Content-Type" => mediaType("account"),
-        "Authorization" => "Capability #{@session["resources"]["account"]["capability"]}" 
-      })
+    response = request(:update_account, info)
     raise "Error attempting to update account: (#{response.status}) #{response.body}" if response.status != 200
-    @session["resources"]["account"] = JSON.parse(response.body)
+    @resources["account"] = JSON.parse(response.body)
     self
   end
   
@@ -146,21 +264,14 @@ class Spire
   # @return [Channel]
   def [](name)
     return @channels[name] if @channels[name]
-    _create_channel(name)
+    create_channel(name)
   end
 
   # Creates a channel on spire.  Returns a Channel object.  Note that this will
   # fail with a 409 if a channel with the same name exists.
-  def _create_channel(name)
+  def create_channel(name)
   	@channel_error_counts[name] ||= 0
-    response = @client.post(
-      @session["resources"]["channels"]["url"],
-      :body => { :name => name }.to_json,
-      :headers => {
-        "Authorization" => "Capability #{@session["resources"]["channels"]["capability"]}",
-        "Accept" => mediaType("channel"),
-        "Content-Type" => mediaType("channel")
-      })
+    response = request(:create_channel, name)
     return find_existing_channel(name) if response.status == 409 and @channel_error_counts[name] < RETRY_CREATION_LIMIT
     if !(response.status == 201 || response.status == 200)
       raise "Error creating or accessing a channel: (#{response.status}) #{response.body}" 
@@ -183,17 +294,7 @@ class Spire
   def subscribe(subscription_name, *channels)
   	@subscription_error_counts[subscription_name] ||= 0
   	return @subscriptions[subscription_name] if subscription_name and @subscriptions[subscription_name]
-    response = @client.post(
-      @session["resources"]["subscriptions"]["url"],
-      :body => {
-        :channels => channels.flatten.map { |name| self[name].url },
-        :name => subscription_name
-      }.to_json,
-      :headers => {
-        "Authorization" => "Capability #{@session["resources"]["subscriptions"]["capability"]}",
-        "Accept" => mediaType("subscription"),
-        "Content-Type" => mediaType("subscription")
-      })
+    response = request(:subscribe, subscription_name, channels)
     return find_existing_subscription(subscription_name, channels) if response.status == 409 and
     	@subscription_error_counts[subscription_name] < RETRY_CREATION_LIMIT
     raise "Error creating a subscription: (#{response.status}) #{response.body}" if !(response.status == 201 || response.status == 200)
@@ -213,11 +314,7 @@ class Spire
   # @param [String] info optional object description
   # @return [Billing]
   def billing(info=nil)
-    response = @client.get(
-      @description["resources"]["billing"]["url"],
-      :headers => {
-        "Accept" => "application/json"
-      })
+    response = request(:billing)
     raise "Error getting billing plans: #{response.status}" if response.status != 200
     Billing.new(self,JSON.parse(response.body))
   end
@@ -226,57 +323,35 @@ class Spire
   # @param [Object] info data containing billing description
   # @return [Account]
   def billing_subscription(info)
-    response = _billing_subscription(info)
+    response = request(:billing_subscription)
     raise "Error attempting to update account billing: (#{response.status}) #{response.body}" if response.status != 200
-    @session["resources"]["account"] = JSON.parse(response.body)
+    @resources["account"] = JSON.parse(response.body)
     self
   end
 
-  def _billing_subscription(info)
-    @client.put(
-      @session["resources"]["account"]["billing"]["url"],
-      :body => info.to_json,
-      :headers => {
-        "Accept" => mediaType("account"),"Content-Type" => mediaType("account"),
-        "Authorization" => "Capability #{@session["resources"]["account"]["billing"]["capability"]}"
-      })
-  end
-  
-  def _billing_invoices(info=nil)
-    @client.get(
-      @session["resources"]["account"]["billing"]["invoices"]["url"],
-      :headers => {
-        "Accept" => "application/json",
-        "Authorization" => "Capability #{@session["resources"]["account"]["billing"]["invoices"]["capability"]}"
-      })
-  end
-  
-  def _billing_invoices_upcoming(info=nil)
-    @client.get(
-      @session["resources"]["account"]["billing"]["invoices"]["upcoming"]["url"],
-      :headers => {
-        "Accept" => "application/json",
-        "Authorization" => "Capability #{@session["resources"]["account"]["billing"]["invoices"]["upcoming"]["capability"]}"
-      })
-  end
   
   def key
-    @session["resources"]["account"]["key"]
+    @resources["account"]["key"]
   end
   
   def mediaType(name)
     @description["schema"]["1.0"][name]["mediaType"]
   end
   
-  private
+  define_request(:discover) do
+    {
+      :method => :get,
+      :url => @url,
+      :headers => {"Accept" => "application/json"}
+    }
+  end
+
   def discover
-    response = @client.get(@url, :headers => {"Accept" => "application/json"})
+    response = request(:discover)
     raise "Error during discovery: #{response.status}" if response.status != 200
     @description = JSON.parse(response.body)
     self
   end
-  
-  public
   
   # Object representing a Spire channel
   #
@@ -285,9 +360,34 @@ class Spire
   # * spire.start("your api key")
   # * channel = spire["channel name"]
   class Channel
+    include Requestable
 
-    def initialize(spire,properties)
+    define_request(:publish) do |body|
+      {
+        :method => :post,
+        :url => url,
+        :body => body,
+        :headers => {
+          "Authorization" => "Capability #{@properties["capability"]}",
+          "Accept" => mediaType("message"),
+          "Content-Type" => mediaType("message")
+        }
+      }
+    end
+
+    define_request(:delete) do
+      {
+        :method => :delete,
+        :url => url,
+        :headers => {
+          "Authorization" => "Capability #{capability}"
+        }
+      }
+    end
+
+    def initialize(spire, properties)
       @spire = spire
+      @client = spire.client
       @properties = properties
     end
     
@@ -308,12 +408,7 @@ class Spire
     end
 
     def delete
-      response = @spire.client.delete(
-        url,
-        :headers => {
-          "Authorization" => "Capability #{capability}"
-        }
-      )
+      response = request(:delete)
       raise "Error deleting a channel" if response.status != 204
     end
 
@@ -328,22 +423,9 @@ class Spire
     # @param [String] message Message to be posted
     # @return [Hash] response from the server
     def publish(message)
-      response = _publish({:content => message}.to_json)
+      response = request(:publish, {:content => message}.to_json)
       raise "Error publishing a message: (#{response.status}) #{response.body}" if response.status != 201
       JSON.parse(response.body)
-    end
-
-    # @private
-    def _publish(body)
-      @spire.client.post(
-        @properties["url"],
-        :body => body,
-        :headers => {
-          "Authorization" => "Capability #{@properties["capability"]}",
-          "Accept" => mediaType("message"),
-          "Content-Type" => mediaType("message")
-        }
-      )
     end
 
     def mediaType(name)
@@ -365,10 +447,41 @@ class Spire
   # * channel = spire["channel name"]
   # * subscription = channel.subscribe("subscription name")
   class Subscription
+    include Requestable
+
+    define_request(:listen) do |options|
+      timeout = options[:timeout]||30
+      order_by = options[:order_by]||'desc'
+      {
+        :method => :get,
+        :url => @properties["url"],
+        :query => {
+          "timeout" => timeout,
+          "last-message" => @last||'0',
+          "order-by" => order_by
+        },
+        :headers => {
+          "Authorization" => "Capability #{@properties["capability"]}",
+          "Accept" => mediaType("events")
+        }
+      }
+    end
+
+    define_request(:delete) do
+      {
+        :method => :delete,
+        :url => url,
+        :headers => {
+          "Authorization" => "Capability #{capability}"
+        }
+      }
+    end
+
     attr_accessor :messages, :last
     
     def initialize(spire,properties)
       @spire = spire
+      @client = spire.client
       @properties = properties
       @messages = []
       @listening_thread = nil
@@ -395,12 +508,7 @@ class Spire
     end
 
     def delete
-      response = @spire.client.delete(
-        url,
-        :headers => {
-          "Authorization" => "Capability #{capability}"
-        }
-      )
+      response = request(:delete)
       raise "Error deleting a subscription" if response.status != 204
     end
 
@@ -503,20 +611,7 @@ class Spire
     #   [String] order_by Either "desc" or "asc"
     # @return [Array] An array of messages received
     def listen(options={})
-      timeout = options[:timeout]||30
-      order_by = options[:order_by]||'desc'
-
-      response = @spire.client.get(
-        @properties["url"],
-        :query => {
-          "timeout" => timeout,
-          "last-message" => @last||'0',
-          "order-by" => order_by
-        },
-        :headers => {
-          "Authorization" => "Capability #{@properties["capability"]}",
-          "Accept" => mediaType("events")
-        })
+      response = request(:listen, options)
       raise "Error listening for messages: (#{response.status}) #{response.body}" if response.status != 200
       new_messages = JSON.parse(response.body)["messages"]
       @listener_mutex.synchronize do
