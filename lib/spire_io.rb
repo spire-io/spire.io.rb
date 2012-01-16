@@ -451,6 +451,7 @@ class Spire
 
     define_request(:listen) do |options|
       timeout = options[:timeout]||30
+      delay = options[:delay]||0
       order_by = options[:order_by]||'desc'
       {
         :method => :get,
@@ -458,7 +459,8 @@ class Spire
         :query => {
           "timeout" => timeout,
           "last-message" => @last||'0',
-          "order-by" => order_by
+          "order-by" => order_by,
+          "delay" => delay
         },
         :headers => {
           "Authorization" => "Capability #{@properties["capability"]}",
