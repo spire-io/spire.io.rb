@@ -12,6 +12,14 @@ class Spire
 
   include Requestable
 
+  define_request(:discover) do
+    {
+      :method => :get,
+      :url => @url,
+      :headers => {"Accept" => "application/json"}
+    }
+  end
+
   define_request(:start) do |key|
     {
       :method => :post,
@@ -109,6 +117,18 @@ class Spire
     }
   end
 
+  define_request(:channels) do
+    {
+      :method => :get,
+      :url => @resources["channels"]["url"],
+      :headers => {
+        "Authorization" =>
+          "Capability #{@resources["channels"]["capability"]}",
+        "Accept" => mediaType("channels"),
+      }
+    }
+  end
+
   define_request(:subscribe) do |subscription_name, channels|
     {
       :method => :post,
@@ -183,16 +203,26 @@ class Spire
     discover
   end
 
-  def update_session(data)
-    @session = data
-    @resources = @session["resources"]
-    store_channels
+  def key
+    @resources["account"]["key"]
   end
-
+  
+  def mediaType(name)
+    @description["schema"]["1.0"][name]["mediaType"]
+  end
+  
+  def discover
+    response = request(:discover)
+    raise "Error during discovery: #{response.status}" if response.status != 200
+    @description = JSON.parse(response.body)
+    #pp @description["schema"]["1.0"]
+    self
+  end
+ 
   def start(key)
     response = request(:start, key)
     raise "Error starting a key-based session" if response.status != 201
-    update_session(JSON.parse(response.body))
+    cache_session(JSON.parse(response.body))
     self
   end
 
@@ -200,30 +230,9 @@ class Spire
   def login(login, password)
     response = request(:login, login, password)
     raise "Error attemping to login:  (#{response.status}) #{response.body}" if response.status != 201
-    update_session(JSON.parse(response.body))
+    cache_session(JSON.parse(response.body))
     self
   end
-
-	def reload_session
-    response = request(:session)
-    update_session(JSON.parse(response.body))
-    raise "Error reloading session: #{response.status}" if response.status != 200
-    self
-	end
-
-  def store_channels
-    @channels = {}
-    @resources['channels']['resources'].each do |key, hash|
-      @channels[hash['name']] = Channel.new(self, hash)
-      store_channel_subscriptions(hash["subscriptions"])
-    end
-  end
-
-	def store_channel_subscriptions(hash)
-		hash.each do |key, sub_hash|
-			@subscriptions[sub_hash['name']] = Subscription.new(self, sub_hash)
-		end
-	end
 
   # Register for a new spire account, and authenticates as the newly created account
   # @param [String] :email Email address of new account
@@ -232,7 +241,7 @@ class Spire
   def register(info)
     response = request(:register, info)
     raise "Error attempting to register: (#{response.status}) #{response.body}" if response.status != 201
-    update_session(JSON.parse(response.body))
+    cache_session(JSON.parse(response.body))
     self
   end
 
@@ -258,7 +267,43 @@ class Spire
     @resources["account"] = JSON.parse(response.body)
     self
   end
-  
+
+	def retrieve_session
+    response = request(:session)
+    cache_session(JSON.parse(response.body))
+    raise "Error reloading session: #{response.status}" if response.status != 200
+    self
+	end
+
+  def cache_session(data)
+    @session = data
+    @resources = @session["resources"]
+    retrieve_channels
+  end
+
+  def retrieve_channels
+    response = request(:channels)
+    unless response.status == 200
+      raise "Error retrieving channels: (#{response.status}) #{response.body}"
+    end
+    cache_channels(JSON.parse(response.body))
+  end
+ 
+  def cache_channels(data)
+    @channels = {}
+    data.each do |name, properties|
+      @channels[name] = Channel.new(self, properties)
+      cache_channel_subscriptions(properties["subscriptions"])
+    end
+    @channels
+  end
+
+	def cache_channel_subscriptions(data)
+		data.each do |name, properties|
+			@subscriptions[name] = Subscription.new(self, properties)
+		end
+	end
+
   # Returns a channel object for the named channel
   # @param [String] name Name of channel returned
   # @return [Channel]
@@ -283,7 +328,7 @@ class Spire
 
 	def find_existing_channel(name)
 		@channel_error_counts[name] += 1
-		reload_session
+		retrieve_session
 		self[name]
 	end
 
@@ -306,7 +351,7 @@ class Spire
 
 	def find_existing_subscription(name, channels)
 		@subscription_error_counts[name] += 1
-		reload_session
+		retrieve_session
 		self.subscribe(name, *channels)
 	end
 
@@ -329,29 +374,6 @@ class Spire
     self
   end
 
-  
-  def key
-    @resources["account"]["key"]
-  end
-  
-  def mediaType(name)
-    @description["schema"]["1.0"][name]["mediaType"]
-  end
-  
-  define_request(:discover) do
-    {
-      :method => :get,
-      :url => @url,
-      :headers => {"Accept" => "application/json"}
-    }
-  end
-
-  def discover
-    response = request(:discover)
-    raise "Error during discovery: #{response.status}" if response.status != 200
-    @description = JSON.parse(response.body)
-    self
-  end
   
   # Object representing a Spire channel
   #
