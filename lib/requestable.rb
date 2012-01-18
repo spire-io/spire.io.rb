@@ -19,9 +19,12 @@ module Requestable
 
   module InstanceMethods
     def prepare_request(name, *args)
-      block = self.class.requests[name]
-      options = self.instance_exec(*args, &block)
-      Request.new(@client, options)
+      if block = self.class.requests[name]
+        options = self.instance_exec(*args, &block)
+        Request.new(@client, options)
+      else
+        raise ArgumentError, "No request has been defined for #{name.inspect}"
+      end
     end
 
     def request(name, *args)
