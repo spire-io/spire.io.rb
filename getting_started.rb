@@ -60,4 +60,6 @@ listen_thread.join
 @monkey.publish("Monkey Message 2")
 
 #Updating account information
-@spire.update("name" => "Spire", "company" => "spire.io")
+@spire = Spire.new "http://build.spire.io/"
+@spire.login email, "spire.io.rb"
+@spire.update(:name => "Spire")
