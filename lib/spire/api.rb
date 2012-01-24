@@ -2,7 +2,11 @@ require "excon"
 require "json"
 
 require "requestable"
+require "spire/api/resource"
 require "spire/api/session"
+require "spire/api/account"
+require "spire/api/channel"
+require "spire/api/subscription"
 
 class Spire
 
