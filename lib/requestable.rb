@@ -12,6 +12,16 @@ module Requestable
       @requests ||= {}
     end
 
+    def get_request(name)
+      if req = requests[name]
+        req
+      elsif superclass.respond_to?(:get_request)
+        superclass.get_request(name)
+      else
+        nil
+      end
+    end
+
     def define_request(name, &block)
       requests[name] = block
     end
@@ -19,7 +29,7 @@ module Requestable
 
   module InstanceMethods
     def prepare_request(name, *args)
-      if block = self.class.requests[name]
+      if block = self.class.get_request(name)
         options = self.instance_exec(*args, &block)
         Request.new(@client, options)
       else
