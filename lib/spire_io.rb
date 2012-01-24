@@ -355,6 +355,12 @@ class Spire
 		self.subscribe(name, *channels)
 	end
 
+	#Returns an array of subscription objects for all of this account's subscriptions
+	#@return [Array]
+	def subscriptions
+		@subscriptions.values
+	end
+
   # Returns a billing object than contains a list of all the plans available
   # @param [String] info optional object description
   # @return [Billing]
