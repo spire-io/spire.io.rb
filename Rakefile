@@ -5,17 +5,17 @@ CLEAN << FileList["doc/*"]
 CLEAN << ".yardoc"
 
 task :doc do
-	`yard`
+	sh "yard"
 end
 
 task :test do
-	sh("rspec #{Dir["test/*.rb"]}")
+	sh "rspec #{Dir["test/*.rb"]}"
 end
 
 task :package => :doc do
-	`gem build spire_io.gemspec`
+	sh "gem build spire_io.gemspec"
 end
 
 task :install => :package do
-	`gem install spire_io-*.gem`
+	sh "gem install spire_io-*.gem"
 end
