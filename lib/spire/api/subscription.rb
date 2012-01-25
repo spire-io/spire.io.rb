@@ -25,6 +25,14 @@ class Spire
         }
       end
 
+      def listeners
+        @listeners ||= []
+      end
+
+      def add_listener(&block)
+        listeners << block
+      end
+
       def retrieve_messages(options={})
         options[:last] ||= "0"
         options[:delay] ||= 0
@@ -36,6 +44,11 @@ class Spire
         end
         messages = API.deserialize(response.body)["messages"]
         @last = messages.last["timestamp"] unless messages.empty?
+        messages.each do |message|
+          listeners.each do |listener|
+            listener.call(message)
+          end
+        end
         messages
       end
 

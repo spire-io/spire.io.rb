@@ -9,7 +9,7 @@ task :doc do
 end
 
 task :test do
-	sh "rspec #{Dir["test/*.rb"]}"
+	sh "rspec #{FileList["test/*.rb"]}"
 end
 
 task :package => :doc do

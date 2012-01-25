@@ -37,6 +37,13 @@ channel1.publish("message #1")
 channel1.publish("message #2")
 
 subscription = session.create_subscription("sub", ["smurfy channel", "unsmurfy channel"])
+subscription = session.subscriptions["sub"]
+
+subscription.add_listener do |message|
+  Thread.new do
+    puts "\tsubscription listener worked: #{message["content"]}"
+  end
+end
 
 pp messages = subscription.poll
 
