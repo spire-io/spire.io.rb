@@ -80,6 +80,7 @@ class Spire
       {
         :method => :post,
         :url => @description["resources"]["accounts"]["url"],
+        :query => { :email => email },
         :body => ""
       }
     end

@@ -51,7 +51,7 @@ module Requestable
       @options = options
       @options[:headers] = {
         "User-Agent" => "Ruby spire.io client"
-      }.merge(@options[:headers])
+      }.merge(@options[:headers] || {})
     end
 
     def headers
