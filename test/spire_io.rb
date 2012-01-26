@@ -17,8 +17,7 @@ RSpec::Matchers.define :be_a_privileged_resource do
 end
 
 def create_spire
-	#Spire.new("http://build.spire.io")
-	Spire.new("http://localhost:1337/")
+  Spire.new("http://build.spire.io")
 end
 
 $email = "test+#{Time.now.to_i}@spire.io"
