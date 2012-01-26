@@ -13,7 +13,7 @@ class Spire
           :url => billing["url"],
           :body => info.to_json,
           :headers => {
-            "Accept" => mediaType("account"),"Content-Type" => mediaType("account"),
+            "Accept" => media_type, "Content-Type" => media_type,
             "Authorization" => "Capability #{billing["capability"]}"
           }
         }
@@ -49,7 +49,8 @@ class Spire
       def billing_subscription(info)
         response = request(:billing_subscription)
         raise "Error attempting to update account billing: (#{response.status}) #{response.body}" if response.status != 200
-        @resources["account"] = JSON.parse(response.body)
+        properties = API.deserialize(response.body)
+        #@resources["account"] = JSON.parse(response.body)
         self
       end
 

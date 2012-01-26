@@ -147,9 +147,14 @@ class Spire
     def billing(info=nil)
       response = request(:billing)
       raise "Error getting billing plans: #{response.status}" if response.status != 200
-      Billing.new(self,JSON.parse(response.body))
+      API::Billing.new(self, API.deserialize(response.body))
     end
     
+    class Billing < Resource
+      def resource_name
+        "billing"
+      end
+    end
 
   end
 

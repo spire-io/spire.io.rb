@@ -3,6 +3,7 @@ require "excon"
 gem "json"
 require "json"
 
+require "spire/api"
 require "requestable"
 
 class Spire
@@ -10,196 +11,15 @@ class Spire
 	#How many times we will try to create a channel or subscription after getting a 409
   RETRY_CREATION_LIMIT = 3
 
-  include Requestable
-
-  define_request(:discover) do
-    {
-      :method => :get,
-      :url => @url,
-      :headers => {"Accept" => "application/json"}
-    }
-  end
-
-  define_request(:start) do |key|
-    {
-      :method => :post,
-      :url => @description["resources"]["sessions"]["url"],
-      :body => {:key => key}.to_json,
-      :headers => {
-        "Accept" => mediaType("session"),
-        "Content-Type" => mediaType("account")
-      }
-    }
-  end
-
-  define_request(:login) do |email, password|
-    {
-      :method => :post,
-      :url => @description["resources"]["sessions"]["url"],
-      :body => { :email => email, :password => password }.to_json,
-      :headers => {
-        "Accept" => mediaType("session"),
-        "Content-Type" => mediaType("account")
-      }
-    }
-  end
-
-  define_request(:register) do |info|
-    {
-      :method => :post,
-      :url => @description["resources"]["accounts"]["url"],
-      :body => {
-        :email => info[:email],
-        :password => info[:password],
-        :password_confirmation => info[:password_confirmation]
-      }.to_json,
-      :headers => { 
-        "Accept" => mediaType("session"),
-        "Content-Type" => mediaType("account")
-      }
-    }
-  end
-
-  define_request(:session) do
-    {
-      :method => :get,
-      :url => @session["url"],
-      :headers => {
-        "Accept" => mediaType("session"),
-        "Authorization" => "Capability #{@session["capability"]}"
-      }
-    }
-  end
-
-  define_request(:password_reset) do |email|
-    {
-      :method => :post,
-      :url => @description["resources"]["accounts"]["url"],
-      :body => ""
-    }
-  end
-
-  define_request(:delete_account) do
-    {
-      :method => :delete,
-      :url => @resources["account"]["url"],
-      :headers => { 
-        "Accept" => mediaType("account"),"Content-Type" => mediaType("account"),
-        "Authorization" =>
-          "Capability #{@resources["account"]["capability"]}"
-      }
-    }
-  end
-  
-  define_request(:update_account) do |info|
-    {
-      :method => :put,
-      :url => @resources["account"]["url"],
-      :body => info.to_json,
-      :headers => {
-        "Accept" => mediaType("account"),"Content-Type" => mediaType("account"),
-        "Authorization" => "Capability #{@resources["account"]["capability"]}" 
-      }
-    }
-  end
-
-  define_request(:create_channel) do |name|
-    {
-      :method => :post,
-      :url => @resources["channels"]["url"],
-      :body => { :name => name }.to_json,
-      :headers => {
-        "Authorization" =>
-          "Capability #{@resources["channels"]["capability"]}",
-        "Accept" => mediaType("channel"),
-        "Content-Type" => mediaType("channel")
-      }
-    }
-  end
-
-  define_request(:channels) do
-    {
-      :method => :get,
-      :url => @resources["channels"]["url"],
-      :headers => {
-        "Authorization" =>
-          "Capability #{@resources["channels"]["capability"]}",
-        "Accept" => mediaType("channels"),
-      }
-    }
-  end
-
-  define_request(:subscribe) do |subscription_name, channels|
-    {
-      :method => :post,
-      :url => @resources["subscriptions"]["url"],
-      :body => {
-        :channels => channels.flatten.map { |name| self[name].url },
-        :name => subscription_name
-      }.to_json,
-      :headers => {
-        "Authorization" => "Capability #{@resources["subscriptions"]["capability"]}",
-        "Accept" => mediaType("subscription"),
-        "Content-Type" => mediaType("subscription")
-      }
-    }
-  end
-
-  define_request(:billing) do
-    {
-      :method => :get,
-      :url => @description["resources"]["billing"]["url"],
-      :headers => {
-        "Accept" => "application/json"
-      }
-    }
-  end
-
-  define_request(:billing_subscription) do |info|
-    {
-      :method => :put,
-      :url => @resources["account"]["billing"]["url"],
-      :body => info.to_json,
-      :headers => {
-        "Accept" => mediaType("account"),"Content-Type" => mediaType("account"),
-        "Authorization" => "Capability #{@resources["account"]["billing"]["capability"]}"
-      }
-    }
-  end
-
-  define_request(:billing_invoices) do
-    {
-      :method => :get,
-      :url => @resources["account"]["billing"]["invoices"]["url"],
-      :headers => {
-        "Accept" => "application/json",
-        "Authorization" => "Capability #{@resources["account"]["billing"]["invoices"]["capability"]}"
-      }
-    }
-  end
-
-  define_request(:billing_invoices_upcoming) do
-    {
-      :method => :get,
-      :url => @resources["account"]["billing"]["invoices"]["upcoming"]["url"],
-      :headers => {
-        "Accept" => "application/json",
-        "Authorization" => "Capability #{@resources["account"]["billing"]["invoices"]["upcoming"]["capability"]}"
-      }
-    }
-  end
-
-  attr_accessor :client, :channels, :session, :resources
+  attr_accessor :api, :session, :resources
   
   def initialize(url="https://api.spire.io")
-    @client = Excon
+    @api = Spire::API.new(url)
     @url = url
     @channels = {}
     @subscriptions = {}
     @channel_error_counts = {}
     @subscription_error_counts = {}
-    # @headers = { "User-Agent" => "Ruby spire.io client" }
-    # @timeout = 1
     discover
   end
 
@@ -212,25 +32,18 @@ class Spire
   end
   
   def discover
-    response = request(:discover)
-    raise "Error during discovery: #{response.status}" if response.status != 200
-    @description = JSON.parse(response.body)
-    #pp @description["schema"]["1.0"]
+    @api.discover
     self
   end
  
   def start(key)
-    response = request(:start, key)
-    raise "Error starting a key-based session" if response.status != 201
-    cache_session(JSON.parse(response.body))
+    @session = @api.create_session(key)
     self
   end
 
   # Authenticates a session using a login and password
   def login(login, password)
-    response = request(:login, login, password)
-    raise "Error attemping to login:  (#{response.status}) #{response.body}" if response.status != 201
-    cache_session(JSON.parse(response.body))
+    @session = @api.login(login, password)
     self
   end
 
@@ -239,10 +52,12 @@ class Spire
   # @param [String] :password Password of new account
   # @param [String] :password_confirmation Password confirmation (optional)
   def register(info)
-    response = request(:register, info)
-    raise "Error attempting to register: (#{response.status}) #{response.body}" if response.status != 201
-    cache_session(JSON.parse(response.body))
+    @session = @api.create_account(info)
     self
+  end
+
+  def key
+    @session.resources["account"]["key"]
   end
 
   def password_reset_request(email)
@@ -256,15 +71,16 @@ class Spire
 
   # Deletes the currently authenticated account
   def delete_account
-    request(:delete_account)
+    @session.account.delete
   end
 
   # Updates the current account with the new account information
   # See Spire docs for available settings
   def update(info)
-    response = request(:update_account, info)
-    raise "Error attempting to update account: (#{response.status}) #{response.body}" if response.status != 200
-    @resources["account"] = JSON.parse(response.body)
+    @session.account.update(info)
+    #response = request(:update_account, info)
+    #raise "Error attempting to update account: (#{response.status}) #{response.body}" if response.status != 200
+    #@resources["account"] = JSON.parse(response.body)
     self
   end
 
@@ -308,158 +124,121 @@ class Spire
   # @param [String] name Name of channel returned
   # @return [Channel]
   def [](name)
-    return @channels[name] if @channels[name]
-    create_channel(name)
+    Channel.new(self, channels[name] || find_or_create_channel(name))
+  end
+
+  def channels
+    @session.channels
   end
 
   # Creates a channel on spire.  Returns a Channel object.  Note that this will
   # fail with a 409 if a channel with the same name exists.
-  def create_channel(name)
+  def find_or_create_channel(name)
   	@channel_error_counts[name] ||= 0
-    response = request(:create_channel, name)
-    return find_existing_channel(name) if response.status == 409 and @channel_error_counts[name] < RETRY_CREATION_LIMIT
-    if !(response.status == 201 || response.status == 200)
-      raise "Error creating or accessing a channel: (#{response.status}) #{response.body}" 
-    end
-    new_channel = Channel.new(self,JSON.parse(response.body))
-    @channels[name] = new_channel
-    new_channel
-  end
 
-	def find_existing_channel(name)
-		@channel_error_counts[name] += 1
-		retrieve_session
-		self[name]
-	end
+    begin
+      return @session.create_channel(name)
+    # TODO custom error class for Conflict, which we can
+    # then match here, instead of testing for error message
+    rescue => error
+      if error.message =~ /409/
+
+        # Dear retry, I love you.  Affectionately, Matthew.
+        if channel = @session.channels![name]
+          return channel
+        else
+          @channel_error_counts[name] += 1
+          retry unless @channel_error_counts >= RETRY_CREATION_LIMIT
+        end
+
+      else
+        raise error
+      end
+    end
+  end
 
   # Returns a subscription object for the given channels
   # @param [String] subscription_name Name for the subscription
   # @param [String] channels One or more channel names for the subscription to listen on
   # @return [Subscription]
-  def subscribe(subscription_name, *channels)
-  	@subscription_error_counts[subscription_name] ||= 0
-  	return @subscriptions[subscription_name] if subscription_name and @subscriptions[subscription_name]
-    response = request(:subscribe, subscription_name, channels)
-    return find_existing_subscription(subscription_name, channels) if response.status == 409 and
-    	@subscription_error_counts[subscription_name] < RETRY_CREATION_LIMIT
-    raise "Error creating a subscription: (#{response.status}) #{response.body}" if !(response.status == 201 || response.status == 200)
-    s = Subscription.new(self,JSON.parse(response.body))
-    @subscriptions[s.name] = s
-    s
+  def subscribe(name, *channels)
+    channels.each { |channel| self.find_or_create_channel(channel) }
+    Subscription.new(
+      @session.subscriptions[name] || find_or_create_subscription(name, *channels)
+    )
   end
-  alias :subscription :subscribe #For compatibility with other clients
 
-	def find_existing_subscription(name, channels)
-		@subscription_error_counts[name] += 1
-		retrieve_session
-		self.subscribe(name, *channels)
-	end
+  def find_or_create_subscription(subscription_name, *channels)
+  	@subscription_error_counts[subscription_name] ||= 0
+    begin
+      return @session.create_subscription(subscription_name, channels)
+    rescue => error
+      if error.message =~ /409/
+
+        if subscription = @session.subscriptions![subscription_name]
+          return subscription
+        else
+          retry unless @subscription_error_counts >= RETRY_CREATION_LIMIT
+        end
+
+      else
+        raise error
+      end
+    end
+  end
+
+  alias :subscription :subscribe #For compatibility with other clients
 
 	#Returns an array of subscription objects for all of this account's subscriptions
 	#@return [Array]
 	def subscriptions
-		@subscriptions.values
+		@session.subscriptions.values
 	end
 
   # Returns a billing object than contains a list of all the plans available
   # @param [String] info optional object description
   # @return [Billing]
-  def billing(info=nil)
-    response = request(:billing)
-    raise "Error getting billing plans: #{response.status}" if response.status != 200
-    Billing.new(self,JSON.parse(response.body))
+  def billing
+    @api.billing
   end
   
   # Updates and subscribe the account to a billing plan
   # @param [Object] info data containing billing description
   # @return [Account]
   def billing_subscription(info)
-    response = request(:billing_subscription)
-    raise "Error attempting to update account billing: (#{response.status}) #{response.body}" if response.status != 200
-    @resources["account"] = JSON.parse(response.body)
-    self
+    @session.account.billing_subscription(info)
+    #response = request(:billing_subscription)
+    #raise "Error attempting to update account billing: (#{response.status}) #{response.body}" if response.status != 200
+    #@resources["account"] = JSON.parse(response.body)
+    #self
   end
 
-  
+
+  require "delegate"
   # Object representing a Spire channel
   #
   # You can get a channel object by calling [] on a Spire object
   # * spire = Spire.new
   # * spire.start("your api key")
   # * channel = spire["channel name"]
-  class Channel
-    include Requestable
-
-    define_request(:publish) do |body|
-      {
-        :method => :post,
-        :url => url,
-        :body => body,
-        :headers => {
-          "Authorization" => "Capability #{@properties["capability"]}",
-          "Accept" => mediaType("message"),
-          "Content-Type" => mediaType("message")
-        }
-      }
-    end
-
-    define_request(:delete) do
-      {
-        :method => :delete,
-        :url => url,
-        :headers => {
-          "Authorization" => "Capability #{capability}"
-        }
-      }
-    end
-
-    def initialize(spire, properties)
+  class Channel < SimpleDelegator
+    def initialize(spire, channel)
+      super(channel)
       @spire = spire
-      @client = spire.client
-      @properties = properties
     end
-    
-    def url
-      @properties["url"]
-    end
-    
-    def key
-      @properties["key"]
-    end
-
-    def name
-      @properties["name"]
-    end
-
-    def capability
-      @properties["capability"]
-    end
-
-    def delete
-      response = request(:delete)
-      raise "Error deleting a channel" if response.status != 204
-    end
-
     # Obtain a subscription for the channel
     # @param [String] subscription_name Name of the subscription
     # @return [Subscription]
     def subscribe(subscription_name = nil)
-      @spire.subscribe(subscription_name, self.name)
+      @spire.subscribe(subscription_name, properties["name"])
     end
 
-    #Publishes a message to the channel
-    # @param [String] message Message to be posted
-    # @return [Hash] response from the server
-    def publish(message)
-      response = request(:publish, {:content => message}.to_json)
-      raise "Error publishing a message: (#{response.status}) #{response.body}" if response.status != 201
-      JSON.parse(response.body)
+    # this is required because Delegator's method_missing relies
+    # on the object having a method defined, but in this case
+    # the API::Channel is also using method_missing
+    def name
+      __getobj__.name
     end
-
-    def mediaType(name)
-      @spire.mediaType(name)
-    end
-  
   end
   
   # The subscription class represents a read connection to a Spire channel
@@ -474,214 +253,94 @@ class Spire
   # *OR*
   # * channel = spire["channel name"]
   # * subscription = channel.subscribe("subscription name")
-  class Subscription
-    include Requestable
+  class Subscription < SimpleDelegator
 
-    define_request(:listen) do |options|
-      timeout = options[:timeout]||30
-      delay = options[:delay]||0
-      order_by = options[:order_by]||'desc'
-      {
-        :method => :get,
-        :url => @properties["url"],
-        :query => {
-          "timeout" => timeout,
-          "last-message" => @last||'0',
-          "order-by" => order_by,
-          "delay" => delay
-        },
-        :headers => {
-          "Authorization" => "Capability #{@properties["capability"]}",
-          "Accept" => mediaType("events")
-        }
-      }
-    end
-
-    define_request(:delete) do
-      {
-        :method => :delete,
-        :url => url,
-        :headers => {
-          "Authorization" => "Capability #{capability}"
-        }
-      }
-    end
-
-    attr_accessor :messages, :last
-    
-    def initialize(spire,properties)
-      @spire = spire
-      @client = spire.client
-      @properties = properties
-      @messages = []
-      @listening_thread = nil
-      @listeners = {}
-      @listening_threads = {}
-      @listener_mutex = Mutex.new
-      @listener_thread_mutex = Mutex.new
-    end
-
-    def key
-      @properties["key"]
-    end
-
+    # this is required because Delegator's method_missing relies
+    # on the object having a method defined, but in this case
+    # the API::Subscription is also using method_missing
     def name
-      @properties["name"]
+      __getobj__.name
     end
 
-    def capability
-      @properties["capability"]
+    # misnamed method, here for backompat.  Should be something like #get_messages,
+    # because it only makes one request.
+    def listen(options={})
+      long_poll(options).map {|message| message["content"] }
     end
 
-    def url
-      @properties["url"]
+    # wraps the underlying Subscription#add_listener to
+    # provided named listeners, threading, and a
+    # stop_listening method.
+    def add_listener(name=nil, &block)
+      raise ArgumentError unless block_given?
+      name ||= generate_listener_name
+      listener = wrap_listener(&block)
+      listeners[name] = listener
+      __getobj__.add_listener(&listener)
     end
 
-    def delete
-      response = request(:delete)
-      raise "Error deleting a subscription" if response.status != 204
+    def remove_listener(listener)
+      if listener.is_a? String
+        listener = listeners[listener]
+      end
+      __getobj__.listeners.delete(listener)
     end
 
-    # Adds a listener (ruby block) to be called each time a message is received on the channel
-    #
-    # You must call #start_listening to actually start listening for messages
-    # @note Listeners are executed in their own thread, so practice proper thread safety!
-    # @param [String] name Name for the listener.  One will be generated if not provided
-    # @return [String] Name of the listener
-    def add_listener(listener_name = nil, &block)
-      @listener_mutex.synchronize do
-        while !listener_name
-          new_name = "Listener-#{rand(9999999)}"
-          listener_name = new_name unless @listeners.has_key?(new_name)
+    def wrap_listener(&block)
+      lambda do |message|
+        Thread.new do
+          # Messages received after a call to stop_listening
+          # will not be processed.
+          yield message["content"] if @listening
         end
-        @listeners[listener_name] = block
+      end
+    end
+
+    def listeners
+      @listeners ||= {}
+    end
+
+    def generate_listener_name
+      listener_name = nil
+      while !listener_name
+        new_name = "Listener-#{rand(9999999)}"
+        listener_name = new_name unless listeners.has_key?(new_name)
       end
       listener_name
     end
 
-    # Removes a listener by name
-    #
-    # @param [String] name Name of the listener to remove
-    # @param [Boolean] kill_current_threads Kill any currently running threads of the removed listener
-    # @return [Proc] Listener that was removed
-    def remove_listener(name, kill_current_threads = true)
-      l = nil #scope
-      @listener_mutex.synchronize do
-        l = @listeners.delete(name)
-      end
-      kill_listening_threads(name) if kill_current_threads
-      l
-    end
-
-    # Removes all current listeners
-    # @param [Boolean] kill_current_threads Kill any currently running threads of the removed listener.
-    def remove_all_listeners(kill_current_threads = true)
-      @listener_mutex.synchronize do
-        @listeners = {}
-      end
-      kill_listening_threads if kill_current_threads
-      true
-    end
-
-    # Starts the listening thread.  This must be called to enable any listeners you have added.
-    #
-    # You can continue to add more listeners after starting the listening process
-    # @note Will raise an exception if listening has already been started
-    def start_listening
-      raise "Already listening" if @listening_thread
-      @listening_thread = Thread.new {
-        while true
-          new_messages = self.listen
-          next unless new_messages.size > 0
-          current_listeners.each do |name, listener|
-            new_messages.each do |m|
-              thread = Thread.new {
-                begin
-                  listener.call(m)
-                rescue
-                  puts "Error while running listener #{name}: #{$!.inspect}"
-                  puts $!.backtrace.join("\n")
-                end
-              }
-              @listener_thread_mutex.synchronize do
-                @listening_threads[name] ||= []
-                @listening_threads[name] << thread
-              end
-            end
-          end
-        end
-      }
-    end
-
-    # Stops the listening process
-    # @param [Boolean] kill_current_threads Kills any currently running listener threads
-    def stop_listening(kill_current_threads = true)
-      @listener_thread_mutex.synchronize do
-        @listening_thread.kill if @listening_thread
-        @listening_thread = nil
-      end
-      kill_listening_threads if kill_current_threads
-    end
-
-    # Kills any currently executing listeners
-    # @param [String] name_to_kill Kill only currently executing listeners that have this name
-    def kill_listening_threads(name_to_kill = nil)
-      @listener_thread_mutex.synchronize do
-        @listening_threads.each do |name, threads|
-          next if name_to_kill and name_to_kill != name
-          threads.each {|t| t.kill }
-          @listening_threads[name] = []
-        end
+    def start_listening(options={})
+      @listening = true
+      Thread.new do
+        long_poll(options) while @listening
       end
     end
 
-    # Listen (and block) for any new incoming messages.
-    # @params [Hash] A hash of containing:
-    #   [Integer] timeout Max time to wait for a new message before returning
-    #   [String] order_by Either "desc" or "asc"
-    # @return [Array] An array of messages received
-    def listen(options={})
-      response = request(:listen, options)
-      raise "Error listening for messages: (#{response.status}) #{response.body}" if response.status != 200
-      new_messages = JSON.parse(response.body)["messages"]
-      @listener_mutex.synchronize do
-        @last = new_messages.last["timestamp"] unless new_messages.empty?
-        new_messages.map! { |m| m["content"] }
-        @messages += new_messages
-      end
-      new_messages
+    def stop_listening
+      @listening = false
     end
 
-    def mediaType(name)
-      @spire.mediaType(name)
-    end
-
-    private
-    def current_listeners
-      @listener_mutex.synchronize do #To prevent synch problems adding a new listener while looping
-        @listeners.dup
-      end
-    end
   end
 
-  # Object representing a Spire billing
-  #
-  # You can get all the billing plans by calling the method billing in Spire object
-  # * spire = Spire.new
-  # * billing = spire.billing()
-  # * plans = billing.plans
-  class Billing
-    def initialize(spire,properties)
-      @spire = spire
-      @properties = properties
-    end
+
+  ## Object representing a Spire billing
+  ##
+  ## You can get all the billing plans by calling the method billing in Spire object
+  ## * spire = Spire.new
+  ## * billing = spire.billing()
+  ## * plans = billing.plans
+  #class Billing
+    #def initialize(spire,properties)
+      #@spire = spire
+      #@properties = properties
+    #end
     
-    def url
-      @properties["url"]
-    end
+    #def url
+      #@properties["url"]
+    #end
     
-    def plans
-      @properties["plans"]
-    end
-  end
+    #def plans
+      #@properties["plans"]
+    #end
+  #end
 end

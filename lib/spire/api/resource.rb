@@ -49,18 +49,20 @@ class Spire
         @properties = data
       end
 
+      def key
+        properties["key"]
+      end
+
       def method_missing(name, *args)
         if description = schema["properties"][name.to_s]
-          if description["url"]
-            # if the schema for this property has a url,
-            # then we don't want magic behavior
-            super
-          else
-            properties[name.to_s]
-          end
+          properties[name.to_s]
         else
           super
         end
+      end
+
+      def [](name)
+        properties[name]
       end
 
       def inspect

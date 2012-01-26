@@ -80,18 +80,21 @@ class Spire
 
       def create_channel(name)
         response = request(:create_channel, name)
+        unless response.status == 201
+          raise "Error creating Channel: (#{response.status}) #{response.body}"
+        end
         properties = API.deserialize(response.body)
-        API::Channel.new(@spire, properties)
+        channels[name] = API::Channel.new(@spire, properties)
       end
 
       def create_subscription(subscription_name, channel_names)
-        channel_urls = channel_names.flatten.map { |name| self.channels[name].url }
+        channel_urls = channel_names.flatten.map { |name| self.channels[name].url rescue nil }.compact
         response = request(:create_subscription, subscription_name, channel_urls)
         unless response.status == 201
           raise "Error creating Subscription: (#{response.status}) #{response.body}"
         end
         data = API.deserialize(response.body)
-        subscriptions[subscription_name] = API::Subscription.new(@spire, data)
+        subscriptions[data["name"]] = API::Subscription.new(@spire, data)
       end
 
       def channels!

@@ -31,6 +31,7 @@ class Spire
 
       def add_listener(&block)
         listeners << block
+        block
       end
 
       def retrieve_messages(options={})

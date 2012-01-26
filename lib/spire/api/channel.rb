@@ -10,7 +10,7 @@ class Spire
         {
           :method => :post,
           :url => @url,
-          :body => {:content => string}.to_json,
+          :body => string,
           :headers => {
             "Authorization" => "Capability #{@capability}",
             "Accept" => @spire.mediaType("message"),
@@ -19,8 +19,9 @@ class Spire
         }
       end
 
-      def publish(string)
-        response = request(:publish, string)
+      def publish(content)
+        body = {:content => content}.to_json
+        response = request(:publish, body)
         unless response.status == 201
           raise "Error publishing to #{self.class.name}: (#{response.status}) #{response.body}"
         end

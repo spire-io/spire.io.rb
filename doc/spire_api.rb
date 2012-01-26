@@ -11,6 +11,8 @@ puts; puts;
 api = Spire::API.new "http://localhost:1337/"
 api.discover
 
+pp api.billing.plans
+
 session = api.create_account(
   :email => "getting_started@mailinator.com",
   :password => "spire.io.rb",
