@@ -5,7 +5,6 @@ gem "json"
 require "json"
 
 require "spire/api"
-require "requestable"
 
 class Spire
 
