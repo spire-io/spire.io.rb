@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
 		EOF
   s.authors     = $authors
   s.email       = $emails
-  s.files       = ["lib/requestable.rb", "lib/spire_io.rb"]
+  s.files       = Dir["lib/spire*"]
   s.homepage    =
     'https://github.com/spire-io/spire.io.rb'
 	s.add_runtime_dependency "json", ["~> 1.6"]
