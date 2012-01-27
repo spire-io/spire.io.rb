@@ -74,7 +74,7 @@ class Spire
         unless response.status == 200
           raise "Error retrieving #{self.class.name}: (#{response.status}) #{response.body}"
         end
-        @properties = API.deserialize(response.body)
+        @properties = response.data
         self
       end
 
@@ -83,7 +83,8 @@ class Spire
         unless response.status == 200
           raise "Error updating #{self.class.name}: (#{response.status}) #{response.body}"
         end
-        @properties = API.deserialize(response.body)
+        @properties = response.data
+        self
       end
 
       def delete

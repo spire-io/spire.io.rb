@@ -83,7 +83,7 @@ class Spire
         unless response.status == 201
           raise "Error creating Channel: (#{response.status}) #{response.body}"
         end
-        properties = API.deserialize(response.body)
+        properties = response.data
         channels[name] = API::Channel.new(@spire, properties)
       end
 
@@ -93,7 +93,7 @@ class Spire
         unless response.status == 201
           raise "Error creating Subscription: (#{response.status}) #{response.body}"
         end
-        data = API.deserialize(response.body)
+        data = response.data
         subscriptions[data["name"]] = API::Subscription.new(@spire, data)
       end
 
@@ -102,7 +102,7 @@ class Spire
         unless response.status == 200
           raise "Error retrieving Channels: (#{response.status}) #{response.body}"
         end
-        channels_data = API.deserialize(response.body)
+        channels_data = response.data
         @channels = {}
         channels_data.each do |name, properties|
           @channels[name] = API::Channel.new(@spire, properties)

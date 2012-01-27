@@ -1,7 +1,7 @@
 require "excon"
 require "json"
 
-require "requestable"
+require "spire/api/requestable"
 require "spire/api/resource"
 require "spire/api/session"
 require "spire/api/account"
@@ -99,7 +99,7 @@ class Spire
     def discover
       response = request(:discover)
       raise "Error during discovery: #{response.status}" if response.status != 200
-      @description = API.deserialize(response.body)
+      @description = response.data
       @schema = @description["schema"][@version]
     end
 
@@ -110,7 +110,7 @@ class Spire
     def create_session(key)
       response = request(:create_session, key)
       raise "Error starting a key-based session" if response.status != 201
-      session_data = API.deserialize(response.body)
+      session_data = response.data
       API::Session.new(self, session_data)
     end
 
@@ -118,7 +118,7 @@ class Spire
     def login(login, password)
       response = request(:login, login, password)
       raise "Error attemping to login:  (#{response.status}) #{response.body}" if response.status != 201
-      session_data = API.deserialize(response.body)
+      session_data = response.data
       API::Session.new(self, session_data)
     end
 
@@ -130,7 +130,7 @@ class Spire
       if response.status != 201
         raise "Error attempting to register: (#{response.status}) #{response.body}"
       end
-      session_data = API.deserialize(response.body)
+      session_data = response.data
       API::Session.new(self, session_data)
     end
 
@@ -148,7 +148,7 @@ class Spire
     def billing(info=nil)
       response = request(:billing)
       raise "Error getting billing plans: #{response.status}" if response.status != 200
-      API::Billing.new(self, API.deserialize(response.body))
+      API::Billing.new(self, response.data)
     end
     
     class Billing < Resource

@@ -49,7 +49,7 @@ class Spire
       def billing_subscription(info)
         response = request(:billing_subscription)
         raise "Error attempting to update account billing: (#{response.status}) #{response.body}" if response.status != 200
-        properties = API.deserialize(response.body)
+        properties = response.data
         #@resources["account"] = JSON.parse(response.body)
         self
       end

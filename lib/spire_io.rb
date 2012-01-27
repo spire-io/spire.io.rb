@@ -1,3 +1,4 @@
+require "delegate"
 gem "excon"
 require "excon"
 gem "json"
@@ -214,7 +215,6 @@ class Spire
   end
 
 
-  require "delegate"
   # Object representing a Spire channel
   #
   # You can get a channel object by calling [] on a Spire object

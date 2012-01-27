@@ -43,7 +43,7 @@ class Spire
         unless response.status == 200
           raise "Error retrieving messages from #{self.class.name}: (#{response.status}) #{response.body}"
         end
-        messages = API.deserialize(response.body)["messages"]
+        messages = response.data["messages"]
         @last = messages.last["timestamp"] unless messages.empty?
         messages.each do |message|
           listeners.each do |listener|
@@ -57,6 +57,7 @@ class Spire
         # timeout option of 0 means no long poll,
         # so we force it here.
         options[:timeout] = 0
+        options[:last] = @last
         retrieve_messages(options)
       end
 

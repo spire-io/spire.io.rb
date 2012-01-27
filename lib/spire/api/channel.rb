@@ -25,7 +25,7 @@ class Spire
         unless response.status == 201
           raise "Error publishing to #{self.class.name}: (#{response.status}) #{response.body}"
         end
-        message = API.deserialize(response.body)
+        message = response.data
       end
 
     end
