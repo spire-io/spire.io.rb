@@ -18,9 +18,22 @@ class Spire
 
       define_request(:channels) do
         collection = @resources["channels"]
-        {
+        request = {
           :method => :get,
           :url => collection["url"],
+          :headers => {
+            "Authorization" => "Capability #{collection["capability"]}",
+            "Accept" => @spire.mediaType("channels"),
+          }
+        }
+      end
+
+      define_request(:channel_by_name) do |name|
+        collection = @resources["channels"]
+        request = {
+          :method => :get,
+          :url => collection["url"],
+          :query => {:name => name},
           :headers => {
             "Authorization" => "Capability #{collection["capability"]}",
             "Accept" => @spire.mediaType("channels"),
