@@ -16,6 +16,10 @@ You can also clone the repo and manage your load path in the old fashioned way. 
 
     irb -I /path/to/spire_io/lib
 
+Or clone, build, and install the gem:
+
+    rake install
+
 ## Basic usage
 
 The `Spire` class provides a simplified spire.io client with a high level interface.  Users of this class do not have to pay attention to details of the REST API.
