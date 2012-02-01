@@ -2,7 +2,7 @@ require "pp"
 require "rubygems"
 require "spire_io"
 
-service_url = "http://build.spire.io/"
+service_url = ARGV[0] || "http://build.spire.io/"
 
 timestamp = (Time.now.to_f * 1000).to_i
 email = "getting_started_#{timestamp}@mailinator.com"
@@ -23,7 +23,7 @@ email = "getting_started_#{timestamp}@mailinator.com"
 
 #Get session using account key
 
-account_key = @spire.session.resources["account"]["key"]
+account_key = @spire.key
 @spire = Spire.new service_url
 @spire.start(account_key)
 
