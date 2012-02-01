@@ -1,27 +1,49 @@
-# Ruby `spire.io` Client
+# Ruby spire.io client
 
-This is a Ruby client for using the spire.io service. Here's an example using the message service.
+This is a Ruby client for using the spire.io service.
+
+To install the latest release from rubygems.org:
+
+    gem install spire_io --pre
+
+If you're managing dependencies with Bundler, you can refer to this repo in your Gemfile, optionally specifying a branch or tag:
+
+    gem "spire_io",
+      :git => "git://github.com/spire-io/spire.io.rb.git",
+      :branch => "master"
+
+You can also clone the repo and manage your load path in the old fashioned way. E.g.:
+
+    irb -I /path/to/spire_io/lib
+
+## Basic usage
+
+The `Spire` class provides a simplified spire.io client with a high level interface.  Users of this class do not have to pay attention to details of the REST API.
+Here's an example using the message service.  It assumes you have an account key, which you can get by registering at [www.spire.io](http://www.spire.io/register.html)
+
+    require "spire_io"
 
     spire = Spire.new
     spire.start(key) # key is your account key
-    spire["foo"].publish("Hello World!")
+    channel = spire["arbitrary channel name"]
+    channel.publish("Hello World!")
     
 Let's create a second session and get our messages.
 
     spire2 = Spire.new
     spire2.start(key)
-    subscription = spire2.subscribe("subscription_name", "channel_name")
+    subscription = spire2.subscribe("my subscription", "arbitrary channel name")
     puts subscription.listen.first # => "Hello World!"
     
 You can also assign listener blocks to a subscription which will be called with each message received:
 
     spire3 = Spire.new
     spire3.start(key)
-    subscription = spire3.subscribe("subscription_name", "bar")
+    subscription = spire3.subscribe("another subscription", "arbitrary channel name")
     subscription.add_listener {|m| puts "Got a message: #{m}"}
     subscription.start_listening
     
-The subscription object will continue to monitor the channel until you call #stop_listening on it.
+The subscription object will continue to monitor the channel until you call `#stop_listening` on it.
 
 You can add as many listeners as you want.  They can be removed by name:
 
@@ -33,4 +55,41 @@ You can also assign your own name when you add the listener as well:
     subscription.add_listener("Listener1") {|m| puts "Got a message: #{m}"}
     subscription.remove_listener("Listener1")
     
-*Note* Listener blocks will be executed in a separate thread, so please be careful when accessing shared resources.
+**Note:** Listener blocks are executed in separate threads, so please be careful when accessing shared resources.
+
+## Low level interface
+
+The `Spire::API` class provides a low level spire.io client that allows you to work directly with the REST API.  The higher level `Spire` class is a wrapper around this foundation.  Where `Spire` hides the underlying HTTP traffic from the developer, sometimes making multiple requests within a single method call, `Spire::API` typically makes one request per method and expects the developer to deal with the consequences.  It also (optionally) exposes the actual HTTP requests used to interact with spire.io.
+
+Usage:
+
+    require "spire/api"
+
+    api = Spire::API.new
+    api.discover
+    session = api.create_session(account_key)
+    # session.channels is a memoizing method.
+    # If the session has already retrieved the channels
+    # collection, the cached version is returned.
+    unless channel = session.channels["foo"]
+      begin
+        channel = session.create_channel("foo")
+      # if the channel named "foo" already exists,
+      # Spire::API raises an error.
+      rescue
+        # session.channels! always requests the channels
+        # collection, ovewriting the cached version. 
+        channel = session.channels!["foo"]
+      end
+    end
+
+    subscription = session.create_subscription("sub.name", ["foo"])
+    channel.publish("message content")
+    messages = subscription.retrieve_messages
+    last_timestamp = messages.last["timestamp"]
+
+    channel.publish("another message")
+    messages = subscription.retrieve_messages(:last => last_timestamp)
+
+
+
