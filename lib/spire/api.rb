@@ -1,3 +1,4 @@
+require "rubygems"
 gem "excon"
 require "excon"
 gem "json"
