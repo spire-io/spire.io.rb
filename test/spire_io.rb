@@ -1,6 +1,5 @@
 require 'rubygems'
 require 'rspec'
-$: << "src/shark/client/ruby"
 require 'spire_io'
 
 RSpec::Matchers.define :be_a_resource do
