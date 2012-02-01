@@ -1,4 +1,6 @@
+gem "excon"
 require "excon"
+gem "json"
 require "json"
 
 require "spire/api/requestable"
