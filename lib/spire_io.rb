@@ -1,14 +1,11 @@
 require "delegate"
-gem "excon"
-require "excon"
-gem "json"
-require "json"
 
 require "spire/api"
 
 class Spire
 
-	#How many times we will try to create a channel or subscription after getting a 409
+  # How many times we will try to fetch a channel or subscription after
+  # getting a 409 Conflict.
   RETRY_CREATION_LIMIT = 3
 
   attr_accessor :api, :session, :resources
@@ -16,19 +13,13 @@ class Spire
   def initialize(url="https://api.spire.io")
     @api = Spire::API.new(url)
     @url = url
-    @channels = {}
-    @subscriptions = {}
     @channel_error_counts = {}
     @subscription_error_counts = {}
     discover
   end
 
   def key
-    @resources["account"]["key"]
-  end
-  
-  def mediaType(name)
-    @description["schema"]["1.0"][name]["mediaType"]
+    @session.resources["account"]["key"]
   end
   
   def discover
@@ -56,16 +47,8 @@ class Spire
     self
   end
 
-  def key
-    @session.resources["account"]["key"]
-  end
-
   def password_reset_request(email)
-    response = request(:password_reset)
-    unless response.status == 202
-      raise "Error requesting password reset: (#{response.status}) #{response.body}"
-    end
-    response
+    @api.password_reset_request(email)
   end
 
 
@@ -78,47 +61,8 @@ class Spire
   # See Spire docs for available settings
   def update(info)
     @session.account.update(info)
-    #response = request(:update_account, info)
-    #raise "Error attempting to update account: (#{response.status}) #{response.body}" if response.status != 200
-    #@resources["account"] = JSON.parse(response.body)
     self
   end
-
-	def retrieve_session
-    response = request(:session)
-    cache_session(JSON.parse(response.body))
-    raise "Error reloading session: #{response.status}" if response.status != 200
-    self
-	end
-
-  def cache_session(data)
-    @session = data
-    @resources = @session["resources"]
-    retrieve_channels
-  end
-
-  def retrieve_channels
-    response = request(:channels)
-    unless response.status == 200
-      raise "Error retrieving channels: (#{response.status}) #{response.body}"
-    end
-    cache_channels(JSON.parse(response.body))
-  end
- 
-  def cache_channels(data)
-    @channels = {}
-    data.each do |name, properties|
-      @channels[name] = Channel.new(self, properties)
-      cache_channel_subscriptions(properties["subscriptions"])
-    end
-    @channels
-  end
-
-	def cache_channel_subscriptions(data)
-		data.each do |name, properties|
-			@subscriptions[name] = Subscription.new(self, properties)
-		end
-	end
 
   # Returns a channel object for the named channel
   # @param [String] name Name of channel returned
@@ -129,6 +73,10 @@ class Spire
 
   def channels
     @session.channels
+  end
+
+  def channels!
+    @session.channels!
   end
 
   # Creates a channel on spire.  Returns a Channel object.  Note that this will
@@ -207,10 +155,7 @@ class Spire
   # @return [Account]
   def billing_subscription(info)
     @session.account.billing_subscription(info)
-    #response = request(:billing_subscription)
-    #raise "Error attempting to update account billing: (#{response.status}) #{response.body}" if response.status != 200
-    #@resources["account"] = JSON.parse(response.body)
-    #self
+    self
   end
 
 
@@ -321,25 +266,4 @@ class Spire
 
   end
 
-
-  ## Object representing a Spire billing
-  ##
-  ## You can get all the billing plans by calling the method billing in Spire object
-  ## * spire = Spire.new
-  ## * billing = spire.billing()
-  ## * plans = billing.plans
-  #class Billing
-    #def initialize(spire,properties)
-      #@spire = spire
-      #@properties = properties
-    #end
-    
-    #def url
-      #@properties["url"]
-    #end
-    
-    #def plans
-      #@properties["plans"]
-    #end
-  #end
 end
