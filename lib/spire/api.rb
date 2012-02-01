@@ -1,7 +1,7 @@
 require "rubygems"
-gem "excon"
+require "bundler/setup"
+
 require "excon"
-gem "json"
 require "json"
 
 require "spire/api/requestable"

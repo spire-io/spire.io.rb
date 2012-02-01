@@ -17,6 +17,7 @@ task :test do
 end
 
 task :gem do
+  sh "bundle install"
 	sh "gem build spire_io.gemspec"
 end
 
