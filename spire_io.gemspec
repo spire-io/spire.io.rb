@@ -1,6 +1,4 @@
-File.open "VERSION","r" do |file|
-	$version = file.read
-end
+$version = File.read("VERSION").chomp
 $authors = []
 $emails = []
 File.open "AUTHORS","r" do |file|
@@ -21,11 +19,13 @@ Gem::Specification.new do |s|
 		EOF
   s.authors     = $authors
   s.email       = $emails
-  s.files       = Dir["lib/spire*"]
+  s.require_path = "lib"
+  s.files       = Dir["lib/spire/**/*.rb"] + %w[lib/spire_io.rb]
   s.homepage    =
     'https://github.com/spire-io/spire.io.rb'
 	s.add_runtime_dependency "json", ["~> 1.6"]
 	s.add_runtime_dependency "excon", ["~> 0.7"]
 	s.add_development_dependency "rspec", ["~> 2.7"]
 	s.add_development_dependency "yard", ["~> 0.7"]
+	s.add_development_dependency "redcarpet", ["~> 2.1.0"]
 end
