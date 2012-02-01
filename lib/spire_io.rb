@@ -223,11 +223,17 @@ class Spire
       __getobj__.add_listener(&listener)
     end
 
-    def remove_listener(listener)
-      if listener.is_a? String
-        listener = listeners[listener]
+    def remove_listener(arg)
+      if arg.is_a? String
+        listener = listeners.delete(arg)
+      else
+        name, _listener = listeners.detect {|k,v| v == arg }
+        listener = listeners.delete(name)
       end
-      __getobj__.listeners.delete(listener)
+
+      if listener
+        __getobj__.listeners.delete(listener)
+      end
     end
 
     def wrap_listener(&block)
