@@ -16,9 +16,12 @@ task :test do
 	sh "rspec #{FileList["test/*.rb"]}"
 end
 
-task :gem do
-  sh "bundle install"
+task :gem => :update do
 	sh "gem build spire_io.gemspec"
+end
+
+task :update do
+  sh "bundle install"
 end
 
 desc "generate docs and build a gem"
