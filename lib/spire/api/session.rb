@@ -128,16 +128,16 @@ class Spire
       end
 
        # Not yet in Spire API
-      #define_request(:subscriptions) do
-        #{
-          #:method => :get,
-          #:url => @resources["subscriptions"]["url"],
-          #:headers => {
-            #"Authorization" => "Capability #{@resources["subscriptions"]["capability"]}",
-            #"Accept" => @spire.mediaType("subscription"),
-          #}
-        #}
-      #end
+      define_request(:subscriptions) do
+        {
+          :method => :get,
+          :url => @resources["subscriptions"]["url"],
+          :headers => {
+            "Authorization" => "Capability #{@resources["subscriptions"]["capability"]}",
+            "Accept" => @spire.mediaType("subscriptions"),
+          }
+        }
+      end
 
      def subscriptions
         if @subscriptions
