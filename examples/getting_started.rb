@@ -47,6 +47,7 @@ message = @smurf.publish("some message")
 
 #List subscriptions
 
+print "Subscriptions: "
 pp @spire.subscriptions.map {|s| s.name }
 
 #Wait for a single message to be published

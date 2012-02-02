@@ -59,7 +59,9 @@ thread = Thread.new do
 end
 
 channel2.publish("you waited 1")
+sleep 0.1
 channel2.publish("you waited 2")
+sleep 0.1
 
 thread.join
 
@@ -91,7 +93,7 @@ print "session.channels: "
 pp session.channels
 #pp session.channels["smurf"].properties
 print "session.subscriptions: "
-pp session.subscriptions.map { |name, sub| sub.url }
+pp session.subscriptions.map { |name, sub| name }
 
 puts "Deleted subscription" if subscription.delete
 puts "Deleted channel 1" if channel1.delete

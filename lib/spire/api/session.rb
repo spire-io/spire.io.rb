@@ -127,7 +127,6 @@ class Spire
         @channels ||= channels!
       end
 
-       # Not yet in Spire API
       define_request(:subscriptions) do
         {
           :method => :get,
@@ -139,26 +138,21 @@ class Spire
         }
       end
 
-     def subscriptions
-        if @subscriptions
-          @subscriptions
-        else
-          # TODO Fix this to use an API call once Spire supports it
-          @subscriptions = {}
-          channels.each do |name, channel|
-            if subs = channel.properties["subscriptions"]
-              subs.each do |key, sub|
-                @subscriptions[key] = API::Subscription.new(@spire, sub)
-              end
-            end
-          end
-          @subscriptions
-        end
+      def subscriptions
+        @subscriptions ||= subscriptions!
       end
 
-     def subscriptions!
-       raise "unimplemented"
-     end
+      def subscriptions!
+        response = request(:subscriptions)
+        unless response.status == 200
+          raise "Error retrieving Subscriptions: (#{response.status}) #{response.body}"
+        end
+        @subscriptions = {}
+        response.data.each do |name, properties|
+          @subscriptions[name] = API::Subscription.new(@spire, properties)
+        end
+        @subscriptions
+      end
 
     end
 
