@@ -96,7 +96,7 @@ class Spire
           return channel
         else
           @channel_error_counts[name] += 1
-          retry unless @channel_error_counts >= RETRY_CREATION_LIMIT
+          retry unless @channel_error_counts[name] >= RETRY_CREATION_LIMIT
         end
 
       else
@@ -126,6 +126,7 @@ class Spire
         if subscription = @session.subscriptions![subscription_name]
           return subscription
         else
+        	@subscription_error_counts[subscription_name] += 1
           retry unless @subscription_error_counts >= RETRY_CREATION_LIMIT
         end
 
@@ -215,11 +216,11 @@ class Spire
     # wraps the underlying Subscription#add_listener to
     # provided named listeners, threading, and a
     # stop_listening method.
-    def add_listener(name=nil, &block)
+    def add_listener(listener_name = nil, &block)
       raise ArgumentError unless block_given?
-      name ||= generate_listener_name
+      listener_name ||= generate_listener_name
       listener = wrap_listener(&block)
-      listeners[name] = listener
+      listeners[listener_name] = listener
       __getobj__.add_listener(&listener)
     end
 
@@ -227,8 +228,8 @@ class Spire
       if arg.is_a? String
         listener = listeners.delete(arg)
       else
-        name, _listener = listeners.detect {|k,v| v == arg }
-        listener = listeners.delete(name)
+        listener_name, _listener = listeners.detect {|k,v| v == arg }
+        listener = listeners.delete(listener_name)
       end
 
       if listener
