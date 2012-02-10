@@ -1,4 +1,5 @@
 require "spire/commands/register"
+require "spire/commands/console"
 
 class Spire
   module Commands
@@ -7,7 +8,8 @@ class Spire
     module CLI
 
       COMMANDS = {
-        "register" => Spire::Commands::Register
+        "register" => Spire::Commands::Register,
+        "console" => Spire::Commands::Console
       }
       
       def self.run(subcommand,*args)
