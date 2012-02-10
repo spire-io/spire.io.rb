@@ -1,4 +1,6 @@
+require "yaml"
 require "spire_io"
+require "spire/commands/mixins/help"
 require "mixlib/cli"
 
 class Spire
@@ -8,6 +10,7 @@ class Spire
     class Register
       
       include Mixlib::CLI
+      include Mixins::Help
 
       option :email, 
         :short => "-e EMAIL",
@@ -21,24 +24,17 @@ class Spire
         :required => true,
         :description => "Set the password for managing this account"
 
-      option :help,
-        :short => "-h",
-        :long => "--help",
-        :description => "Show this message",
-        :on => :tail,
-        :boolean => true,
-        :show_options => true,
-        :exit => 0
-
       def self.run(args)
         self.new.run(args)
       end
       
       def run(args)
         parse_options(args)
-        @spire = Spire.new
-        @spire.register(:email => config[:email], :password => config[:password])
-				$stdout.puts @spire.key
+        spire = Spire.new(CLI.url)
+        spire.register(:email => config[:email], :password => config[:password])
+        CLI.rc["key"] = spire.key
+        CLI.save_rc
+				$stdout.puts spire.key
       end
             
     end
