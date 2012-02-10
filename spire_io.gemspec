@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
     'https://github.com/spire-io/spire.io.rb'
 	s.add_runtime_dependency "json", ["~> 1.6"]
 	s.add_runtime_dependency "excon", ["~> 0.7"]
+	s.add_runtime_dependency "mixlib-cli", ["~> 1.2.2"]
 	s.add_development_dependency "rspec", ["~> 2.7"]
 	s.add_development_dependency "yard", ["~> 0.7"]
 	s.add_development_dependency "redcarpet", ["~> 2.1.0"]
