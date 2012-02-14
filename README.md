@@ -1,24 +1,7 @@
-# Ruby spire.io client
 
-This is a Ruby client for using the spire.io service.
+# Synopsis
 
-To install the latest release from rubygems.org:
-
-    gem install spire_io --pre
-
-If you're managing dependencies with Bundler, you can refer to this repo in your Gemfile, optionally specifying a branch or tag:
-
-    gem "spire_io",
-      :git => "git://github.com/spire-io/spire.io.rb.git",
-      :branch => "master"
-
-You can also clone the repo and manage your load path in the old fashioned way. E.g.:
-
-    irb -I /path/to/spire_io/lib
-
-Or clone, build, and install the gem:
-
-    rake install
+`spire.io.rb` is a Ruby client for the [spire.io API](http://www.spire.io/).
 
 ## Basic usage
 
@@ -95,5 +78,87 @@ Usage:
     channel.publish("another message")
     messages = subscription.retrieve_messages(:last => last_timestamp)
 
+## CLI usage
 
+You can also use the client from your shell
 
+    # Get help and a list of all the commands supported:
+    > spire -h
+
+i.e.
+    # Open up an IRB session with an open spire session.
+    > spire console (-k KEY | -e EMAIL)
+
+    # once in IRB you get an authenticated Spire object
+    >> $spire.discover      // get the API description
+    >> $spire.channels      // get a list of Channels
+
+You can also add a YAML '~/.spirerc' file with a hash entry 'key' containing your account key
+
+## What is spire.io?
+
+[spire.io](http://spire.io) is a platform as service API.
+
+## Working with this library
+
+* [source code](https://github.com/spire-io/spire.io.rb)
+* [inline documentation](http://spire-io.github.com/spire.io.rb/) (via [yardoc](https://github.com/lsegal/yard))
+* [issues](https://github.com/spire-io/spire.io.rb/issues)
+* [contact spire.io](http://spire.io/contact.html)
+
+# Installation
+
+To install the latest release from rubygems.org:
+
+    gem install spire_io --pre
+
+If you're managing dependencies with Bundler, you can refer to this repo in your Gemfile, optionally specifying a branch or tag:
+
+    gem "spire_io",
+      :git => "git://github.com/spire-io/spire.io.rb.git",
+      :branch => "master"
+
+You can also clone the repo and manage your load path in the old fashioned way. E.g.:
+
+    irb -I /path/to/spire_io/lib
+
+Or clone, build, and install the gem:
+
+    rake install
+
+# Development
+
+## Tests
+
+The test suite can be run via:
+
+    rake test
+
+# Contributing
+
+Fork and send pull requests via github, also any [issues](https://github.com/spire-io/spire.io.rb/issues) are always welcome
+
+# License
+
+Open Source Initiative OSI - The MIT License (MIT):Licensing
+
+MIT LICENSE
+Copyright (c) 2011 spire.io
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
