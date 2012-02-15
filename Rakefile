@@ -37,7 +37,7 @@ end
 
 # Updates GITHUB PAGES
 desc 'Update gh-pages branch'
-task 'docs:pages' => ['docs/.git', :docs] do
+task 'docs:pages' => ['docs/', 'docs/.git', :docs] do
   rev = `git rev-parse --short HEAD`.strip
   Dir.chdir 'docs' do
     last_commit = `git log -n1 --pretty=oneline`.strip
@@ -58,6 +58,10 @@ task 'docs:pages' => ['docs/.git', :docs] do
       end
     end
   end
+end
+
+file 'docs/' do |f|
+  Dir.mkdir(f.name) if !File.exists?(f.name)
 end
 
 # Update the pages/ directory clone
