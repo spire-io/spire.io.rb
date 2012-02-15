@@ -54,31 +54,9 @@
     
     <iframe id="search_frame"></iframe>
     
-    <div id="content"><div id='filecontents'><h1>Ruby spire.io client</h1>
+    <div id="content"><div id='filecontents'><h1>Synopsis</h1>
 
-<p>This is a Ruby client for using the spire.io service.</p>
-
-<p>To install the latest release from rubygems.org:</p>
-
-<pre class="code ruby"><code><span class='id identifier rubyid_gem'>gem</span> <span class='id identifier rubyid_install'>install</span> <span class='id identifier rubyid_spire_io'>spire_io</span> <span class='op'>-</span><span class='op'>-</span><span class='id identifier rubyid_pre'>pre</span>
-</code></pre>
-
-<p>If you&#39;re managing dependencies with Bundler, you can refer to this repo in your Gemfile, optionally specifying a branch or tag:</p>
-
-<pre class="code ruby"><code><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>spire_io</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-  <span class='symbol'>:git</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>git://github.com/spire-io/spire.io.rb.git</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-  <span class='symbol'>:branch</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>master</span><span class='tstring_end'>&quot;</span></span>
-</code></pre>
-
-<p>You can also clone the repo and manage your load path in the old fashioned way. E.g.:</p>
-
-<pre class="code ruby"><code>irb -I /path/to/spire_io/lib
-</code></pre>
-
-<p>Or clone, build, and install the gem:</p>
-
-<pre class="code ruby"><code><span class='id identifier rubyid_rake'>rake</span> <span class='id identifier rubyid_install'>install</span>
-</code></pre>
+<p><code>spire.io.rb</code> is a Ruby client for the <a href="http://www.spire.io/">spire.io API</a>.</p>
 
 <h2>Basic usage</h2>
 
@@ -160,10 +138,104 @@ Here&#39;s an example using the message service.  It assumes you have an account
 <span class='id identifier rubyid_channel'>channel</span><span class='period'>.</span><span class='id identifier rubyid_publish'>publish</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>another message</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='id identifier rubyid_messages'>messages</span> <span class='op'>=</span> <span class='id identifier rubyid_subscription'>subscription</span><span class='period'>.</span><span class='id identifier rubyid_retrieve_messages'>retrieve_messages</span><span class='lparen'>(</span><span class='symbol'>:last</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_last_timestamp'>last_timestamp</span><span class='rparen'>)</span>
 </code></pre>
+
+<h2>CLI usage</h2>
+
+<p>You can also use the client from your shell</p>
+
+<pre class="code ruby"><code># Get help and a list of all the commands supported:
+&gt; spire -h
+</code></pre>
+
+<p>i.e.
+    # Open up an IRB session with an open spire session.
+    &gt; spire console (-k KEY | -e EMAIL)</p>
+
+<pre class="code ruby"><code># once in IRB you get an authenticated Spire object
+&gt;&gt; $spire.discover      // get the API description
+&gt;&gt; $spire.channels      // get a list of Channels
+</code></pre>
+
+<p>You can also add a YAML &#39;~/.spirerc&#39; file with a hash entry &#39;key&#39; containing your account key</p>
+
+<h2>What is spire.io?</h2>
+
+<p><a href="http://spire.io">spire.io</a> is a platform as service API.</p>
+
+<h2>Working with this library</h2>
+
+<ul>
+<li><a href="https://github.com/spire-io/spire.io.rb">source code</a></li>
+<li><a href="http://spire-io.github.com/spire.io.rb/">inline documentation</a> (via <a href="https://github.com/lsegal/yard">yardoc</a>)</li>
+<li><a href="https://github.com/spire-io/spire.io.rb/issues">issues</a></li>
+<li><a href="http://spire.io/contact.html">contact spire.io</a></li>
+</ul>
+
+<h1>Installation</h1>
+
+<p>To install the latest release from rubygems.org:</p>
+
+<pre class="code ruby"><code><span class='id identifier rubyid_gem'>gem</span> <span class='id identifier rubyid_install'>install</span> <span class='id identifier rubyid_spire_io'>spire_io</span> <span class='op'>-</span><span class='op'>-</span><span class='id identifier rubyid_pre'>pre</span>
+</code></pre>
+
+<p>If you&#39;re managing dependencies with Bundler, you can refer to this repo in your Gemfile, optionally specifying a branch or tag:</p>
+
+<pre class="code ruby"><code><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>spire_io</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='symbol'>:git</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>git://github.com/spire-io/spire.io.rb.git</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='symbol'>:branch</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>master</span><span class='tstring_end'>&quot;</span></span>
+</code></pre>
+
+<p>You can also clone the repo and manage your load path in the old fashioned way. E.g.:</p>
+
+<pre class="code ruby"><code>irb -I /path/to/spire_io/lib
+</code></pre>
+
+<p>Or clone, build, and install the gem:</p>
+
+<pre class="code ruby"><code><span class='id identifier rubyid_rake'>rake</span> <span class='id identifier rubyid_install'>install</span>
+</code></pre>
+
+<h1>Development</h1>
+
+<h2>Tests</h2>
+
+<p>The test suite can be run via:</p>
+
+<pre class="code ruby"><code><span class='id identifier rubyid_rake'>rake</span> <span class='id identifier rubyid_test'>test</span>
+</code></pre>
+
+<h1>Contributing</h1>
+
+<p>Fork and send pull requests via github, also any <a href="https://github.com/spire-io/spire.io.rb/issues">issues</a> are always welcome</p>
+
+<h1>License</h1>
+
+<p>Open Source Initiative OSI - The MIT License (MIT):Licensing</p>
+
+<p>MIT LICENSE
+Copyright (c) 2011 spire.io</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.</p>
 </div></div>
     
     <div id="footer">
-  Generated on Mon Feb 13 17:17:36 2012 by 
+  Generated on Tue Feb 14 16:45:26 2012 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.5 (ruby-1.9.2).
 </div>
