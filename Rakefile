@@ -1,15 +1,18 @@
 require "rake/clean"
 
 CLEAN << FileList["*.gem"]
-CLEAN << FileList["doc/*"]
+CLEAN << FileList["docs/*"]
 CLEAN << ".yardoc"
 
 $version = File.read("VERSION").chomp
 
 desc "run yardoc"
-task :doc do
-	sh "yard"
+task :docs do
+	sh "yard --output docs"
 end
+
+# Alias for doc task
+task :doc => :docs
 
 desc "run tests"
 task :test do
@@ -30,4 +33,25 @@ task :package => [:doc, :gem]
 desc "build and install the gem"
 task :install => :package do
 	sh "gem install spire_io-#{$version}.gem"
+end
+
+# Updates GITHUB PAGES
+desc 'Update gh-pages branch'
+task 'docs:pages' => ['docs/.git', :docs] do
+  rev = `git rev-parse --short HEAD`.strip
+  Dir.chdir 'docs' do
+    sh "git add ."
+    sh "git commit -m 'rebuild pages from #{rev}'" do |ok,res|
+      if ok
+        verbose { puts "gh-pages updated" }
+        sh "git push -q origin HEAD:gh-pages"
+      end
+    end
+  end
+end
+
+# Update the pages/ directory clone
+file 'docs/.git' => ['docs/', '.git/refs/heads/gh-pages'] do |f|
+    sh "cd docs && git init -q && git remote add origin git@github.com:spire-io/spire.io.rb.git" if !File.exist?(f.name)
+    sh "cd docs && git fetch -q origin && git reset -q --hard origin/gh-pages && touch ."
 end
