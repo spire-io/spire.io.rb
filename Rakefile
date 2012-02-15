@@ -40,11 +40,21 @@ desc 'Update gh-pages branch'
 task 'docs:pages' => ['docs/.git', :docs] do
   rev = `git rev-parse --short HEAD`.strip
   Dir.chdir 'docs' do
-    sh "git add ."
-    sh "git commit -m 'rebuild pages from #{rev}'" do |ok,res|
-      if ok
-        verbose { puts "gh-pages updated" }
-        sh "git push -q origin HEAD:gh-pages"
+    last_commit = `git log -n1 --pretty=oneline`.strip
+    message = "rebuild pages from #{rev}"
+    result = last_commit =~ /#{message}/
+    # generating yardocs causes updates/modifications in all the docs
+    # even when there are changes in the docs (it updates the date/time)
+    # So we check if the last commit message if the hash is the same do NOT update the docs
+    if result
+      verbose { puts "nothing to commit" }
+    else
+      sh "git add ."
+      sh "git commit -m 'rebuild pages from #{rev}'" do |ok,res|
+        if ok
+          verbose { puts "gh-pages updated" }
+          sh "git push -q origin HEAD:gh-pages"
+        end
       end
     end
   end
