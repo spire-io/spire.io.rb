@@ -72,6 +72,19 @@ class Spire
         }
       end
 
+      define_request(:subscription_by_name) do |name|
+        collection = @resources["subscriptions"]
+        request = {
+          :method => :get,
+          :url => collection["url"],
+          :query => {:name => name},
+          :headers => {
+            "Authorization" => "Capability #{collection["capability"]}",
+            "Accept" => @spire.mediaType("subscriptions"),
+          }
+        }
+      end
+
       attr_reader :url, :resources, :schema, :capability
 
       def initialize(spire, data)
