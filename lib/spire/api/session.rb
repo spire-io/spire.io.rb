@@ -4,25 +4,15 @@ class Spire
     class Session
       include Requestable
 
-      define_request(:account) do
-        resource = @resources["account"]
-        {
-          :method => :get,
-          :url => resource["url"],
-          :headers => {
-            "Authorization" => "Capability #{resource["capability"]}",
-            "Accept" => @spire.mediaType("account")
-          }
-        }
-      end
-
       define_request(:channels) do
         collection = @resources["channels"]
+        capability = collection["capabilities"]["all"]
+        url = collection["url"]
         request = {
           :method => :get,
           :url => collection["url"],
           :headers => {
-            "Authorization" => "Capability #{collection["capability"]}",
+            "Authorization" => "Capability #{capability}",
             "Accept" => @spire.mediaType("channels"),
           }
         }
@@ -30,12 +20,14 @@ class Spire
 
       define_request(:channel_by_name) do |name|
         collection = @resources["channels"]
+        capability = collection["capabilities"]["get_by_name"]
+        url = collection["url"]
         request = {
           :method => :get,
-          :url => collection["url"],
+          :url => url,
           :query => {:name => name},
           :headers => {
-            "Authorization" => "Capability #{collection["capability"]}",
+            "Authorization" => "Capability #{capability}",
             "Accept" => @spire.mediaType("channels"),
           }
         }
@@ -43,29 +35,47 @@ class Spire
 
       define_request(:create_channel) do |name|
         collection = @resources["channels"]
+        capability = collection["capabilities"]["create"]
+        url = collection["url"]
         {
           :method => :post,
-          :url => collection["url"],
+          :url => url,
           :body => { :name => name }.to_json,
           :headers => {
-            "Authorization" => "Capability #{collection["capability"]}",
+            "Authorization" => "Capability #{capability}",
             "Accept" => @spire.mediaType("channel"),
             "Content-Type" => @spire.mediaType("channel")
           }
         }
       end
 
+      define_request(:subscriptions) do
+        collection = @resources["subscriptions"]
+        capability = collection["capabilities"]["all"]
+        url = collection["url"]
+        {
+          :method => :get,
+          :url => url,
+          :headers => {
+            "Authorization" => "Capability #{capability}",
+            "Accept" => @spire.mediaType("subscriptions"),
+          }
+        }
+      end
+
       define_request(:create_subscription) do |subscription_name, channel_urls|
         collection = @resources["subscriptions"]
+        capability = collection["capabilities"]["create"]
+        url = collection["url"]
         {
           :method => :post,
-          :url => collection["url"],
+          :url => url,
           :body => {
             :channels => channel_urls,
             :name => subscription_name
           }.to_json,
           :headers => {
-            "Authorization" => "Capability #{collection["capability"]}",
+            "Authorization" => "Capability #{capability}",
             "Accept" => @spire.mediaType("subscription"),
             "Content-Type" => @spire.mediaType("subscription")
           }
@@ -74,25 +84,27 @@ class Spire
 
       define_request(:subscription_by_name) do |name|
         collection = @resources["subscriptions"]
+        capability = collection["capabilities"]["get_by_name"]
+        url = collection["url"]
         request = {
           :method => :get,
-          :url => collection["url"],
+          :url => url,
           :query => {:name => name},
           :headers => {
-            "Authorization" => "Capability #{collection["capability"]}",
+            "Authorization" => "Capability #{capability}",
             "Accept" => @spire.mediaType("subscriptions"),
           }
         }
       end
 
-      attr_reader :url, :resources, :schema, :capability
+      attr_reader :url, :resources, :schema, :capabilities, :capability
 
       def initialize(spire, data)
         @spire = spire
         @client = spire.client
         @schema = spire.schema["session"]
         @url = data["url"]
-        @capability = data["capability"]
+        @capabilities = data["capabilities"]
         @resources = data["resources"]
       end
 
@@ -138,17 +150,6 @@ class Spire
 
       def channels
         @channels ||= channels!
-      end
-
-      define_request(:subscriptions) do
-        {
-          :method => :get,
-          :url => @resources["subscriptions"]["url"],
-          :headers => {
-            "Authorization" => "Capability #{@resources["subscriptions"]["capability"]}",
-            "Accept" => @spire.mediaType("subscriptions"),
-          }
-        }
       end
 
       def subscriptions

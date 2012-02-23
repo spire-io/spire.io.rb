@@ -12,7 +12,7 @@ class Spire
           :url => @url,
           :body => string,
           :headers => {
-            "Authorization" => "Capability #{@capability}",
+            "Authorization" => "Capability #{@capabilities["publish"]}",
             "Accept" => @spire.mediaType("message"),
             "Content-Type" => @spire.mediaType("message")
           }

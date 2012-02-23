@@ -8,7 +8,7 @@ class Spire
           :method => :get,
           :url => @url,
           :headers => {
-            "Authorization" => "Capability #{@capability}",
+            "Authorization" => "Capability #{@capabilities["get"]}",
             "Accept" => media_type
           }
         }
@@ -20,7 +20,7 @@ class Spire
           :url => @url,
           :body => properties.to_json,
           :headers => {
-            "Authorization" => "Capability #{@capability}",
+            "Authorization" => "Capability #{@capabilities["update"]}",
             "Accept" => media_type,
             "Content-Type" => media_type
           }
@@ -32,20 +32,20 @@ class Spire
           :method => :delete,
           :url => @url,
           :headers => { 
-            "Authorization" => "Capability #{@capability}",
+            "Authorization" => "Capability #{@capabilities["delete"]}",
             "Accept" => media_type,
             "Content-Type" => media_type,
           }
         }
       end
   
-      attr_reader :url, :capability, :properties
+      attr_reader :url, :properties, :capabilities, :capability
 
       def initialize(spire, data)
         @spire = spire
         @client = spire.client
         @url = data["url"]
-        @capability = data["capability"]
+        @capabilities = data["capabilities"]
         @properties = data
       end
 

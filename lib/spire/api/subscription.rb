@@ -19,7 +19,7 @@ class Spire
             "delay" => options[:delay]
           },
           :headers => {
-            "Authorization" => "Capability #{@capability}",
+            "Authorization" => "Capability #{@capabilities["messages"]}",
             "Accept" => @spire.mediaType("events")
           }
         }
