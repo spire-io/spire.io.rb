@@ -8,13 +8,14 @@ class Spire
 
       define_request(:billing_subscription) do |info|
         billing = properties["billing"]
+        capability = billing["capabilities"]["subscribe"]
         {
           :method => :put,
           :url => billing["url"],
           :body => info.to_json,
           :headers => {
             "Accept" => media_type, "Content-Type" => media_type,
-            "Authorization" => "Capability #{billing["capability"]}"
+            "Authorization" => "Capability #{capability}"
           }
         }
       end
