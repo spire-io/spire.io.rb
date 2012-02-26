@@ -120,9 +120,11 @@ class Spire
           raise "Error creating Subscription: (#{response.status}) #{response.body}"
         end
         data = response.data
+        subscription = API::Subscription.new(@spire, data) 
         if subscription_name
-          subscriptions[data["name"]] = API::Subscription.new(@spire, data)
+          subscriptions[data["name"]] = subscription
         end
+        subscription
       end
 
       def channels!
