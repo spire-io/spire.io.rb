@@ -32,9 +32,9 @@ class Spire
         parse_options(args)
         spire = Spire.new(CLI.url)
         spire.register(:email => config[:email], :password => config[:password])
-        CLI.rc["key"] = spire.key
+        CLI.rc["secret"] = spire.secret
         CLI.save_rc
-				$stdout.puts spire.key
+				$stdout.puts spire.secret
       end
             
     end

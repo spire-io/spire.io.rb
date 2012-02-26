@@ -20,10 +20,10 @@ class Spire
               :long  => "--password PASSWORD",
               :description => "The password for your account"
 
-            option :key,
-              :short => "-k KEY",
-              :long => "--key KEY",
-              :description => "The account key for your account"
+            option :secret,
+              :short => "-s SECRET",
+              :long => "--secret SECRET",
+              :description => "The account secret for your account"
           end
   
         end
@@ -37,15 +37,15 @@ class Spire
             spire.login(config[:email],config[:password])
             return spire
           else 
-            if !config[:key]
-              if CLI.rc["key"]
-                config[:key] = CLI.rc["key"]
+            if !config[:secret]
+              if CLI.rc["secret"]
+                config[:secret] = CLI.rc["secret"]
               else
-                raise "No key provided or found in ~/.spirerc"
+                raise "No secret provided or found in ~/.spirerc"
               end
             end
             spire = Spire.new(CLI.url)
-            spire.start(config[:key])
+            spire.start(config[:secret])
             return spire
           end
         end

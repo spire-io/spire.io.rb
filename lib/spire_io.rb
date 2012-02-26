@@ -18,8 +18,8 @@ class Spire
     discover
   end
 
-  def key
-    @session.resources["account"]["key"]
+  def secret
+    @session.resources["account"]["secret"]
   end
   
   def discover
@@ -27,8 +27,8 @@ class Spire
     self
   end
  
-  def start(key)
-    @session = @api.create_session(key)
+  def start(secret)
+    @session = @api.create_session(secret)
     self
   end
 
@@ -164,7 +164,7 @@ class Spire
   #
   # You can get a channel object by calling [] on a Spire object
   # * spire = Spire.new
-  # * spire.start("your api key")
+  # * spire.start("your api secret")
   # * channel = spire["channel name"]
   class Channel < SimpleDelegator
     def initialize(spire, channel)
@@ -192,7 +192,7 @@ class Spire
   # by calling subscribe on a channel object
   #
   # * spire = Spire.new
-  # * spire.start("your api key")
+  # * spire.start("your api secret")
   # *THEN*
   # * subscription = spire.subscribe("subscription name", "channel name")
   # *OR*
