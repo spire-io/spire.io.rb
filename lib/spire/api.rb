@@ -39,11 +39,11 @@ class Spire
       }
     end
 
-    define_request(:create_session) do |key|
+    define_request(:create_session) do |secret|
       {
         :method => :post,
         :url => @description["resources"]["sessions"]["url"],
-        :body => {:key => key}.to_json,
+        :body => {:secret => secret}.to_json,
         :headers => {
           "Accept" => mediaType("session"),
           "Content-Type" => mediaType("account")
@@ -110,9 +110,9 @@ class Spire
       schema[name]["mediaType"]
     end
    
-    def create_session(key)
-      response = request(:create_session, key)
-      raise "Error starting a key-based session" if response.status != 201
+    def create_session(secret)
+      response = request(:create_session, secret)
+      raise "Error starting a secret-based session" if response.status != 201
       session_data = response.data
       API::Session.new(self, session_data)
     end
