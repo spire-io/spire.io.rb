@@ -32,7 +32,7 @@ describe "The spire.io API" do
         before(:all) do
           @spire = create_spire
           @session = @spire.register(:email => $email, :password => "foobarbaz").instance_eval { @session }
-          $key = @spire.key
+          $secret = @spire.secret
         end
 
         specify "has a session" do
@@ -111,10 +111,10 @@ describe "The spire.io API" do
 
         end
 
-        describe "Log in using the account key" do
+        describe "Log in using the account secret" do
 
           before(:all) do
-            @spire = create_spire.start($key)
+            @spire = create_spire.start($secret)
           end
 
           specify "has an anonymous session" do
@@ -123,10 +123,10 @@ describe "The spire.io API" do
 
         end
 
-        describe "Reset your account key" do
+        describe "Reset your account secret" do
           specify "Invalidates existing sessions"
-          specify "Invalidates the original account key"
-          specify "Allows you to log in using the new account key"
+          specify "Invalidates the original account secret"
+          specify "Allows you to log in using the new account secret"
         end
 
         describe "Close a session" do
@@ -135,7 +135,7 @@ describe "The spire.io API" do
 
         describe "Delete your account" do
           specify "Invalidates existing sessions"
-          specify "Invalidates the original account key"
+          specify "Invalidates the original account secret"
           specify "Invalidates email and password"
         end
 
@@ -148,7 +148,7 @@ describe "The spire.io API" do
   describe "Channels" do
 
     before(:all) do
-      @spire = create_spire.start($key)
+      @spire = create_spire.start($secret)
     end
 
     describe "Create a channel" do
@@ -165,15 +165,15 @@ describe "The spire.io API" do
 
         before(:all) do
           # This relies on the fact that client doesn't keep a hash of channels
-          @channel2 = create_spire.start($key)["foo"]
+          @channel2 = create_spire.start($secret)["foo"]
         end
 
         specify "Will simply return the existing channel" do
-          @channel.key.should == @channel2.key
+          @channel.url.should == @channel2.url
         end
 
         specify "Will return an existing channel even if created by another client" do
-          spire2 = create_spire.start($key)
+          spire2 = create_spire.start($secret)
           channel1 = @spire["channel1"]
           channel1_copy = spire2["channel1"]
           channel1_copy.url.should == channel1.url
@@ -204,7 +204,7 @@ describe "The spire.io API" do
             end
 
             specify "Should return the previously created subscription even from a different client" do
-              spire2 = create_spire.start($key)
+              spire2 = create_spire.start($secret)
               sub1 = @spire.subscribe('sub1', "foo")
               sub2 = spire2.subscribe('sub1', "foo")
               sub1.url.should == sub2.url
@@ -238,8 +238,8 @@ describe "The spire.io API" do
       describe "Event listening on a channel" do
 
         before(:all) do
-          @channel = create_spire.start($key)["event_channel"]
-          @subscription = create_spire.start($key).subscribe('new_sub', "event_channel")
+          @channel = create_spire.start($secret)["event_channel"]
+          @subscription = create_spire.start($secret).subscribe('new_sub', "event_channel")
           @subscription.start_listening
         end
 
@@ -292,13 +292,13 @@ describe "The spire.io API" do
       describe "Long-polling on a channel" do
 
         before(:all) do
-          @channel = create_spire.start($key)["bar"]
-          @subscription = create_spire.start($key).subscribe('new_sub1', "bar")
+          @channel = create_spire.start($secret)["bar"]
+          @subscription = create_spire.start($secret).subscribe('new_sub1', "bar")
         end
 
         specify "Will only return a single message once" do
-          channel = create_spire.start($key)["multiple"]
-          subscription = create_spire.start($key).subscribe('new_sub2', "multiple")
+          channel = create_spire.start($secret)["multiple"]
+          subscription = create_spire.start($secret).subscribe('new_sub2', "multiple")
           channel.publish("Message 1")
           channel.publish("Message 2")
           messages = subscription.listen
