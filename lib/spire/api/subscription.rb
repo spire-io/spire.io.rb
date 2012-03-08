@@ -43,8 +43,10 @@ class Spire
         unless response.status == 200
           raise "Error retrieving messages from #{self.class.name}: (#{response.status}) #{response.body}"
         end
-        messages = response.data["messages"]
-        @last = messages.last["timestamp"] unless messages.empty?
+        messages = response.data["messages"].map do |message|
+          API::Message.new(@spire, message)
+        end
+        @last = messages.last.timestamp unless messages.empty?
         messages.each do |message|
           listeners.each do |listener|
             listener.call(message)
