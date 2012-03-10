@@ -15,6 +15,7 @@ class Spire
     @url = url
     @channel_error_counts = {}
     @subscription_error_counts = {}
+    @notification_error_counts = {}
     discover
   end
 
@@ -143,6 +144,34 @@ class Spire
 	def subscriptions
 		@session.subscriptions.values
 	end
+	
+
+  def notification(name, ssl_cert)
+    Notification.new(
+      @session.notifications[name] || find_or_create_notification(name, ssl_cert)
+    )
+  end
+  
+  def find_or_create_notification(notification_name, ssl_cert)
+  	@notification_error_counts[notification_name] ||= 0
+    begin
+      return @session.create_notification(notification_name, ssl_cert)
+    rescue => error
+      if error.message =~ /409/
+      
+        if notification = @session.notification![notification_name]
+          return notification
+        else
+          @notification_error_counts[notification_name] += 1
+          retry unless @notification_error_counts >= RETRY_CREATION_LIMIT
+        end
+      
+      else
+        raise error
+      end
+    end
+  end
+  
 
   # Returns a billing object than contains a list of all the plans available
   # @param [String] info optional object description
@@ -273,4 +302,16 @@ class Spire
 
   end
 
+  class Notification < SimpleDelegator
+
+    # this is required because Delegator's method_missing relies
+    # on the object having a method defined, but in this case
+    # the API::Subscription is also using method_missing
+    def name
+      __getobj__.name
+    end
+    
+    
+  end
+  
 end

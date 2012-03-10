@@ -96,6 +96,39 @@ class Spire
           }
         }
       end
+      
+      define_request(:create_notification) do |notification_name, ssl_cert|
+        collection = @resources["notifications"]
+        capability = collection["capabilities"]["create"]
+        url = collection["url"]
+        {
+          :method => :post,
+          :url => url,
+          :body => {
+            :sslCert => ssl_cert,
+            :name => notification_name
+          }.to_json,
+          :headers => {
+            "Authorization" => "Capability #{capability}",
+            "Accept" => @spire.mediaType("notification"),
+            "Content-Type" => @spire.mediaType("notification")
+          }
+        }
+      end
+      
+      define_request(:notifications) do
+        collection = @resources["notifications"]
+        capability = collection["capabilities"]["all"]
+        url = collection["url"]
+        {
+          :method => :get,
+          :url => url,
+          :headers => {
+            "Authorization" => "Capability #{capability}",
+            "Accept" => @spire.mediaType("notifications"),
+          }
+        }
+      end
 
       attr_reader :url, :resources, :schema, :capabilities, :capability
 
@@ -138,7 +171,20 @@ class Spire
         end
         subscription
       end
-
+      
+      def create_notification(notification_name, ssl_cert)
+        response = request(:create_notification, notification_name, ssl_cert)
+        unless response.status == 201
+          raise "Error creating Notification: (#{response.status}) #{response.body}"
+        end
+        data = response.data
+        notification = API::Notification.new(@spire, data) 
+        if notification_name
+          notifications[data["name"]] = notification
+        end
+        notification
+      end
+      
       def channels!
         response = request(:channels)
         unless response.status == 200
@@ -170,6 +216,22 @@ class Spire
           @subscriptions[name] = API::Subscription.new(@spire, properties)
         end
         @subscriptions
+      end
+      
+      def notifications
+        @notifications ||= notifications!
+      end
+      
+      def notifications!
+        response = request(:notifications)
+        unless response.status == 200
+          raise "Error retrieving Notifications: (#{response.status}) #{response.body}"
+        end
+        @notifications = {}
+        response.data.each do |name, properties|
+          @notifications[name] = API::Notification.new(@spire, properties)
+        end
+        @notifications
       end
 
     end
