@@ -6,9 +6,9 @@ class Spire
         "notification"
       end
       
-      define_request(:addDevice) do |data|
+      define_request(:register_device) do |data|
         devices = properties["resources"]["devices"]
-        capability = devices["capabilities"]["add_device"]
+        capability = devices["capabilities"]["register_device"]
         {
           :method => :put,
           :url => devices["url"],
@@ -21,8 +21,8 @@ class Spire
         }
       end
       
-      def addDevice(properties)
-        response = request(:addDevice, properties)
+      def register_device(properties)
+        response = request(:register_device, properties)
         unless response.status == 200
           raise "Error adding device #{self.class.name}: (#{response.status}) #{response.body}"
         end
