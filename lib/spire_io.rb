@@ -14,6 +14,7 @@ class Spire
     @api = Spire::API.new(url)
     @url = url
     @channel_error_counts = {}
+    @application_error_counts = {}
     @subscription_error_counts = {}
     discover
   end
@@ -143,6 +144,37 @@ class Spire
 	def subscriptions
 		@session.subscriptions.values
 	end
+
+  def applications
+    @session.applications
+  end
+
+  def applications!
+    @session.applications!
+  end
+
+  # Creates an application on spire.  Returns an Application object.  Will retry on a 409.
+  # @param [String] Name of the application to find/create
+  def find_or_create_application(name)
+    @application_error_counts[name] ||= 0
+    begin
+      return @session.create_application(name)
+    # TODO custom error class for Conflict, which we can
+    # then match here, instead of testing for error message
+    rescue => error
+      if error.message =~ /409/
+        # Dear retry, I love you.  Affectionately, Matthew.
+        if application = @session.applications![name]
+          return application
+        else
+          @application_error_counts[name] += 1
+          retry unless @application_error_counts[name] >= RETRY_CREATION_LIMIT
+        end
+      else
+        raise error
+      end
+    end
+  end
 
   # Returns a billing object than contains a list of all the plans available
   # @param [String] info optional object description

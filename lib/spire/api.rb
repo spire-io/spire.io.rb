@@ -11,6 +11,7 @@ require "spire/api/account"
 require "spire/api/channel"
 require "spire/api/subscription"
 require "spire/api/message"
+require "spire/api/application"
 
 class Spire
 

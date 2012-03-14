@@ -103,6 +103,50 @@ class Spire
         }
       end
 
+      define_request(:applications) do
+        collection = @resources["applications"]
+        capability = collection["capabilities"]["all"]
+        request = {
+          :method => :get,
+          :url => collection["url"],
+          :headers => {
+            "Authorization" => "Capability #{capability}",
+            "Accept" => @spire.mediaType("applications"),
+          }
+        }
+      end
+
+      define_request(:application_by_name) do |name|
+        collection = @resources["applications"]
+        capability = collection["capabilities"]["get_by_name"]
+        url = collection["url"]
+        request = {
+          :method => :get,
+          :url => url,
+          :query => {:name => name},
+          :headers => {
+            "Authorization" => "Capability #{capability}",
+            "Accept" => @spire.mediaType("applications"),
+          }
+        }
+      end
+
+      define_request(:create_application) do |name|
+        collection = @resources["applications"]
+        {
+          :method => :post,
+          :url => collection["url"],
+          :body => {
+            :name => name,
+          }.to_json,
+          :headers => {
+            "Authorization" => "Capability #{collection["capabilities"]["create"]}",
+            "Accept" => @spire.mediaType("application"),
+            "Content-Type" => @spire.mediaType("application")
+          }
+        }
+      end
+
       attr_reader :url, :resources, :schema, :capabilities, :capability
 
       def initialize(spire, data)
@@ -145,6 +189,32 @@ class Spire
           subscriptions[data["name"]] = subscription
         end
         subscription
+      end
+
+      def create_application(name)
+        response = request(:create_application, name)
+        unless response.status == 201
+          raise "Error creating Application (#{response.status}) #{response.body}"
+        end
+        properties = response.data
+        applications[name] = API::Application.new(@spire, properties)
+      end
+
+      def applications!
+        response = request(:applications)
+        unless response.status == 200
+          raise "Error retrieving Applications (#{response.status}) #{response.body}"
+        end
+        applications_data = response.data
+        @applications = {}
+        applications_data.each do |name, properties|
+          @applications[name] = API::Application.new(@spire, properties)
+        end
+        @applications
+      end
+
+      def applications
+        @applications ||= applications!
       end
 
       def channels!
