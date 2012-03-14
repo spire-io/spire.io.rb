@@ -33,14 +33,20 @@ class Spire
         }
       end
 
-      define_request(:create_channel) do |name|
+      define_request(:create_channel) do |name, message_limit, message_ttl|
         collection = @resources["channels"]
         capability = collection["capabilities"]["create"]
         url = collection["url"]
+
+        body = {
+          :name => name,
+          :message_limit => message_limit,
+          :message_ttl => message_ttl
+        }.to_json
         {
           :method => :post,
           :url => url,
-          :body => { :name => name }.to_json,
+          :body => body,
           :headers => {
             "Authorization" => "Capability #{capability}",
             "Accept" => @spire.mediaType("channel"),
@@ -116,8 +122,10 @@ class Spire
         @account = API::Account.new(@spire, @resources["account"]).get
       end
 
-      def create_channel(name)
-        response = request(:create_channel, name)
+      def create_channel(name, options={})
+        message_limit = options[:message_limit]
+        message_ttl = options[:message_ttl]
+        response = request(:create_channel, name, message_limit, message_ttl)
         unless response.status == 201
           raise "Error creating Channel: (#{response.status}) #{response.body}"
         end
