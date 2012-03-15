@@ -8,18 +8,18 @@ class Spire
         "subscription"
       end
 
-      define_request(:messages) do |options|
+      define_request(:events) do |options|
         {
           :method => :get,
           :url => @url,
           :query => {
             "timeout" => options[:timeout],
-            "last-message" => options[:last],
+            "last" => options[:last],
             "order-by" => options[:order_by],
             "delay" => options[:delay]
           },
           :headers => {
-            "Authorization" => "Capability #{@capabilities["messages"]}",
+            "Authorization" => "Capability #{@capabilities["events"]}",
             "Accept" => @spire.mediaType("events")
           }
         }
@@ -39,14 +39,14 @@ class Spire
         options[:delay] ||= 0
         options[:order_by] ||= "desc"
 
-        response = request(:messages, options)
+        response = request(:events, options)
         unless response.status == 200
           raise "Error retrieving messages from #{self.class.name}: (#{response.status}) #{response.body}"
         end
         messages = response.data["messages"].map do |message|
           API::Message.new(@spire, message)
         end
-        @last = messages.last.timestamp unless messages.empty?
+        @last = response.data["last"] if response.data and response.data["last"]
         messages.each do |message|
           listeners.each do |listener|
             listener.call(message)

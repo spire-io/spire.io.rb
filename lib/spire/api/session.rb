@@ -33,15 +33,15 @@ class Spire
         }
       end
 
-      define_request(:create_channel) do |name, message_limit, message_ttl|
+      define_request(:create_channel) do |name, limit, ttl|
         collection = @resources["channels"]
         capability = collection["capabilities"]["create"]
         url = collection["url"]
 
         body = {
           :name => name,
-          :message_limit => message_limit,
-          :message_ttl => message_ttl
+          :limit => limit,
+          :ttl => ttl
         }.to_json
         {
           :method => :post,
@@ -167,9 +167,9 @@ class Spire
       end
 
       def create_channel(name, options={})
-        message_limit = options[:message_limit]
-        message_ttl = options[:message_ttl]
-        response = request(:create_channel, name, message_limit, message_ttl)
+        limit = options[:limit]
+        ttl = options[:ttl]
+        response = request(:create_channel, name, limit, ttl)
         unless response.status == 201
           raise "Error creating Channel: (#{response.status}) #{response.body}"
         end
