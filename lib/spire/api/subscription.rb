@@ -34,7 +34,7 @@ class Spire
         block
       end
 
-      def retrieve_messages(options={})
+      def retrieve_events(options={})
         options[:last] ||= "0"
         options[:delay] ||= 0
         options[:order_by] ||= "desc"
@@ -43,10 +43,15 @@ class Spire
         unless response.status == 200
           raise "Error retrieving messages from #{self.class.name}: (#{response.status}) #{response.body}"
         end
-        messages = response.data["messages"].map do |message|
+        @last = response.data["last"] if response.data and response.data["last"]
+        response.data
+      end
+
+      def retrieve_messages(options={})
+        events = retrieve_events(options)
+        messages = events["messages"].map do |message|
           API::Message.new(@spire, message)
         end
-        @last = response.data["last"] if response.data and response.data["last"]
         messages.each do |message|
           listeners.each do |listener|
             listener.call(message)
