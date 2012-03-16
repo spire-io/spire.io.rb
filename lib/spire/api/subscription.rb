@@ -89,13 +89,13 @@ class Spire
         # so we force it here.
         options[:timeout] = 0
         options[:last] = @last
-        retrieve_events(options)
+        retrieve_messages(options)
       end
 
       def long_poll(options={})
         options[:timeout] ||= 30
         options[:last] = @last
-        retrieve_events(options)
+        retrieve_messages(options)
       end
 
       def listen(options={})
