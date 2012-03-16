@@ -79,6 +79,11 @@ class Spire
         event_hash
       end
 
+      def retrieve_messages(options={})
+        events = retrieve_events(options)
+        events["messages"]
+      end
+
       def poll(options={})
         # timeout option of 0 means no long poll,
         # so we force it here.
