@@ -242,7 +242,8 @@ class Spire
     # misnamed method, here for backompat.  Should be something like #get_messages,
     # because it only makes one request.
     def listen(options={})
-      long_poll(options).map {|message| message["content"] }
+      events = long_poll(options)
+      events["messages"].map {|message| message["content"] }
     end
 
     # wraps the underlying Subscription#add_listener to
@@ -253,7 +254,7 @@ class Spire
       listener_name ||= generate_listener_name
       listener = wrap_listener(&block)
       listeners[listener_name] = listener
-      __getobj__.add_listener(&listener)
+      __getobj__.add_listener("message", &listener)
     end
 
     def remove_listener(arg)
@@ -265,7 +266,7 @@ class Spire
       end
 
       if listener
-        __getobj__.listeners.delete(listener)
+        __getobj__.listeners["message"].delete(listener)
       end
     end
 

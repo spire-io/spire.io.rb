@@ -25,12 +25,27 @@ class Spire
         }
       end
 
+      EVENT_TYPES = ["message", "join", "part"]
+
       def listeners
-        @listeners ||= []
+        if @listeners
+          @listeners
+        else
+          @listeners = { }
+          EVENT_TYPES.each do |type|
+            @listeners[type] = []
+          end
+          @listeners
+        end
       end
 
-      def add_listener(&block)
-        listeners << block
+      def add_listener(type="message", &block)
+        type.downcase!
+        if !EVENT_TYPES.include?(type)
+          throw "Listener type must be one of #{EVENT_TYPES}"
+        end
+
+        listeners[type] << block
         block
       end
 
@@ -44,20 +59,24 @@ class Spire
           raise "Error retrieving messages from #{self.class.name}: (#{response.status}) #{response.body}"
         end
         @last = response.data["last"] if response.data and response.data["last"]
-        response.data
-      end
 
-      def retrieve_messages(options={})
-        events = retrieve_events(options)
-        messages = events["messages"].map do |message|
-          API::Message.new(@spire, message)
-        end
-        messages.each do |message|
-          listeners.each do |listener|
-            listener.call(message)
+        event_hash = {}
+
+        EVENT_TYPES.each do |type|
+          type_pl = "#{type}s"
+          event_hash[type_pl] = []
+          response.data[type_pl].each do |event|
+            klass_name = type.capitalize
+            klass = API.const_get(klass_name)
+            event_obj = klass.new(@spire, event)
+            event_hash[type_pl].push(event_obj)
+
+            listeners[type].each do |listener|
+              listener.call(event_obj)
+            end
           end
         end
-        messages
+        event_hash
       end
 
       def poll(options={})
@@ -65,13 +84,13 @@ class Spire
         # so we force it here.
         options[:timeout] = 0
         options[:last] = @last
-        retrieve_messages(options)
+        retrieve_events(options)
       end
 
       def long_poll(options={})
         options[:timeout] ||= 30
         options[:last] = @last
-        retrieve_messages(options)
+        retrieve_events(options)
       end
 
       def listen(options={})
@@ -81,6 +100,5 @@ class Spire
       end
 
     end
-
   end
 end

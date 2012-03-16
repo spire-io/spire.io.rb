@@ -16,7 +16,7 @@ RSpec::Matchers.define :be_a_privileged_resource do
 end
 
 def create_spire
-  Spire.new("http://build.spire.io")
+  Spire.new("http://localhost:1337")
 end
 
 $email = "test+#{Time.now.to_i}@spire.io"
@@ -299,6 +299,7 @@ describe "The spire.io API" do
         specify "Will only return a single message once" do
           channel = create_spire.start($secret)["multiple"]
           subscription = create_spire.start($secret).subscribe('new_sub2', "multiple")
+          subscription.listen
           channel.publish("Message 1")
           channel.publish("Message 2")
           messages = subscription.listen
@@ -322,6 +323,7 @@ describe "The spire.io API" do
           describe "Listen for the message we sent" do
 
             before(:all) do
+              @subscription.listen
               @messages = @subscription.listen(:timeout => 2)
             end
 
