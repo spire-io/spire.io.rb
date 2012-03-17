@@ -49,8 +49,16 @@ class Spire
         }
       end
       
-      def register_device(properties)
-        response = request(:register_device, properties)
+      def devices!
+        response = request(:devices)
+        unless response.status == 200
+          raise "Error getting device list #{self.class.name}: (#{response.status}) #{response.body}"
+        end
+        response.data["devices"]
+      end
+      
+      def register_device(device_token)
+        response = request(:register_device, :token => device_token)
         unless response.status == 200
           raise "Error adding device #{self.class.name}: (#{response.status}) #{response.body}"
         end
