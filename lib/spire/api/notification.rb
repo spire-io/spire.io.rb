@@ -6,6 +6,22 @@ class Spire
         "notification"
       end
       
+      define_request(:push) do |options|
+        {
+          :method => :post,
+          :url => @url,
+          :body => {
+            :device_tokens => options[:device_tokens],
+            :message => options[:message]
+          }.to_json,
+          :headers => {
+            "Authorization" => "Capability #{@capabilities["push"]}",
+            "Accept" => @spire.mediaType("notification"),
+            "Content-Type" => @spire.mediaType("notification")
+          }
+        }
+      end
+      
       define_request(:devices) do
         devices = properties["resources"]["devices"]
         capability = devices["capabilities"]["devices"]
@@ -44,9 +60,17 @@ class Spire
           :headers => {
             "Authorization" => "Capability #{capability}",
             "Accept" => "application/json",
-            "Content-Type" => "application/json",
+            "Content-Type" => "application/json"
           }
         }
+      end
+      
+      def send_notification(options={})
+        response = request(:push, options)
+        unless response.status == 200
+          raise "Error sending push notification #{self.class.name}: (#{response.status}) #{response.body}"
+        end
+        response.data
       end
       
       def devices!
