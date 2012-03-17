@@ -63,7 +63,7 @@ class Spire
         }
       end
 
-      define_request(:create_subscription) do |subscription_name, channel_urls|
+      define_request(:create_subscription) do |subscription_name, channel_urls, device_token, notification_name|
         collection = @resources["subscriptions"]
         capability = collection["capabilities"]["create"]
         url = collection["url"]
@@ -72,7 +72,9 @@ class Spire
           :url => url,
           :body => {
             :channels => channel_urls,
-            :name => subscription_name
+            :name => subscription_name,
+            :device_token => device_token,
+            :notification_name => notification_name
           }.to_json,
           :headers => {
             "Authorization" => "Capability #{capability}",
@@ -97,7 +99,7 @@ class Spire
         }
       end
       
-      define_request(:create_notification) do |notification_name, ssl_cert|
+      define_request(:create_notification) do |options|
         collection = @resources["notifications"]
         capability = collection["capabilities"]["create"]
         url = collection["url"]
@@ -105,8 +107,10 @@ class Spire
           :method => :post,
           :url => url,
           :body => {
-            :sslCert => ssl_cert,
-            :name => notification_name
+            :name => options[:name],
+            :sslCert => options[:sslCert],
+            :sslCertPass => options[:sslCertPass],
+            :mode => options[:mode]
           }.to_json,
           :headers => {
             "Authorization" => "Capability #{capability}",
@@ -158,9 +162,9 @@ class Spire
         channels[name] = API::Channel.new(@spire, properties)
       end
 
-      def create_subscription(subscription_name, channel_names)
+      def create_subscription(subscription_name, channel_names, device_token=nil, notification_name=nil)
         channel_urls = channel_names.flatten.map { |name| self.channels[name].url rescue nil }.compact
-        response = request(:create_subscription, subscription_name, channel_urls)
+        response = request(:create_subscription, subscription_name, channel_urls, device_token, notification_name)
         unless response.status == 201
           raise "Error creating Subscription: (#{response.status}) #{response.body}"
         end
@@ -172,14 +176,14 @@ class Spire
         subscription
       end
       
-      def create_notification(notification_name, ssl_cert)
-        response = request(:create_notification, notification_name, ssl_cert)
+      def create_notification(options={})
+        response = request(:create_notification, options)
         unless response.status == 201
           raise "Error creating Notification: (#{response.status}) #{response.body}"
         end
         data = response.data
         notification = API::Notification.new(@spire, data) 
-        if notification_name
+        if options[:name]
           notifications[data["name"]] = notification
         end
         notification
