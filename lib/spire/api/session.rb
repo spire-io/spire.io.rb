@@ -191,6 +191,17 @@ class Spire
         subscription
       end
 
+      def get_application(name)
+        response = request(:application_by_name, name)
+        unless response.status == 200
+          raise "Error finding application with name #{name}: (#{response.status}) #{response.body}"
+        end
+        properties = response.data[name]
+        app = API::Application.new(@spire, properties)
+        @applications[name] = app if @applications.is_a?(Hash)
+        app
+      end
+
       def create_application(name)
         response = request(:create_application, name)
         unless response.status == 201

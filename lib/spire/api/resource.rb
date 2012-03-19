@@ -65,10 +65,6 @@ class Spire
         properties[name]
       end
 
-      def inspect
-        "#<#{self.class.name}:0x#{object_id.to_s(16)}>"
-      end
-
       def get
         response = request(:get)
         unless response.status == 200
