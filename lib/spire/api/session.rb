@@ -69,7 +69,11 @@ class Spire
         }
       end
 
-      define_request(:create_subscription) do |subscription_name, channel_urls|
+      define_request(:create_subscription) do |options|
+        name = options[:name]
+        channel_urls = options[:channel_urls]
+        timeout = options[:timeout]
+
         collection = @resources["subscriptions"]
         capability = collection["capabilities"]["create"]
         url = collection["url"]
@@ -78,7 +82,8 @@ class Spire
           :url => url,
           :body => {
             :channels => channel_urls,
-            :name => subscription_name
+            :name => name,
+            :timeout => timeout
           }.to_json,
           :headers => {
             "Authorization" => "Capability #{capability}",
@@ -177,14 +182,18 @@ class Spire
         channels[name] = API::Channel.new(@spire, properties)
       end
 
-      def create_subscription(subscription_name, channel_names)
+      def create_subscription(subscription_name, channel_names, timeout=nil)
         channel_urls = channel_names.flatten.map { |name| self.channels[name].url rescue nil }.compact
-        response = request(:create_subscription, subscription_name, channel_urls)
+        response = request(:create_subscription, {
+          :name => subscription_name,
+          :channel_urls => channel_urls,
+          :timeout => timeout
+        })
         unless response.status == 201
           raise "Error creating Subscription: (#{response.status}) #{response.body}"
         end
         data = response.data
-        subscription = API::Subscription.new(@spire, data) 
+        subscription = API::Subscription.new(@spire, data)
         if subscription_name
           subscriptions[data["name"]] = subscription
         end
