@@ -81,7 +81,7 @@ class Spire
 
       def retrieve_messages(options={})
         events = retrieve_events(options)
-        events["messages"]
+        events[:messages]
       end
 
       def poll(options={})
