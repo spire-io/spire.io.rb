@@ -64,12 +64,12 @@ class Spire
 
         EVENT_TYPES.each do |type|
           type_pl = "#{type}s"
-          event_hash[type_pl] = []
+          event_hash[type_pl.to_sym] = []
           response.data[type_pl].each do |event|
             klass_name = type.capitalize
             klass = API.const_get(klass_name)
             event_obj = klass.new(@spire, event)
-            event_hash[type_pl].push(event_obj)
+            event_hash[type_pl.to_sym].push(event_obj)
 
             listeners[type].each do |listener|
               listener.call(event_obj)
