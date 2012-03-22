@@ -22,18 +22,17 @@ end
 $email = "test+#{Time.now.to_i}@spire.io"
 
 describe "The spire.io API" do
+  before(:all) do
+    @spire = create_spire
+    @session = @spire.register(:email => $email, :password => "foobarbaz").instance_eval { @session }
+    $secret = @spire.secret
+  end
 
   describe "Accounts and Sessions" do
 
     describe "Registration and Authentication" do
 
       describe "Register with a valid email and password" do
-
-        before(:all) do
-          @spire = create_spire
-          @session = @spire.register(:email => $email, :password => "foobarbaz").instance_eval { @session }
-          $secret = @spire.secret
-        end
 
         specify "has a session" do
           @spire.session.should be_a_kind_of Spire::API::Session
