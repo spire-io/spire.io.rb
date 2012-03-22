@@ -210,6 +210,17 @@ describe "The spire.io API" do
             end
           end #describe "Creating subscriptions with the same name" do
 
+          describe "Getting all subscriptions for a channel" do
+
+            before(:all) do
+              @subscriptions = @spire['foo'].subscriptions!
+            end
+
+            specify "Should return an hash of subscriptions with sub1" do
+              @subscriptions['sub1'].should_not be_nil
+            end
+          end
+
           describe "Listen for the message we sent" do
 
             before(:all) do
