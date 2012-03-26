@@ -60,7 +60,10 @@ class Spire
         end
         @last = response.data["last"] if response.data and response.data["last"]
 
-        event_hash = {}
+        event_hash = {
+          :first => response.data["first"],
+          :last => response.data["last"]
+        }
 
         EVENT_TYPES.each do |type|
           type_pl = "#{type}s"

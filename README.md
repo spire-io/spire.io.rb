@@ -72,11 +72,11 @@ Usage:
 
     subscription = session.create_subscription("sub.name", ["foo"])
     channel.publish("message content")
-    messages = subscription.retrieve_events
-    last_timestamp = messages.last["timestamp"]
+    events = subscription.retrieve_events
+    last_timestamp = events[:last]
 
     channel.publish("another message")
-    messages = subscription.retrieve_events(:last => last_timestamp)
+    more_events = subscription.retrieve_events(:last => last_timestamp)
 
 ## CLI usage
 
