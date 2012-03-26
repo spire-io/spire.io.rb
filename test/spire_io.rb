@@ -224,7 +224,7 @@ describe "The spire.io API" do
           describe "Listen for the message we sent" do
 
             before(:all) do
-              @messages = @subscription.listen
+              @messages = @subscription.listen[:messages]
             end
 
             specify "We should get back an array of messages" do
@@ -232,7 +232,7 @@ describe "The spire.io API" do
             end
 
             specify "We should get back the message we sent" do
-              @messages.first.should == "Hello World!"
+              @messages.first['content'].should == "Hello World!"
             end
 
             specify "And ONLY the message we sent" do
@@ -312,11 +312,12 @@ describe "The spire.io API" do
           subscription.listen
           channel.publish("Message 1")
           channel.publish("Message 2")
-          messages = subscription.listen
-          messages.should == ["Message 1", "Message 2"]
+          messages = subscription.listen[:messages]
+          messages.first['content'].should == "Message 1"
+          messages[1]['content'].should == "Message 2"
           channel.publish("Message 3")
-          messages = subscription.listen
-          messages.should == ["Message 3"]
+          messages = subscription.listen[:messages]
+          messages.first['content'].should == "Message 3"
         end
 
         describe "Waits for a message to be published" do
@@ -334,7 +335,7 @@ describe "The spire.io API" do
 
             before(:all) do
               @subscription.listen
-              @messages = @subscription.listen(:timeout => 2)
+              @messages = @subscription.listen(:timeout => 2)[:messages]
             end
 
             specify "We should get back an array of messages" do
@@ -342,7 +343,7 @@ describe "The spire.io API" do
             end
 
             specify "We should get back the message we sent" do
-              @messages.first.should == "Goodbye!"
+              @messages.first['content'].should == "Goodbye!"
             end
 
             specify "And ONLY the message we sent" do

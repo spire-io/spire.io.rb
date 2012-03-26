@@ -242,8 +242,7 @@ class Spire
     # misnamed method, here for backompat.  Should be something like #get_messages,
     # because it only makes one request.
     def listen(options={})
-      messages = long_poll(options)
-      messages.map {|message| message["content"] }
+      long_poll(options)
     end
 
     # wraps the underlying Subscription#add_listener to
