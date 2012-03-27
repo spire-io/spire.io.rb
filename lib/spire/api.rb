@@ -12,6 +12,7 @@ require "spire/api/channel"
 require "spire/api/subscription"
 require "spire/api/message"
 require "spire/api/application"
+require "spire/api/member"
 
 class Spire
 
@@ -27,10 +28,6 @@ class Spire
       @version = options[:version] || "1.0"
       @client = Excon
       @url = url
-    end
-
-    def inspect
-      "#<Spire::API:0x#{object_id.to_s(16)} @url=#{@url.dump}>"
     end
 
     define_request(:discover) do
@@ -100,6 +97,17 @@ class Spire
       }
     end
 
+    define_request(:get_application) do |app_key|
+      {
+        :method => :get,
+        :url => @description["resources"]["applications"]["url"],
+        :query => {:application_key => app_key},
+        :headers => {
+          "Accept" => mediaType("applications"),
+          "Content-Type" => mediaType("applications")
+        }
+      }
+    end
 
     def discover
       response = request(:discover)
@@ -145,6 +153,16 @@ class Spire
         raise "Error requesting password reset: (#{response.status}) #{response.body}"
       end
       response
+    end
+
+    # Gets an application resource from a key without requiring any authentication
+    # @param [String] application_key The application key
+    def get_application(application_key)
+      response = request(:get_application, application_key)
+      if response.status != 200
+        raise "Error attempting to retrieve application (#{response.status}) #{response.body}"
+      end
+      API::Application.new(self, response.data)
     end
 
     # Returns a billing object than contains a list of all the plans available
