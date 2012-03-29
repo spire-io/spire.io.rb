@@ -1,3 +1,4 @@
+require 'base64'
 class Spire
   class API
 
@@ -53,12 +54,12 @@ class Spire
           :query => {:email => email},
           :headers => {
             "Authorization" => "Capability #{capability}",
-            "Accept" => @spire.mediaType("members"),
+            "Accept" => @spire.mediaType("member"),
           }
         }
       end
 
-      define_request(:authenticate) do |data|
+      define_request(:authenticate_with_post) do |data|
         collection = @resources["authentication"]
         url = collection["url"]
         request = {
@@ -71,8 +72,32 @@ class Spire
         }
       end
 
+      define_request(:authenticate) do |data|
+        collection = @resources["members"]
+        url = "#{collection["url"]}?email=#{data[:email]}"
+        auth = Base64.encode64("#{data[:email]}:#{data[:password]}").gsub("\n", '')
+        request = {
+          :method => :get,
+          :url => url,
+          :headers => {
+            "Accept" => @spire.mediaType("member"),
+            "Authorization" => "Basic #{auth}"
+          }
+        }
+      end
+
+      #Authenticates with the application using basic auth
       def authenticate(email, password)
         response = request(:authenticate, {:email => email, :password => password})
+        unless response.status == 200
+          raise "Error authenticating for application #{self.name}: (#{response.status}) #{response.body}"
+        end
+        API::Member.new(@spire, response.data)
+      end
+
+      #Alternative application authentication, without using basic auth
+      def authenticate_with_post(email, password)
+        response = request(:authenticate_with_post, {:email => email, :password => password})
         unless response.status == 201
           raise "Error authenticating for application #{self.name}: (#{response.status}) #{response.body}"
         end
