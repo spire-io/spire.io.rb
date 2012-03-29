@@ -69,7 +69,7 @@ class Spire
         }
       end
 
-      define_request(:create_subscription) do |subscription_name, channel_urls|
+      define_request(:create_subscription) do |subscription_name, channel_urls, device_token, notification_name|
         collection = @resources["subscriptions"]
         capability = collection["capabilities"]["create"]
         url = collection["url"]
@@ -78,7 +78,9 @@ class Spire
           :url => url,
           :body => {
             :channels => channel_urls,
-            :name => subscription_name
+            :name => subscription_name,
+            :device_token => device_token,
+            :notification_name => notification_name
           }.to_json,
           :headers => {
             "Authorization" => "Capability #{capability}",
@@ -99,6 +101,39 @@ class Spire
           :headers => {
             "Authorization" => "Capability #{capability}",
             "Accept" => @spire.mediaType("subscriptions"),
+          }
+        }
+      end
+      
+      define_request(:create_notification) do |options|
+        collection = @resources["notifications"]
+        capability = collection["capabilities"]["create"]
+        url = collection["url"]
+        {
+          :method => :post,
+          :url => url,
+          :body => {
+            :name => options[:name],
+            :mode => options[:mode]
+          }.to_json,
+          :headers => {
+            "Authorization" => "Capability #{capability}",
+            "Accept" => @spire.mediaType("notification"),
+            "Content-Type" => @spire.mediaType("notification")
+          }
+        }
+      end
+      
+      define_request(:notifications) do
+        collection = @resources["notifications"]
+        capability = collection["capabilities"]["all"]
+        url = collection["url"]
+        {
+          :method => :get,
+          :url => url,
+          :headers => {
+            "Authorization" => "Capability #{capability}",
+            "Accept" => @spire.mediaType("notifications"),
           }
         }
       end
@@ -177,9 +212,9 @@ class Spire
         channels[name] = API::Channel.new(@spire, properties)
       end
 
-      def create_subscription(subscription_name, channel_names)
+      def create_subscription(subscription_name, channel_names, device_token=nil, notification_name=nil)
         channel_urls = channel_names.flatten.map { |name| self.channels[name].url rescue nil }.compact
-        response = request(:create_subscription, subscription_name, channel_urls)
+        response = request(:create_subscription, subscription_name, channel_urls, device_token, notification_name)
         unless response.status == 201
           raise "Error creating Subscription: (#{response.status}) #{response.body}"
         end
@@ -228,6 +263,19 @@ class Spire
         @applications ||= applications!
       end
 
+      def create_notification(options={})
+        response = request(:create_notification, options)
+        unless response.status == 201
+          raise "Error creating Notification: (#{response.status}) #{response.body}"
+        end
+        data = response.data
+        notification = API::Notification.new(@spire, data) 
+        if options[:name]
+          notifications[data["name"]] = notification
+        end
+        notification
+      end
+      
       def channels!
         response = request(:channels)
         unless response.status == 200
@@ -259,6 +307,22 @@ class Spire
           @subscriptions[name] = API::Subscription.new(@spire, properties)
         end
         @subscriptions
+      end
+      
+      def notifications
+        @notifications ||= notifications!
+      end
+      
+      def notifications!
+        response = request(:notifications)
+        unless response.status == 200
+          raise "Error retrieving Notifications: (#{response.status}) #{response.body}"
+        end
+        @notifications = {}
+        response.data.each do |name, properties|
+          @notifications[name] = API::Notification.new(@spire, properties)
+        end
+        @notifications
       end
 
     end
