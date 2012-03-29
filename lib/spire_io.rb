@@ -146,16 +146,19 @@ class Spire
 	end
 	
 
-  def notification(name, ssl_cert)
+  def notification(name, mode="development")
     Notification.new(
       @session.notifications[name] || find_or_create_notification(name, ssl_cert)
     )
   end
   
-  def find_or_create_notification(notification_name, ssl_cert)
+  def find_or_create_notification(notification_name, mode)
   	@notification_error_counts[notification_name] ||= 0
     begin
-      return @session.create_notification(notification_name, ssl_cert)
+      return @session.create_notification(
+          :name => notification_name,
+          :mode => mode
+        )
     rescue => error
       if error.message =~ /409/
       

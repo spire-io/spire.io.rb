@@ -108,8 +108,6 @@ class Spire
           :url => url,
           :body => {
             :name => options[:name],
-            :sslCert => options[:sslCert],
-            :sslCertPass => options[:sslCertPass],
             :mode => options[:mode]
           }.to_json,
           :headers => {
