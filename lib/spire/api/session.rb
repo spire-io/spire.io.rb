@@ -175,8 +175,16 @@ class Spire
         channels[name] = API::Channel.new(@spire, properties)
       end
 
-      def create_subscription(subscription_name, channel_names)
-        channel_urls = channel_names.flatten.map { |name| self.channels[name].url rescue nil }.compact
+      def create_subscription(subscription_name, channel_names, second_try = false)
+        channel_urls = channel_names.flatten.map { |name| self.channels[name].url rescue nil }
+        if channel_urls.size != channel_urls.compact.size
+          if !second_try
+            self.channels!
+            return create_subscription(subscription_name, channel_names, true)
+          else
+            channel_urls = channel_urls.compact
+          end
+        end
         response = request(:create_subscription, subscription_name, channel_urls)
         unless response.status == 201
           raise "Error creating Subscription: (#{response.status}) #{response.body}"
