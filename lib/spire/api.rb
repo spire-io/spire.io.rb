@@ -109,10 +109,6 @@ class Spire
       }
     end
 
-    def inspect
-      "API"
-    end
-
     def discover
       response = request(:discover)
       raise "Error during discovery: #{response.status}" if response.status != 200

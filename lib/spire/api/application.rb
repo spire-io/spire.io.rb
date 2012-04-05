@@ -315,8 +315,6 @@ class Spire
         unless response.status == 200
           raise "Error finding subscription with name #{name}: (#{response.status}) #{response.body}"
         end
-        require 'pp'
-        pp response.data
         properties = response.data[name]
         sub = API::Subscription.new(@spire, properties)
         @subscriptions[name] = sub if @subscriptions.is_a?(Hash)
