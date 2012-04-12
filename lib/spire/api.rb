@@ -10,9 +10,10 @@ require "spire/api/session"
 require "spire/api/account"
 require "spire/api/channel"
 require "spire/api/subscription"
-require "spire/api/message"
+require "spire/api/event"
 require "spire/api/application"
 require "spire/api/member"
+require "spire/api/notification"
 
 class Spire
 

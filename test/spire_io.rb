@@ -22,18 +22,17 @@ end
 $email = "test+#{Time.now.to_i}@spire.io"
 
 describe "The spire.io API" do
+  before(:all) do
+    @spire = create_spire
+    @session = @spire.register(:email => $email, :password => "foobarbaz").instance_eval { @session }
+    $secret = @spire.secret
+  end
 
   describe "Accounts and Sessions" do
 
     describe "Registration and Authentication" do
 
       describe "Register with a valid email and password" do
-
-        before(:all) do
-          @spire = create_spire
-          @session = @spire.register(:email => $email, :password => "foobarbaz").instance_eval { @session }
-          $secret = @spire.secret
-        end
 
         specify "has a session" do
           @spire.session.should be_a_kind_of Spire::API::Session
@@ -211,10 +210,21 @@ describe "The spire.io API" do
             end
           end #describe "Creating subscriptions with the same name" do
 
+          describe "Getting all subscriptions for a channel" do
+
+            before(:all) do
+              @subscriptions = @spire['foo'].subscriptions!
+            end
+
+            specify "Should return an hash of subscriptions with sub1" do
+              @subscriptions['sub1'].should_not be_nil
+            end
+          end
+
           describe "Listen for the message we sent" do
 
             before(:all) do
-              @messages = @subscription.listen
+              @messages = @subscription.listen[:messages]
             end
 
             specify "We should get back an array of messages" do
@@ -222,7 +232,7 @@ describe "The spire.io API" do
             end
 
             specify "We should get back the message we sent" do
-              @messages.first.should == "Hello World!"
+              @messages.first['content'].should == "Hello World!"
             end
 
             specify "And ONLY the message we sent" do
@@ -299,13 +309,15 @@ describe "The spire.io API" do
         specify "Will only return a single message once" do
           channel = create_spire.start($secret)["multiple"]
           subscription = create_spire.start($secret).subscribe('new_sub2', "multiple")
+          subscription.listen
           channel.publish("Message 1")
           channel.publish("Message 2")
-          messages = subscription.listen
-          messages.should == ["Message 1", "Message 2"]
+          messages = subscription.listen[:messages]
+          messages.first['content'].should == "Message 1"
+          messages[1]['content'].should == "Message 2"
           channel.publish("Message 3")
-          messages = subscription.listen
-          messages.should == ["Message 3"]
+          messages = subscription.listen[:messages]
+          messages.first['content'].should == "Message 3"
         end
 
         describe "Waits for a message to be published" do
@@ -322,7 +334,8 @@ describe "The spire.io API" do
           describe "Listen for the message we sent" do
 
             before(:all) do
-              @messages = @subscription.listen(:timeout => 2)
+              @subscription.listen
+              @messages = @subscription.listen(:timeout => 2)[:messages]
             end
 
             specify "We should get back an array of messages" do
@@ -330,7 +343,7 @@ describe "The spire.io API" do
             end
 
             specify "We should get back the message we sent" do
-              @messages.first.should == "Goodbye!"
+              @messages.first['content'].should == "Goodbye!"
             end
 
             specify "And ONLY the message we sent" do

@@ -33,15 +33,15 @@ class Spire
         }
       end
 
-      define_request(:create_channel) do |name, message_limit, message_ttl|
+      define_request(:create_channel) do |name, limit, ttl|
         collection = @resources["channels"]
         capability = collection["capabilities"]["create"]
         url = collection["url"]
 
         body = {
           :name => name,
-          :message_limit => message_limit,
-          :message_ttl => message_ttl
+          :limit => limit,
+          :ttl => ttl
         }.to_json
         {
           :method => :post,
@@ -69,7 +69,13 @@ class Spire
         }
       end
 
-      define_request(:create_subscription) do |subscription_name, channel_urls|
+      define_request(:create_subscription) do |options|
+        name = options[:name]
+        channel_urls = options[:channel_urls]
+        timeout = options[:timeout]
+        device_token = options[:device_token]
+        notification_name = options[:notification_name]
+
         collection = @resources["subscriptions"]
         capability = collection["capabilities"]["create"]
         url = collection["url"]
@@ -78,7 +84,10 @@ class Spire
           :url => url,
           :body => {
             :channels => channel_urls,
-            :name => subscription_name
+            :name => name,
+            :timeout => timeout,
+            :device_token => device_token,
+            :notification_name => notification_name
           }.to_json,
           :headers => {
             "Authorization" => "Capability #{capability}",
@@ -99,6 +108,39 @@ class Spire
           :headers => {
             "Authorization" => "Capability #{capability}",
             "Accept" => @spire.mediaType("subscriptions"),
+          }
+        }
+      end
+      
+      define_request(:create_notification) do |options|
+        collection = @resources["notifications"]
+        capability = collection["capabilities"]["create"]
+        url = collection["url"]
+        {
+          :method => :post,
+          :url => url,
+          :body => {
+            :name => options[:name],
+            :mode => options[:mode]
+          }.to_json,
+          :headers => {
+            "Authorization" => "Capability #{capability}",
+            "Accept" => @spire.mediaType("notification"),
+            "Content-Type" => @spire.mediaType("notification")
+          }
+        }
+      end
+      
+      define_request(:notifications) do
+        collection = @resources["notifications"]
+        capability = collection["capabilities"]["all"]
+        url = collection["url"]
+        {
+          :method => :get,
+          :url => url,
+          :headers => {
+            "Authorization" => "Capability #{capability}",
+            "Accept" => @spire.mediaType("notifications"),
           }
         }
       end
@@ -165,9 +207,9 @@ class Spire
       end
 
       def create_channel(name, options={})
-        message_limit = options[:message_limit]
-        message_ttl = options[:message_ttl]
-        response = request(:create_channel, name, message_limit, message_ttl)
+        limit = options[:limit]
+        ttl = options[:ttl]
+        response = request(:create_channel, name, limit, ttl)
         unless response.status == 201
           raise "Error creating Channel: (#{response.status}) #{response.body}"
         end
@@ -175,22 +217,29 @@ class Spire
         channels[name] = API::Channel.new(@spire, properties)
       end
 
-      def create_subscription(subscription_name, channel_names, second_try = false)
+      def create_subscription(subscription_name, channel_names, timeout=nil, device_token=nil, notification_name=nil, second_try = false)
         channel_urls = channel_names.flatten.map { |name| self.channels[name].url rescue nil }
         if channel_urls.size != channel_urls.compact.size
           if !second_try
             self.channels!
-            return create_subscription(subscription_name, channel_names, true)
+            return create_subscription(subscription_name, channel_names, timeout, device_token, notification_name, true)
           else
             channel_urls = channel_urls.compact
           end
         end
-        response = request(:create_subscription, subscription_name, channel_urls)
+        response = request(:create_subscription, {
+          :name => subscription_name,
+          :channel_urls => channel_urls,
+          :timeout => timeout,
+          :device_token => device_token,
+          :notification_name => notification_name
+        })
+
         unless response.status == 201
           raise "Error creating Subscription: (#{response.status}) #{response.body}"
         end
         data = response.data
-        subscription = API::Subscription.new(@spire, data) 
+        subscription = API::Subscription.new(@spire, data)
         if subscription_name
           subscriptions[data["name"]] = subscription
         end
@@ -235,6 +284,19 @@ class Spire
         @applications ||= applications!
       end
 
+      def create_notification(options={})
+        response = request(:create_notification, options)
+        unless response.status == 201
+          raise "Error creating Notification: (#{response.status}) #{response.body}"
+        end
+        data = response.data
+        notification = API::Notification.new(@spire, data) 
+        if options[:name]
+          notifications[data["name"]] = notification
+        end
+        notification
+      end
+      
       def channels!
         response = request(:channels)
         unless response.status == 200
@@ -266,6 +328,22 @@ class Spire
           @subscriptions[name] = API::Subscription.new(@spire, properties)
         end
         @subscriptions
+      end
+      
+      def notifications
+        @notifications ||= notifications!
+      end
+      
+      def notifications!
+        response = request(:notifications)
+        unless response.status == 200
+          raise "Error retrieving Notifications: (#{response.status}) #{response.body}"
+        end
+        @notifications = {}
+        response.data.each do |name, properties|
+          @notifications[name] = API::Notification.new(@spire, properties)
+        end
+        @notifications
       end
 
     end
