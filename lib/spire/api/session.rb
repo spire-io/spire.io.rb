@@ -72,7 +72,7 @@ class Spire
       define_request(:create_subscription) do |options|
         name = options[:name]
         channel_urls = options[:channel_urls]
-        timeout = options[:timeout]
+        expiration = options[:expiration]
         device_token = options[:device_token]
         notification_name = options[:notification_name]
 
@@ -85,7 +85,7 @@ class Spire
           :body => {
             :channels => channel_urls,
             :name => name,
-            :timeout => timeout,
+            :expiration => expiration,
             :device_token => device_token,
             :notification_name => notification_name
           }.to_json,
@@ -219,12 +219,12 @@ class Spire
         channels[name] = API::Channel.new(@spire, properties)
       end
 
-      def create_subscription(subscription_name, channel_names, timeout=nil, device_token=nil, notification_name=nil)
+      def create_subscription(subscription_name, channel_names, expiration=nil, device_token=nil, notification_name=nil)
         channel_urls = channel_names.flatten.map { |name| self.channels[name].url rescue nil }.compact
         response = request(:create_subscription, {
           :name => subscription_name,
           :channel_urls => channel_urls,
-          :timeout => timeout,
+          :expiration => expiration,
           :device_token => device_token,
           :notification_name => notification_name
         })
