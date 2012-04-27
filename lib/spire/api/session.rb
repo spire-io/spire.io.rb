@@ -173,14 +173,12 @@ class Spire
         }
       end
 
-      define_request(:create_application) do |name|
+      define_request(:create_application) do |data|
         collection = @resources["applications"]
         {
           :method => :post,
           :url => collection["url"],
-          :body => {
-            :name => name,
-          }.to_json,
+          :body => data.to_json,
           :headers => {
             "Authorization" => "Capability #{collection["capabilities"]["create"]}",
             "Accept" => @spire.mediaType("application"),
@@ -219,8 +217,16 @@ class Spire
         channels[name] = API::Channel.new(@spire, properties)
       end
 
-      def create_subscription(subscription_name, channel_names, expiration=nil, device_token=nil, notification_name=nil)
-        channel_urls = channel_names.flatten.map { |name| self.channels[name].url rescue nil }.compact
+      def create_subscription(subscription_name, channel_names, expiration=nil, device_token=nil, notification_name=nil, second_try=false)
+        channel_urls = channel_names.flatten.map { |name| self.channels[name].url rescue nil }
+        if channel_urls.size != channel_urls.compact.size
+          if !second_try
+            self.channels!
+            return create_subscription(subscription_name, channel_names, expiration, device_token, notification_name, true)
+          else
+            channel_urls = channel_urls.compact
+          end
+        end
         response = request(:create_subscription, {
           :name => subscription_name,
           :channel_urls => channel_urls,
@@ -251,8 +257,9 @@ class Spire
         app
       end
 
-      def create_application(name)
-        response = request(:create_application, name)
+      def create_application(name, data = {})
+        data[:name] = name
+        response = request(:create_application, data)
         unless response.status == 201
           raise "Error creating Application (#{response.status}) #{response.body}"
         end

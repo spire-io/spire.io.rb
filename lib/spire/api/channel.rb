@@ -41,6 +41,22 @@ class Spire
         }
       end
 
+      define_request(:subscribe) do |name|
+        collection = @resources["subscriptions"]
+        capability = collection["capabilities"]["create"]
+        url = collection["url"]
+        {
+          :method => :post,
+          :url => url,
+          :body => {:name => name}.to_json,
+          :headers => {
+            "Authorization" => "Capability #{capability}",
+            "Accept" => @spire.mediaType("subscription"),
+            "Content-Type" => @spire.mediaType("subscription")
+          }
+        }
+      end
+
       def subscriptions
         @subscriptions ||= subscriptions!
       end
@@ -63,9 +79,16 @@ class Spire
         unless response.status == 201
           raise "Error publishing to #{self.class.name}: (#{response.status}) #{response.body}"
         end
-        message = API::Message.new(@spire, response.data)
+        API::Message.new(@spire, response.data)
       end
 
+      def subscribe(name = nil)
+        response = request(:subscribe, name)
+        unless response.status == 201
+          raise "Error creating subscription for #{self.name}: (#{response.status}) #{response.body}"
+        end
+        API::Subscription.new(@spire, response.data)
+      end
     end
 
   end
