@@ -70,7 +70,8 @@ class Spire
         :body => {
           :email => info[:email],
           :password => info[:password],
-          :password_confirmation => info[:password_confirmation]
+          :password_confirmation => info[:password_confirmation],
+          :email_opt_in => info[:email_opt_in]
         }.to_json,
         :headers => { 
           "Accept" => mediaType("session"),
