@@ -146,14 +146,14 @@ class Spire
         }
       end
 
-      define_request(:member_by_email) do |email|
+      define_request(:member_by_login) do |login|
         collection = @resources["members"]
-        capability = collection["capabilities"]["get_by_email"]
+        capability = collection["capabilities"]["get_by_login"]
         url = collection["url"]
         request = {
           :method => :get,
           :url => url,
-          :query => {:email => email},
+          :query => {:login => login},
           :headers => {
             "Authorization" => "Capability #{capability}",
             "Accept" => @spire.mediaType("member"),
@@ -176,8 +176,8 @@ class Spire
 
       define_request(:authenticate) do |data|
         collection = @resources["members"]
-        url = "#{collection["url"]}?email=#{data[:email]}"
-        auth = Base64.encode64("#{data[:email]}:#{data[:password]}").gsub("\n", '')
+        url = "#{collection["url"]}?login=#{data[:login]}"
+        auth = Base64.encode64("#{data[:login]}:#{data[:password]}").gsub("\n", '')
         request = {
           :method => :get,
           :url => url,
@@ -189,8 +189,8 @@ class Spire
       end
 
       #Authenticates with the application using basic auth
-      def authenticate(email, password)
-        response = request(:authenticate, {:email => email, :password => password})
+      def authenticate(login, password)
+        response = request(:authenticate, {:login => login, :password => password})
         unless response.status == 200
           raise "Error authenticating for application #{self.name}: (#{response.status}) #{response.body}"
         end
@@ -198,8 +198,8 @@ class Spire
       end
 
       #Alternative application authentication, without using basic auth
-      def authenticate_with_post(email, password)
-        response = request(:authenticate_with_post, {:email => email, :password => password})
+      def authenticate_with_post(login, password)
+        response = request(:authenticate_with_post, {:login => login, :password => password})
         unless response.status == 201
           raise "Error authenticating for application #{self.name}: (#{response.status}) #{response.body}"
         end
@@ -224,20 +224,20 @@ class Spire
           raise "Error getting members for application #{self.name}: (#{response.status}) #{response.body}"
         end
         @members = {}
-        response.data.each do |email, properties|
-          @members[email] = API::Member.new(@spire, properties)
+        response.data.each do |login, properties|
+          @members[login] = API::Member.new(@spire, properties)
         end
         @members
       end
 
-      def get_member(member_email)
-        response = request(:member_by_email, member_email)
+      def get_member(member_login)
+        response = request(:member_by_login, member_login)
         unless response.status == 200
-          raise "Error finding member with email #{member_email}: (#{response.status}) #{response.body}"
+          raise "Error finding member with login #{member_login}: (#{response.status}) #{response.body}"
         end
-        properties = response.data[member_email]
+        properties = response.data[member_login]
         member = API::Member.new(@spire, properties)
-        @members[member_email] = member if @members.is_a?(Hash)
+        @members[member_login] = member if @members.is_a?(Hash)
         member
       end
       
