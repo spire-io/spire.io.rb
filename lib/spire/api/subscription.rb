@@ -14,7 +14,8 @@ class Spire
           :url => @url,
           :query => {
             "timeout" => options[:timeout],
-            "last" => options[:last],
+            "after" => options[:after],
+            "before" => options[:before],
             "order-by" => options[:order_by],
             "delay" => options[:delay]
           },
@@ -50,7 +51,7 @@ class Spire
       end
 
       def retrieve_events(options={})
-        options[:last] ||= "0"
+        options[:after] ||= options[:last] || "0"
         options[:delay] ||= 0
         options[:order_by] ||= "desc"
 
@@ -91,7 +92,7 @@ class Spire
 
       def long_poll(options={})
         options[:timeout] ||= 30
-        options[:last] = @last
+        options[:after] = @last
         retrieve_events(options)
       end
 
