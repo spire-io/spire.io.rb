@@ -14,10 +14,11 @@ class Spire
           :url => @url,
           :query => {
             "timeout" => options[:timeout],
-            "after" => options[:after],
-            "before" => options[:before],
-            "order-by" => options[:order_by],
-            "delay" => options[:delay]
+            "limit" => options[:limit],
+            "start" => options[:start],
+            "stop" => options[:stop],
+            "delay" => options[:delay],
+            "last" => options[:last]
           },
           :headers => {
             "Authorization" => "Capability #{@capabilities["events"]}",
@@ -51,10 +52,6 @@ class Spire
       end
 
       def retrieve_events(options={})
-        options[:after] ||= options[:last] || "0"
-        options[:delay] ||= 0
-        options[:order_by] ||= "desc"
-
         response = request(:events, options)
         unless response.status == 200
           raise "Error retrieving messages from #{self.class.name}: (#{response.status}) #{response.body}"
@@ -92,7 +89,7 @@ class Spire
 
       def long_poll(options={})
         options[:timeout] ||= 30
-        options[:after] = @last
+        options[:last] = @last
         retrieve_events(options)
       end
 
