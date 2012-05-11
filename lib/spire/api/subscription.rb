@@ -15,8 +15,8 @@ class Spire
           :query => {
             "timeout" => options[:timeout],
             "limit" => options[:limit],
-            "start" => options[:start],
-            "stop" => options[:stop],
+            "min_timestamp" => options[:min_timestamp],
+            "max_timestamp" => options[:max_timestamp],
             "delay" => options[:delay],
             "last" => options[:last]
           },
