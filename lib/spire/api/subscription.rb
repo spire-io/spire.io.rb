@@ -18,7 +18,8 @@ class Spire
             "min_timestamp" => options[:min_timestamp],
             "max_timestamp" => options[:max_timestamp],
             "delay" => options[:delay],
-            "last" => options[:last]
+            "last" => options[:last],
+            "order-by" => options[:order_by]
           },
           :headers => {
             "Authorization" => "Capability #{@capabilities["events"]}",
