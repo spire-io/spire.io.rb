@@ -195,13 +195,18 @@ class Spire
         @url = data["url"]
         @capabilities = data["capabilities"]
         @resources = data["resources"]
+
+        @channel_error_counts = {}
+        @application_error_counts = {}
+        @subscription_error_counts = {}
+        @notification_error_counts = {}
       end
 
       # Returns a channel object for the named channel
       # @param [String] name Name of channel returned
       # @return [Channel]
       def [](name)
-        Channel.new(self, channels[name] || find_or_create_channel(name))
+        API::Channel.new(@spire, channels[name] || find_or_create_channel(name))
       end
 
       def account
@@ -368,9 +373,29 @@ class Spire
       # @return [Subscription]
       def subscribe(name, *channels)
         channels.each { |channel| self.find_or_create_channel(channel) }
-        Subscription.new(
-          @subscriptions[name] || find_or_create_subscription(name, *channels)
+        API::Subscription.new(@spire,
+          subscriptions[name] || find_or_create_subscription(name, *channels)
         )
+      end
+      
+      def find_or_create_subscription(subscription_name, *channels)
+        @subscription_error_counts[subscription_name] ||= 0
+        begin
+          return create_subscription(subscription_name, channels)
+        rescue => error
+          if error.message =~ /409/
+
+            if subscription = subscriptions![subscription_name]
+              return subscription
+            else
+              @subscription_error_counts[subscription_name] += 1
+              retry unless @subscription_error_counts >= RETRY_CREATION_LIMIT
+            end
+
+          else
+            raise error
+          end
+        end
       end
 
       alias :subscription :subscribe #For compatibility with other clients
@@ -392,7 +417,7 @@ class Spire
       end
 
       def notification(name, mode="development")
-        Notification.new(
+        Notification.new(@spire,
           @notifications[name] || find_or_create_notification(name, ssl_cert)
         )
       end

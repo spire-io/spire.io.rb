@@ -25,7 +25,7 @@ describe "The spire.io API" do
   before(:all) do
     @spire = create_spire
     @session = @spire.register(:email => $email, :password => "foobarbaz").instance_eval { @session }
-    $secret = @spire.secret
+    $secret = @spire.session.account.secret
   end
 
   describe "Accounts and Sessions" do
@@ -73,7 +73,7 @@ describe "The spire.io API" do
           describe "Change your password" do
 
             before(:all) do
-              @spire.update(:email => $email, :password => "bazbarfoo")
+              @spire.session.account.update(:email => $email, :password => "bazbarfoo")
               @account = @spire.session.account
             end
 
@@ -153,7 +153,7 @@ describe "The spire.io API" do
     describe "Create a channel" do
 
       before(:all) do
-        @channel = @spire["foo"]
+        @channel = @spire.session["foo"]
       end
 
       #specify "Returns a privileged channel resource" do
@@ -164,7 +164,7 @@ describe "The spire.io API" do
 
         before(:all) do
           # This relies on the fact that client doesn't keep a hash of channels
-          @channel2 = create_spire.start($secret)["foo"]
+          @channel2 = create_spire.start($secret).session["foo"]
         end
 
         specify "Will simply return the existing channel" do
@@ -173,8 +173,8 @@ describe "The spire.io API" do
 
         specify "Will return an existing channel even if created by another client" do
           spire2 = create_spire.start($secret)
-          channel1 = @spire["channel1"]
-          channel1_copy = spire2["channel1"]
+          channel1 = @spire.session["channel1"]
+          channel1_copy = spire2.session["channel1"]
           channel1_copy.url.should == channel1.url
         end
       end #describe "Creating a channel with the same name" do
@@ -192,20 +192,20 @@ describe "The spire.io API" do
         describe "Create a subscription for a channel" do
 
           before(:all) do
-            @subscription = @spire.subscribe('sub_name', "foo")
+            @subscription = @spire.session.subscribe('sub_name', "foo")
           end
 
           describe "Creating subscriptions with the same name" do
 
             specify "Should return the previously created subscription" do
-              sub2 = @spire.subscribe('sub_name', "foo")
+              sub2 = @spire.session.subscribe('sub_name', "foo")
               sub2.url.should == @subscription.url
             end
 
             specify "Should return the previously created subscription even from a different client" do
               spire2 = create_spire.start($secret)
-              sub1 = @spire.subscribe('sub1', "foo")
-              sub2 = spire2.subscribe('sub1', "foo")
+              sub1 = @spire.session.subscribe('sub1', "foo")
+              sub2 = spire2.session.subscribe('sub1', "foo")
               sub1.url.should == sub2.url
             end
           end #describe "Creating subscriptions with the same name" do
@@ -213,7 +213,7 @@ describe "The spire.io API" do
           describe "Getting all subscriptions for a channel" do
 
             before(:all) do
-              @subscriptions = @spire['foo'].subscriptions!
+              @subscriptions = @spire.session['foo'].subscriptions!
             end
 
             specify "Should return an hash of subscriptions with sub1" do
@@ -224,7 +224,7 @@ describe "The spire.io API" do
           describe "Listen for the message we sent" do
 
             before(:all) do
-              @messages = @subscription.listen[:messages]
+              @messages = @subscription.long_poll[:messages]
             end
 
             specify "We should get back an array of messages" do
@@ -248,75 +248,75 @@ describe "The spire.io API" do
       describe "Event listening on a channel" do
 
         before(:all) do
-          @channel = create_spire.start($secret)["event_channel"]
-          @subscription = create_spire.start($secret).subscribe('new_sub', "event_channel")
+          @channel = create_spire.start($secret).session["event_channel"]
+          @subscription = create_spire.start($secret).session.subscribe('new_sub', "event_channel")
           @subscription.start_listening
         end
 
         specify "A listener is called each time a message is received" do
-          @subscription.add_listener("test1") {|m| @last_message = m}
+          @subscription.add_listener("message", "test1") {|m| @last_message = m}
           @channel.publish("Message1")
           sleep 1
-          @last_message.should == "Message1"
-          @subscription.remove_listener("test1")
+          @last_message.content.should == "Message1"
+          @subscription.remove_listener("message", "test1")
         end
 
         specify "You can have multiple listeners on a subscription" do
-          @subscription.add_listener("test2") {|m| @last_message2 = m}
-          @subscription.add_listener("test3") {|m| @last_message3 = m}
+          @subscription.add_listener("message", "test2") {|m| @last_message2 = m}
+          @subscription.add_listener("message", "test3") {|m| @last_message3 = m}
           @channel.publish("Message2")
           sleep 1
-          @last_message2.should == "Message2"
-          @last_message3.should == "Message2"
-          @subscription.remove_listener("test2")
-          @subscription.remove_listener("test3")
+          @last_message2.content.should == "Message2"
+          @last_message3.content.should == "Message2"
+          @subscription.remove_listener("message", "test2")
+          @subscription.remove_listener("message", "test3")
         end
 
         specify "You can have remove a listener on a subscription" do
-          @subscription.add_listener("test4") {|m| @last_message4 = m}
-          @subscription.add_listener("test5") {|m| @last_message5 = m}
+          @subscription.add_listener("message", "test4") {|m| @last_message4 = m}
+          @subscription.add_listener("message", "test5") {|m| @last_message5 = m}
           @channel.publish("Message3")
           sleep 1
-          @last_message4.should == "Message3"
-          @last_message5.should == "Message3"
+          @last_message4.content.should == "Message3"
+          @last_message5.content.should == "Message3"
           @last_message4 = nil
           @last_message5 = nil
-          @subscription.remove_listener("test4")
+          @subscription.remove_listener("message", "test4")
           @channel.publish("Message4")
           sleep 1
           @last_message4.should be_nil
           @last_message5.should == "Message4"
-          @subscription.remove_listener("test5")
+          @subscription.remove_listener("message", "test5")
         end
 
         specify "A listener will be assigned a name if none is given" do
           @last_message6 = nil
-          name = @subscription.add_listener() {|m| @last_message6 = m}
-          @subscription.remove_listener(name)
+          name = @subscription.add_listener("message") {|m| @last_message6 = m}
+          @subscription.remove_listener("message", name)
           @channel.publish("Message5")
           sleep 1
-          @last_message6.should == nil
+          @last_message6.content.should == nil
         end
       end #describe "Event listening on a channel" do
 
       describe "Long-polling on a channel" do
 
         before(:all) do
-          @channel = create_spire.start($secret)["bar"]
-          @subscription = create_spire.start($secret).subscribe('new_sub1', "bar")
+          @channel = create_spire.start($secret).session["bar"]
+          @subscription = create_spire.start($secret).session.subscribe('new_sub1', "bar")
         end
 
         specify "Will only return a single message once" do
-          channel = create_spire.start($secret)["multiple"]
-          subscription = create_spire.start($secret).subscribe('new_sub2', "multiple")
-          subscription.listen
+          channel = create_spire.start($secret).session["multiple"]
+          subscription = create_spire.start($secret).session.subscribe('new_sub2', "multiple")
+          subscription.long_poll
           channel.publish("Message 1")
           channel.publish("Message 2")
-          messages = subscription.listen[:messages]
+          messages = subscription.long_poll[:messages]
           messages.first['content'].should == "Message 1"
           messages[1]['content'].should == "Message 2"
           channel.publish("Message 3")
-          messages = subscription.listen[:messages]
+          messages = subscription.long_poll[:messages]
           messages.first['content'].should == "Message 3"
         end
 
@@ -334,8 +334,8 @@ describe "The spire.io API" do
           describe "Listen for the message we sent" do
 
             before(:all) do
-              @subscription.listen
-              @messages = @subscription.listen(:timeout => 2)[:messages]
+              @subscription.long_poll
+              @messages = @subscription.long_poll(:timeout => 2)[:messages]
             end
 
             specify "We should get back an array of messages" do

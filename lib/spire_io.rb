@@ -13,10 +13,6 @@ class Spire
   def initialize(url="https://api.spire.io")
     @api = Spire::API.new(url)
     @url = url
-    @channel_error_counts = {}
-    @application_error_counts = {}
-    @subscription_error_counts = {}
-    @notification_error_counts = {}
     discover
   end
 

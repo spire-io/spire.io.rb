@@ -86,7 +86,7 @@ class Spire
         end
 
         if listener
-          __getobj__.listeners[type].delete(listener)
+          listeners[type].delete(listener)
         end
       end
 
