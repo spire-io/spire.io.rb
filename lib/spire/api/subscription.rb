@@ -1,6 +1,18 @@
 class Spire
   class API
 
+    # The subscription class represents a read connection to a Spire channel
+    #
+    # You can get a subscription by calling subscribe on a spire object with the name of the channel or
+    # by calling subscribe on a channel object
+    #
+    # * spire = Spire.new
+    # * spire.start("your api secret")
+    # *THEN*
+    # * subscription = spire.subscribe("subscription name", "channel name")
+    # *OR*
+    # * channel = spire["channel name"]
+    # * subscription = channel.subscribe("subscription name")
     class Subscription < Resource
 
       attr_reader :last
@@ -42,14 +54,70 @@ class Spire
         end
       end
 
-      def add_listener(type="message", &block)
+      # provided named listeners, threading, and a
+      # stop_listening method.
+      def add_listener(type, listener_name = nil, &block)
+        type ||= ""
         type.downcase!
         if !EVENT_TYPES.include?(type)
           throw "Listener type must be one of #{EVENT_TYPES}"
         end
 
+        raise ArgumentError unless block_given?
+        listener_name ||= generate_listener_name
+        listener = wrap_listener(&block)
+        listeners[listener_name] = listener
         listeners[type] << block
         block
+      end
+
+      def remove_listener(type, arg)
+        type ||= ""
+        type.downcase!
+        if !EVENT_TYPES.include?(type)
+          throw "Listener type must be one of #{EVENT_TYPES}"
+        end
+
+        if arg.is_a? String
+          listener = listeners.delete(arg)
+        else
+          listener_name, _listener = listeners.detect {|k,v| v == arg }
+          listener = listeners.delete(listener_name)
+        end
+
+        if listener
+          __getobj__.listeners[type].delete(listener)
+        end
+      end
+
+      def wrap_listener(&block)
+        lambda do |message|
+          Thread.new do
+            # Messages received after a call to stop_listening
+            # will not be processed.
+            yield message["content"] if @listening
+          end
+        end
+      end
+
+      def generate_listener_name
+        listener_name = nil
+        while !listener_name
+          new_name = "Listener-#{rand(9999999)}"
+          listener_name = new_name unless listeners.has_key?(new_name)
+        end
+        listener_name
+      end
+
+      def start_listening(options={})
+        @listening = true
+        Thread.new do
+          long_poll(options) while @listening
+        end
+      end
+
+      def stop_listening
+        @listening = false
       end
 
       def retrieve_events(options={})
@@ -93,13 +161,6 @@ class Spire
         options[:last] = @last
         retrieve_events(options)
       end
-
-      def listen(options={})
-        loop do
-          break unless yield(long_poll(options))
-        end
-      end
-
     end
   end
 end

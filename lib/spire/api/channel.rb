@@ -1,6 +1,12 @@
 class Spire
   class API
 
+    # Object representing a Spire channel
+    #
+    # You can get a channel object by calling [] on a Spire object
+    # * spire = Spire.new
+    # * spire.start("your api secret")
+    # * channel = spire["channel name"]
     class Channel < Resource
 
       attr_reader :resources
@@ -89,7 +95,14 @@ class Spire
         end
         API::Subscription.new(@spire, response.data)
       end
-    end
 
+      # Obtain a subscription for the channel
+      # @param [String] subscription_name Name of the subscription
+      # @return [Subscription]
+      def subscribe(subscription_name = nil)
+        @spire.subscribe(subscription_name, properties["name"])
+      end
+
+    end
   end
 end

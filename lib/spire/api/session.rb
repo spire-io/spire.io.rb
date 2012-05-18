@@ -1,6 +1,5 @@
 class Spire
   class API
-
     class Session
       include Requestable
 
@@ -198,6 +197,13 @@ class Spire
         @resources = data["resources"]
       end
 
+      # Returns a channel object for the named channel
+      # @param [String] name Name of channel returned
+      # @return [Channel]
+      def [](name)
+        Channel.new(self, channels[name] || find_or_create_channel(name))
+      end
+
       def account
         @account ||= account!
       end
@@ -215,6 +221,32 @@ class Spire
         end
         properties = response.data
         channels[name] = API::Channel.new(@spire, properties)
+      end
+
+      # Creates a channel on spire.  Returns a Channel object.  Note that this will
+      # fail with a 409 if a channel with the same name exists.
+      def find_or_create_channel(name)
+        @channel_error_counts[name] ||= 0
+
+        begin
+          return create_channel(name)
+        # TODO custom error class for Conflict, which we can
+        # then match here, instead of testing for error message
+        rescue => error
+          if error.message =~ /409/
+
+            # Dear retry, I love you.  Affectionately, Matthew.
+            if channel = channels![name]
+              return channel
+            else
+              @channel_error_counts[name] += 1
+              retry unless @channel_error_counts[name] >= RETRY_CREATION_LIMIT
+            end
+
+          else
+            raise error
+          end
+        end
       end
 
       def create_subscription(subscription_name, channel_names, expiration=nil, device_token=nil, notification_name=nil, second_try=false)
@@ -330,6 +362,19 @@ class Spire
         @subscriptions
       end
       
+      # Returns a subscription object for the given channels
+      # @param [String] subscription_name Name for the subscription
+      # @param [String] channels One or more channel names for the subscription to listen on
+      # @return [Subscription]
+      def subscribe(name, *channels)
+        channels.each { |channel| self.find_or_create_channel(channel) }
+        Subscription.new(
+          @subscriptions[name] || find_or_create_subscription(name, *channels)
+        )
+      end
+
+      alias :subscription :subscribe #For compatibility with other clients
+
       def notifications
         @notifications ||= notifications!
       end
@@ -346,7 +391,57 @@ class Spire
         @notifications
       end
 
-    end
+      def notification(name, mode="development")
+        Notification.new(
+          @notifications[name] || find_or_create_notification(name, ssl_cert)
+        )
+      end
+      
+      def find_or_create_notification(notification_name, mode)
+        @notification_error_counts[notification_name] ||= 0
+        begin
+          return create_notification(
+              :name => notification_name,
+              :mode => mode
+            )
+        rescue => error
+          if error.message =~ /409/
+          
+            if notification = notification![notification_name]
+              return notification
+            else
+              @notification_error_counts[notification_name] += 1
+              retry unless @notification_error_counts >= RETRY_CREATION_LIMIT
+            end
+          
+          else
+            raise error
+          end
+        end
+      end
 
+      # Creates an application on spire.  Returns an Application object.  Will retry on a 409.
+      # @param [String] Name of the application to find/create
+      def find_or_create_application(name)
+        @application_error_counts[name] ||= 0
+        begin
+          return create_application(name)
+        # TODO custom error class for Conflict, which we can
+        # then match here, instead of testing for error message
+        rescue => error
+          if error.message =~ /409/
+            # Dear retry, I love you.  Affectionately, Matthew.
+            if application = applications![name]
+              return application
+            else
+              @application_error_counts[name] += 1
+              retry unless @application_error_counts[name] >= RETRY_CREATION_LIMIT
+            end
+          else
+            raise error
+          end
+        end
+      end
+    end
   end
 end
