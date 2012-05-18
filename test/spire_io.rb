@@ -285,7 +285,7 @@ describe "The spire.io API" do
           @channel.publish("Message4")
           sleep 1
           @last_message4.should be_nil
-          @last_message5.should == "Message4"
+          @last_message5.content.should == "Message4"
           @subscription.remove_listener("message", "test5")
         end
 
@@ -295,7 +295,7 @@ describe "The spire.io API" do
           @subscription.remove_listener("message", name)
           @channel.publish("Message5")
           sleep 1
-          @last_message6.content.should == nil
+          @last_message6.should == nil
         end
       end #describe "Event listening on a channel" do
 

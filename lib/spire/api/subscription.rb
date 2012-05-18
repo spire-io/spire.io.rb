@@ -48,7 +48,7 @@ class Spire
         else
           @listeners = { }
           EVENT_TYPES.each do |type|
-            @listeners[type] = []
+            @listeners[type] = {}
           end
           @listeners
         end
@@ -66,9 +66,8 @@ class Spire
         raise ArgumentError unless block_given?
         listener_name ||= generate_listener_name
         listener = wrap_listener(&block)
-        listeners[listener_name] = listener
-        listeners[type] << block
-        block
+        listeners[type][listener_name] = listener
+        listener_name
       end
 
       def remove_listener(type, arg)
@@ -79,10 +78,10 @@ class Spire
         end
 
         if arg.is_a? String
-          listener = listeners.delete(arg)
+          listener = listeners[type].delete(arg)
         else
           listener_name, _listener = listeners.detect {|k,v| v == arg }
-          listener = listeners.delete(listener_name)
+          listener = listeners[type].delete(listener_name)
         end
 
         if listener
@@ -95,7 +94,7 @@ class Spire
           Thread.new do
             # Messages received after a call to stop_listening
             # will not be processed.
-            yield message["content"] if @listening
+            yield message if @listening
           end
         end
       end
@@ -141,7 +140,7 @@ class Spire
             event_obj = klass.new(@spire, event)
             event_hash[type_pl.to_sym].push(event_obj)
 
-            listeners[type].each do |listener|
+            listeners[type].each_value do |listener|
               listener.call(event_obj)
             end
           end
