@@ -237,7 +237,7 @@ class Spire
       end
       
       #Resets a members password based on email
-      def reset_member_password(email)
+      def request_member_password_reset(email)
         response = request(:reset_member_password, email)
         unless response.status == 202
           raise "Error reseting password for email #{email} in app #{self.name}: (#{response.status}) #{response.body}"
