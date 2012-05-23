@@ -15,7 +15,7 @@ class Spire
     # * subscription = channel.subscribe("subscription name")
     class Subscription < Resource
 
-      attr_reader :last
+      attr_accessor :last
       def resource_name
         "subscription"
       end
@@ -157,7 +157,7 @@ class Spire
 
       def long_poll(options={})
         options[:timeout] ||= 30
-        options[:last] = @last
+        options[:last] = @last if @last
         retrieve_events(options)
       end
     end

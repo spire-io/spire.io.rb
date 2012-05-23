@@ -188,6 +188,16 @@ class Spire
         }
       end
 
+      define_request(:reset_member_password) do |email|
+        url = @resources["members"]["url"]
+        {
+          :method => :post,
+          :url => url,
+          :query => { :email => email },
+          :body => ""
+        }
+      end
+
       #Authenticates with the application using basic auth
       def authenticate(login, password)
         response = request(:authenticate, {:login => login, :password => password})
@@ -206,6 +216,18 @@ class Spire
         API::Member.new(@spire, response.data)
       end
 
+      #If you do not give a new password, you will get back an authenticated member but have to change
+      #the password at a later time (using the returned capability)
+      def reset_password(reset_key, new_password = nil)
+        hsh = {:reset_key => reset_key}
+        hsh[:password] = new_password if new_password
+        response = request(:authenticate_with_post, hsh)
+        unless response.status == 201
+          raise "Error reseting password for application #{self.name}: (#{response.status}) #{response.body}"
+        end
+        API::Member.new(@spire, response.data)
+      end
+
       def create_member(member_data)
         response = request(:create_member, member_data)
         unless response.status == 201
@@ -214,6 +236,15 @@ class Spire
         API::Member.new(@spire, response.data)
       end
       
+      #Resets a members password based on email
+      def request_member_password_reset(email)
+        response = request(:reset_member_password, email)
+        unless response.status == 202
+          raise "Error reseting password for email #{email} in app #{self.name}: (#{response.status}) #{response.body}"
+        end
+        true
+      end
+
       def members
         @members || members!
       end
