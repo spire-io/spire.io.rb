@@ -9,7 +9,7 @@ class Spire
         "application"
       end
 
-      def initialize(spire, data)
+      def initialize(api, data)
         super
         @resources = data["resources"]
       end
@@ -31,8 +31,8 @@ class Spire
           :body => body,
           :headers => {
             "Authorization" => "Capability #{capability}",
-            "Accept" => @spire.mediaType("channel"),
-            "Content-Type" => @spire.mediaType("channel")
+            "Accept" => @api.mediaType("channel"),
+            "Content-Type" => @api.mediaType("channel")
           }
         }
       end
@@ -46,7 +46,7 @@ class Spire
           :url => url,
           :headers => {
             "Authorization" => "Capability #{capability}",
-            "Accept" => @spire.mediaType("channels"),
+            "Accept" => @api.mediaType("channels"),
           }
         }
       end
@@ -61,7 +61,7 @@ class Spire
           :query => {:name => name},
           :headers => {
             "Authorization" => "Capability #{capability}",
-            "Accept" => @spire.mediaType("channels"),
+            "Accept" => @api.mediaType("channels"),
           }
         }
       end
@@ -76,7 +76,7 @@ class Spire
           :url => url,
           :headers => {
             "Authorization" => "Capability #{capability}",
-            "Accept" => @spire.mediaType("subscriptions"),
+            "Accept" => @api.mediaType("subscriptions"),
           }
         }
       end
@@ -94,8 +94,8 @@ class Spire
           }.to_json,
           :headers => {
             "Authorization" => "Capability #{capability}",
-            "Accept" => @spire.mediaType("subscription"),
-            "Content-Type" => @spire.mediaType("subscription")
+            "Accept" => @api.mediaType("subscription"),
+            "Content-Type" => @api.mediaType("subscription")
           }
         }
       end
@@ -110,7 +110,7 @@ class Spire
           :query => {:name => name},
           :headers => {
             "Authorization" => "Capability #{capability}",
-            "Accept" => @spire.mediaType("subscriptions"),
+            "Accept" => @api.mediaType("subscriptions"),
           }
         }
       end
@@ -126,8 +126,8 @@ class Spire
           :body => data.to_json,
           :headers => {
             "Authorization" => "Capability #{capability}",
-            "Accept" => @spire.mediaType("member"),
-            "Content-Type" => @spire.mediaType("member")
+            "Accept" => @api.mediaType("member"),
+            "Content-Type" => @api.mediaType("member")
           }
         }
       end
@@ -141,7 +141,7 @@ class Spire
           :url => url,
           :headers => {
             "Authorization" => "Capability #{capability}",
-            "Accept" => @spire.mediaType("members"),
+            "Accept" => @api.mediaType("members"),
           }
         }
       end
@@ -156,7 +156,7 @@ class Spire
           :query => {:login => login},
           :headers => {
             "Authorization" => "Capability #{capability}",
-            "Accept" => @spire.mediaType("member"),
+            "Accept" => @api.mediaType("member"),
           }
         }
       end
@@ -169,7 +169,7 @@ class Spire
           :url => url,
           :body => data.to_json,
           :headers => {
-            "Accept" => @spire.mediaType("member"),
+            "Accept" => @api.mediaType("member"),
           }
         }
       end
@@ -182,7 +182,7 @@ class Spire
           :method => :get,
           :url => url,
           :headers => {
-            "Accept" => @spire.mediaType("member"),
+            "Accept" => @api.mediaType("member"),
             "Authorization" => "Basic #{auth}"
           }
         }
@@ -204,7 +204,7 @@ class Spire
         unless response.status == 200
           raise "Error authenticating for application #{self.name}: (#{response.status}) #{response.body}"
         end
-        API::Member.new(@spire, response.data)
+        API::Member.new(@api, response.data)
       end
 
       #Alternative application authentication, without using basic auth
@@ -213,7 +213,7 @@ class Spire
         unless response.status == 201
           raise "Error authenticating for application #{self.name}: (#{response.status}) #{response.body}"
         end
-        API::Member.new(@spire, response.data)
+        API::Member.new(@api, response.data)
       end
 
       #If you do not give a new password, you will get back an authenticated member but have to change
@@ -225,7 +225,7 @@ class Spire
         unless response.status == 201
           raise "Error reseting password for application #{self.name}: (#{response.status}) #{response.body}"
         end
-        API::Member.new(@spire, response.data)
+        API::Member.new(@api, response.data)
       end
 
       def create_member(member_data)
@@ -233,7 +233,7 @@ class Spire
         unless response.status == 201
           raise "Error creating member for application #{self.name}: (#{response.status}) #{response.body}"
         end
-        API::Member.new(@spire, response.data)
+        API::Member.new(@api, response.data)
       end
       
       #Resets a members password based on email
@@ -256,7 +256,7 @@ class Spire
         end
         @members = {}
         response.data.each do |login, properties|
-          @members[login] = API::Member.new(@spire, properties)
+          @members[login] = API::Member.new(@api, properties)
         end
         @members
       end
@@ -267,7 +267,7 @@ class Spire
           raise "Error finding member with login #{member_login}: (#{response.status}) #{response.body}"
         end
         properties = response.data[member_login]
-        member = API::Member.new(@spire, properties)
+        member = API::Member.new(@api, properties)
         @members[member_login] = member if @members.is_a?(Hash)
         member
       end
@@ -280,7 +280,7 @@ class Spire
           raise "Error creating Channel: (#{response.status}) #{response.body}"
         end
         properties = response.data
-        channels[name] = API::Channel.new(@spire, properties)
+        channels[name] = API::Channel.new(@api, properties)
       end
 
       def create_subscription(subscription_name, channel_names)
@@ -290,7 +290,7 @@ class Spire
           raise "Error creating Subscription: (#{response.status}) #{response.body}"
         end
         data = response.data
-        subscription = API::Subscription.new(@spire, data) 
+        subscription = API::Subscription.new(@api, data) 
         if subscription_name
           subscriptions[data["name"]] = subscription
         end
@@ -305,7 +305,7 @@ class Spire
         channels_data = response.data
         @channels = {}
         channels_data.each do |name, properties|
-          @channels[name] = API::Channel.new(@spire, properties)
+          @channels[name] = API::Channel.new(@api, properties)
         end
         @channels
       end
@@ -325,7 +325,7 @@ class Spire
         end
         @subscriptions = {}
         response.data.each do |name, properties|
-          @subscriptions[name] = API::Subscription.new(@spire, properties)
+          @subscriptions[name] = API::Subscription.new(@api, properties)
         end
         @subscriptions
       end
@@ -336,7 +336,7 @@ class Spire
           raise "Error finding channel with name #{name}: (#{response.status}) #{response.body}"
         end
         properties = response.data[name]
-        channel = API::Channel.new(@spire, properties)
+        channel = API::Channel.new(@api, properties)
         @channels[name] = channel if @channels.is_a?(Hash)
         channel
       end
@@ -347,7 +347,7 @@ class Spire
           raise "Error finding subscription with name #{name}: (#{response.status}) #{response.body}"
         end
         properties = response.data[name]
-        sub = API::Subscription.new(@spire, properties)
+        sub = API::Subscription.new(@api, properties)
         @subscriptions[name] = sub if @subscriptions.is_a?(Hash)
         sub
       end

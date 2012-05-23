@@ -12,7 +12,7 @@ class Spire
           :url => collection["url"],
           :headers => {
             "Authorization" => "Capability #{capability}",
-            "Accept" => @spire.mediaType("channels"),
+            "Accept" => @api.mediaType("channels"),
           }
         }
       end
@@ -27,7 +27,7 @@ class Spire
           :query => {:name => name},
           :headers => {
             "Authorization" => "Capability #{capability}",
-            "Accept" => @spire.mediaType("channels"),
+            "Accept" => @api.mediaType("channels"),
           }
         }
       end
@@ -48,8 +48,8 @@ class Spire
           :body => body,
           :headers => {
             "Authorization" => "Capability #{capability}",
-            "Accept" => @spire.mediaType("channel"),
-            "Content-Type" => @spire.mediaType("channel")
+            "Accept" => @api.mediaType("channel"),
+            "Content-Type" => @api.mediaType("channel")
           }
         }
       end
@@ -63,7 +63,7 @@ class Spire
           :url => url,
           :headers => {
             "Authorization" => "Capability #{capability}",
-            "Accept" => @spire.mediaType("subscriptions"),
+            "Accept" => @api.mediaType("subscriptions"),
           }
         }
       end
@@ -90,8 +90,8 @@ class Spire
           }.to_json,
           :headers => {
             "Authorization" => "Capability #{capability}",
-            "Accept" => @spire.mediaType("subscription"),
-            "Content-Type" => @spire.mediaType("subscription")
+            "Accept" => @api.mediaType("subscription"),
+            "Content-Type" => @api.mediaType("subscription")
           }
         }
       end
@@ -106,7 +106,7 @@ class Spire
           :query => {:name => name},
           :headers => {
             "Authorization" => "Capability #{capability}",
-            "Accept" => @spire.mediaType("subscriptions"),
+            "Accept" => @api.mediaType("subscriptions"),
           }
         }
       end
@@ -124,8 +124,8 @@ class Spire
           }.to_json,
           :headers => {
             "Authorization" => "Capability #{capability}",
-            "Accept" => @spire.mediaType("notification"),
-            "Content-Type" => @spire.mediaType("notification")
+            "Accept" => @api.mediaType("notification"),
+            "Content-Type" => @api.mediaType("notification")
           }
         }
       end
@@ -139,7 +139,7 @@ class Spire
           :url => url,
           :headers => {
             "Authorization" => "Capability #{capability}",
-            "Accept" => @spire.mediaType("notifications"),
+            "Accept" => @api.mediaType("notifications"),
           }
         }
       end
@@ -152,7 +152,7 @@ class Spire
           :url => collection["url"],
           :headers => {
             "Authorization" => "Capability #{capability}",
-            "Accept" => @spire.mediaType("applications"),
+            "Accept" => @api.mediaType("applications"),
           }
         }
       end
@@ -167,7 +167,7 @@ class Spire
           :query => {:name => name},
           :headers => {
             "Authorization" => "Capability #{capability}",
-            "Accept" => @spire.mediaType("applications"),
+            "Accept" => @api.mediaType("applications"),
           }
         }
       end
@@ -180,18 +180,18 @@ class Spire
           :body => data.to_json,
           :headers => {
             "Authorization" => "Capability #{collection["capabilities"]["create"]}",
-            "Accept" => @spire.mediaType("application"),
-            "Content-Type" => @spire.mediaType("application")
+            "Accept" => @api.mediaType("application"),
+            "Content-Type" => @api.mediaType("application")
           }
         }
       end
 
       attr_reader :url, :resources, :schema, :capabilities, :capability
 
-      def initialize(spire, data)
-        @spire = spire
-        @client = spire.client
-        @schema = spire.schema["session"]
+      def initialize(api, data)
+        @api = api
+        @client = api.client
+        @schema = api.schema["session"]
         @url = data["url"]
         @capabilities = data["capabilities"]
         @resources = data["resources"]
@@ -206,7 +206,7 @@ class Spire
       # @param [String] name Name of channel returned
       # @return [Channel]
       def [](name)
-        API::Channel.new(@spire, channels[name] || find_or_create_channel(name))
+        API::Channel.new(@api, channels[name] || find_or_create_channel(name))
       end
 
       def account
@@ -214,7 +214,7 @@ class Spire
       end
 
       def account!
-        @account = API::Account.new(@spire, @resources["account"]).get
+        @account = API::Account.new(@api, @resources["account"]).get
       end
 
       def create_channel(name, options={})
@@ -225,7 +225,7 @@ class Spire
           raise "Error creating Channel: (#{response.status}) #{response.body}"
         end
         properties = response.data
-        channels[name] = API::Channel.new(@spire, properties)
+        channels[name] = API::Channel.new(@api, properties)
       end
 
       # Creates a channel on spire.  Returns a Channel object.  Note that this will
@@ -276,7 +276,7 @@ class Spire
           raise "Error creating Subscription: (#{response.status}) #{response.body}"
         end
         data = response.data
-        subscription = API::Subscription.new(@spire, data)
+        subscription = API::Subscription.new(@api, data)
         if subscription_name
           subscriptions[data["name"]] = subscription
         end
@@ -289,7 +289,7 @@ class Spire
           raise "Error finding application with name #{name}: (#{response.status}) #{response.body}"
         end
         properties = response.data[name]
-        app = API::Application.new(@spire, properties)
+        app = API::Application.new(@api, properties)
         @applications[name] = app if @applications.is_a?(Hash)
         app
       end
@@ -301,7 +301,7 @@ class Spire
           raise "Error creating Application (#{response.status}) #{response.body}"
         end
         properties = response.data
-        applications[name] = API::Application.new(@spire, properties)
+        applications[name] = API::Application.new(@api, properties)
       end
 
       def applications!
@@ -312,7 +312,7 @@ class Spire
         applications_data = response.data
         @applications = {}
         applications_data.each do |name, properties|
-          @applications[name] = API::Application.new(@spire, properties)
+          @applications[name] = API::Application.new(@api, properties)
         end
         @applications
       end
@@ -327,7 +327,7 @@ class Spire
           raise "Error creating Notification: (#{response.status}) #{response.body}"
         end
         data = response.data
-        notification = API::Notification.new(@spire, data) 
+        notification = API::Notification.new(@api, data) 
         if options[:name]
           notifications[data["name"]] = notification
         end
@@ -342,7 +342,7 @@ class Spire
         channels_data = response.data
         @channels = {}
         channels_data.each do |name, properties|
-          @channels[name] = API::Channel.new(@spire, properties)
+          @channels[name] = API::Channel.new(@api, properties)
         end
         @channels
       end
@@ -362,7 +362,7 @@ class Spire
         end
         @subscriptions = {}
         response.data.each do |name, properties|
-          @subscriptions[name] = API::Subscription.new(@spire, properties)
+          @subscriptions[name] = API::Subscription.new(@api, properties)
         end
         @subscriptions
       end
@@ -373,7 +373,7 @@ class Spire
       # @return [Subscription]
       def subscribe(name, *channels)
         channels.each { |channel| self.find_or_create_channel(channel) }
-        API::Subscription.new(@spire,
+        API::Subscription.new(@api,
           subscriptions[name] || find_or_create_subscription(name, *channels)
         )
       end
@@ -411,13 +411,13 @@ class Spire
         end
         @notifications = {}
         response.data.each do |name, properties|
-          @notifications[name] = API::Notification.new(@spire, properties)
+          @notifications[name] = API::Notification.new(@api, properties)
         end
         @notifications
       end
 
       def notification(name, mode="development")
-        Notification.new(@spire,
+        Notification.new(@api,
           @notifications[name] || find_or_create_notification(name, ssl_cert)
         )
       end

@@ -16,8 +16,8 @@ class Spire
           }.to_json,
           :headers => {
             "Authorization" => "Capability #{@capabilities["push"]}",
-            "Accept" => @spire.mediaType("notification"),
-            "Content-Type" => @spire.mediaType("notification")
+            "Accept" => @api.mediaType("notification"),
+            "Content-Type" => @api.mediaType("notification")
           }
         }
       end

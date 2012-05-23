@@ -29,7 +29,7 @@ class Spire
           :url => url,
           :headers => {
             "Authorization" => "Capability #{capability}",
-            "Accept" => @spire.mediaType("subscriptions"),
+            "Accept" => @api.mediaType("subscriptions"),
           }
         }
       end
@@ -41,8 +41,8 @@ class Spire
           :body => string,
           :headers => {
             "Authorization" => "Capability #{@capabilities["publish"]}",
-            "Accept" => @spire.mediaType("message"),
-            "Content-Type" => @spire.mediaType("message")
+            "Accept" => @api.mediaType("message"),
+            "Content-Type" => @api.mediaType("message")
           }
         }
       end
@@ -57,8 +57,8 @@ class Spire
           :body => {:name => name}.to_json,
           :headers => {
             "Authorization" => "Capability #{capability}",
-            "Accept" => @spire.mediaType("subscription"),
-            "Content-Type" => @spire.mediaType("subscription")
+            "Accept" => @api.mediaType("subscription"),
+            "Content-Type" => @api.mediaType("subscription")
           }
         }
       end
@@ -74,7 +74,7 @@ class Spire
         end
         @subscriptions = {}
         response.data.each do |name, properties|
-          @subscriptions[name] = API::Subscription.new(@spire, properties)
+          @subscriptions[name] = API::Subscription.new(@api, properties)
         end
         @subscriptions
       end
@@ -85,7 +85,7 @@ class Spire
         unless response.status == 201
           raise "Error publishing to #{self.class.name}: (#{response.status}) #{response.body}"
         end
-        API::Message.new(@spire, response.data)
+        API::Message.new(@api, response.data)
       end
 
       def subscribe(name = nil)
@@ -93,16 +93,8 @@ class Spire
         unless response.status == 201
           raise "Error creating subscription for #{self.name}: (#{response.status}) #{response.body}"
         end
-        API::Subscription.new(@spire, response.data)
+        API::Subscription.new(@api, response.data)
       end
-
-      # Obtain a subscription for the channel
-      # @param [String] subscription_name Name of the subscription
-      # @return [Subscription]
-      def subscribe(subscription_name = nil)
-        @spire.subscribe(subscription_name, properties["name"])
-      end
-
     end
   end
 end

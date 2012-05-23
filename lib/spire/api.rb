@@ -25,10 +25,11 @@ class Spire
     end
 
     attr_reader :client, :description, :schema
-    def initialize(url="https://api.spire.io", options={})
+    def initialize(url="https://api.spire.io", spire=nil, options={})
       @version = options[:version] || "1.0"
       @client = Excon
       @url = url
+      @spire = spire
     end
 
     define_request(:discover) do
@@ -166,22 +167,5 @@ class Spire
       end
       API::Application.new(self, response.data)
     end
-
-    # Returns a billing object than contains a list of all the plans available
-    # @param [String] info optional object description
-    # @return [Billing]
-    def billing(info=nil)
-      response = request(:billing)
-      raise "Error getting billing plans: #{response.status}" if response.status != 200
-      API::Billing.new(self, response.data)
-    end
-    
-    class Billing < Resource
-      def resource_name
-        "billing"
-      end
-    end
-
   end
-
 end

@@ -35,7 +35,7 @@ class Spire
           },
           :headers => {
             "Authorization" => "Capability #{@capabilities["events"]}",
-            "Accept" => @spire.mediaType("events")
+            "Accept" => @api.mediaType("events")
           }
         }
       end
@@ -137,7 +137,7 @@ class Spire
           response.data[type_pl].each do |event|
             klass_name = type.capitalize
             klass = API.const_get(klass_name)
-            event_obj = klass.new(@spire, event)
+            event_obj = klass.new(@api, event)
             event_hash[type_pl.to_sym].push(event_obj)
 
             listeners[type].each_value do |listener|

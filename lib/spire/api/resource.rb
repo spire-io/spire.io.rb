@@ -41,9 +41,9 @@ class Spire
   
       attr_reader :url, :properties, :capabilities, :capability
 
-      def initialize(spire, data)
-        @spire = spire
-        @client = spire.client
+      def initialize(api, data)
+        @api = api
+        @client = api.client
         @url = data["url"]
         @capabilities = data["capabilities"]
         @properties = data
@@ -92,7 +92,7 @@ class Spire
       end
 
       def schema
-        @spire.schema[resource_name]
+        @api.schema[resource_name]
       end
 
       def media_type
