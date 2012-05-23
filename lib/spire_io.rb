@@ -13,14 +13,9 @@ class Spire
   def initialize(url="https://api.spire.io")
     @api = Spire::API.new(url)
     @url = url
-    discover
+    @api.discover
   end
 
-  def discover
-    @api.discover
-    self
-  end
- 
   def start(secret)
     @session = @api.create_session(secret)
     self
