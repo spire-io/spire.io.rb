@@ -12,21 +12,21 @@ Here's an example using the message service.  It assumes you have an account key
 
     spire = Spire.new
     spire.start(key) # key is your account key
-    channel = spire["arbitrary channel name"]
+    channel = spire.session["arbitrary channel name"]
     channel.publish("Hello World!")
     
 Let's create a second session and get our messages.
 
     spire2 = Spire.new
     spire2.start(key)
-    subscription = spire2.subscribe("my subscription", "arbitrary channel name")
+    subscription = spire2.session.subscribe("my subscription", "arbitrary channel name")
     puts subscription.listen.first # => "Hello World!"
     
 You can also assign listener blocks to a subscription which will be called with each message received:
 
     spire3 = Spire.new
     spire3.start(key)
-    subscription = spire3.subscribe("another subscription", "arbitrary channel name")
+    subscription = spire3.session.subscribe("another subscription", "arbitrary channel name")
     subscription.add_listener {|m| puts "Got a message: #{m}"}
     subscription.start_listening
     
@@ -90,8 +90,8 @@ i.e.
     > spire console (-k KEY | -e EMAIL)
 
     # once in IRB you get an authenticated Spire object
-    >> $spire.discover      // get the API description
-    >> $spire.channels      // get a list of Channels
+    >> $spire.api.discover      // get the API description
+    >> $spire.session.channels      // get a list of Channels
 
 You can also add a YAML '~/.spirerc' file with a hash entry 'key' containing your account key
 
