@@ -195,28 +195,29 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/spire/commands/mixins/authenticate.rb', line 8</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_included'>included</span><span class='lparen'>(</span><span class='id identifier rubyid_target'>target</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_target'>target</span><span class='period'>.</span><span class='id identifier rubyid_module_eval'>module_eval</span> <span class='kw'>do</span>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_included identifier id'>included</span><span class='lparen token'>(</span><span class='rubyid_target identifier id'>target</span><span class='rparen token'>)</span>
+  <span class='rubyid_target identifier id'>target</span><span class='dot token'>.</span><span class='rubyid_module_eval identifier id'>module_eval</span> <span class='rubyid_do do kw'>do</span>
     
-    <span class='id identifier rubyid_include'>include</span> <span class='const'>Mixlib</span><span class='op'>::</span><span class='const'>CLI</span>
+    <span class='rubyid_include identifier id'>include</span> <span class='rubyid_Mixlib constant id'>Mixlib</span><span class='colon2 op'>::</span><span class='rubyid_CLI constant id'>CLI</span>
     
-    <span class='id identifier rubyid_option'>option</span> <span class='symbol'>:email</span><span class='comma'>,</span> 
-      <span class='symbol'>:short</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-e EMAIL</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-      <span class='symbol'>:long</span>  <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>--email EMAIL</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-      <span class='symbol'>:description</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The email for your account</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rubyid_option identifier id'>option</span> <span class='symbol val'>:email</span><span class='comma token'>,</span> 
+      <span class='symbol val'>:short</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;-e EMAIL&quot;</span><span class='comma token'>,</span>
+      <span class='symbol val'>:long</span>  <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;--email EMAIL&quot;</span><span class='comma token'>,</span>
+      <span class='symbol val'>:description</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;The email for your account&quot;</span>
 
-    <span class='id identifier rubyid_option'>option</span> <span class='symbol'>:password</span><span class='comma'>,</span> 
-      <span class='symbol'>:short</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-p PASSWORD</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-      <span class='symbol'>:long</span>  <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>--password PASSWORD</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-      <span class='symbol'>:description</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The password for your account</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rubyid_option identifier id'>option</span> <span class='symbol val'>:password</span><span class='comma token'>,</span> 
+      <span class='symbol val'>:short</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;-p PASSWORD&quot;</span><span class='comma token'>,</span>
+      <span class='symbol val'>:long</span>  <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;--password PASSWORD&quot;</span><span class='comma token'>,</span>
+      <span class='symbol val'>:description</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;The password for your account&quot;</span>
 
-    <span class='id identifier rubyid_option'>option</span> <span class='symbol'>:key</span><span class='comma'>,</span>
-      <span class='symbol'>:short</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-k KEY</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-      <span class='symbol'>:long</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>--key KEY</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-      <span class='symbol'>:description</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The account key for your account</span><span class='tstring_end'>&quot;</span></span>
-  <span class='kw'>end</span>
+    <span class='rubyid_option identifier id'>option</span> <span class='symbol val'>:secret</span><span class='comma token'>,</span>
+      <span class='symbol val'>:short</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;-s SECRET&quot;</span><span class='comma token'>,</span>
+      <span class='symbol val'>:long</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;--secret SECRET&quot;</span><span class='comma token'>,</span>
+      <span class='symbol val'>:description</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;The account secret for your account&quot;</span>
+  <span class='rubyid_end end kw'>end</span>
   
-<span class='kw'>end</span></pre>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -266,27 +267,28 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/spire/commands/mixins/authenticate.rb', line 31</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_connect'>connect</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_config'>config</span><span class='lbracket'>[</span><span class='symbol'>:email</span><span class='rbracket'>]</span>
-    <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_config'>config</span><span class='lbracket'>[</span><span class='symbol'>:password</span><span class='rbracket'>]</span>
-      <span class='id identifier rubyid_config'>config</span><span class='lbracket'>[</span><span class='symbol'>:password</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_ask'>ask</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Password:</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_q'>q</span><span class='op'>|</span> <span class='id identifier rubyid_q'>q</span><span class='period'>.</span><span class='id identifier rubyid_echo'>echo</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rbrace'>}</span>
-    <span class='kw'>end</span>
-    <span class='id identifier rubyid_spire'>spire</span> <span class='op'>=</span> <span class='const'>Spire</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>CLI</span><span class='period'>.</span><span class='id identifier rubyid_url'>url</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_spire'>spire</span><span class='period'>.</span><span class='id identifier rubyid_login'>login</span><span class='lparen'>(</span><span class='id identifier rubyid_config'>config</span><span class='lbracket'>[</span><span class='symbol'>:email</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='id identifier rubyid_config'>config</span><span class='lbracket'>[</span><span class='symbol'>:password</span><span class='rbracket'>]</span><span class='rparen'>)</span>
-    <span class='kw'>return</span> <span class='id identifier rubyid_spire'>spire</span>
-  <span class='kw'>else</span> 
-    <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_config'>config</span><span class='lbracket'>[</span><span class='symbol'>:key</span><span class='rbracket'>]</span>
-      <span class='kw'>if</span> <span class='const'>CLI</span><span class='period'>.</span><span class='id identifier rubyid_rc'>rc</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>key</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
-        <span class='id identifier rubyid_config'>config</span><span class='lbracket'>[</span><span class='symbol'>:key</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>CLI</span><span class='period'>.</span><span class='id identifier rubyid_rc'>rc</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>key</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
-      <span class='kw'>else</span>
-        <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>No key provided or found in ~/.spirerc</span><span class='tstring_end'>&quot;</span></span>
-      <span class='kw'>end</span>
-    <span class='kw'>end</span>
-    <span class='id identifier rubyid_spire'>spire</span> <span class='op'>=</span> <span class='const'>Spire</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>CLI</span><span class='period'>.</span><span class='id identifier rubyid_url'>url</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_spire'>spire</span><span class='period'>.</span><span class='id identifier rubyid_start'>start</span><span class='lparen'>(</span><span class='id identifier rubyid_config'>config</span><span class='lbracket'>[</span><span class='symbol'>:key</span><span class='rbracket'>]</span><span class='rparen'>)</span>
-    <span class='kw'>return</span> <span class='id identifier rubyid_spire'>spire</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_connect identifier id'>connect</span>
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_config identifier id'>config</span><span class='lbrack token'>[</span><span class='symbol val'>:email</span><span class='rbrack token'>]</span>
+    <span class='rubyid_if if kw'>if</span> <span class='notop op'>!</span><span class='rubyid_config identifier id'>config</span><span class='lbrack token'>[</span><span class='symbol val'>:password</span><span class='rbrack token'>]</span>
+      <span class='rubyid_config identifier id'>config</span><span class='lbrack token'>[</span><span class='symbol val'>:password</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_ask identifier id'>ask</span><span class='lparen token'>(</span><span class='string val'>&quot;Password:&quot;</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_q identifier id'>q</span><span class='bitor op'>|</span> <span class='rubyid_q identifier id'>q</span><span class='dot token'>.</span><span class='rubyid_echo identifier id'>echo</span> <span class='assign token'>=</span> <span class='rubyid_false false kw'>false</span><span class='rbrace token'>}</span>
+    <span class='rubyid_end end kw'>end</span>
+    <span class='rubyid_spire identifier id'>spire</span> <span class='assign token'>=</span> <span class='rubyid_Spire constant id'>Spire</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_CLI constant id'>CLI</span><span class='dot token'>.</span><span class='rubyid_url identifier id'>url</span><span class='rparen token'>)</span>
+    <span class='rubyid_spire identifier id'>spire</span><span class='dot token'>.</span><span class='rubyid_login identifier id'>login</span><span class='lparen token'>(</span><span class='rubyid_config identifier id'>config</span><span class='lbrack token'>[</span><span class='symbol val'>:email</span><span class='rbrack token'>]</span><span class='comma token'>,</span><span class='rubyid_config identifier id'>config</span><span class='lbrack token'>[</span><span class='symbol val'>:password</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+    <span class='rubyid_return return kw'>return</span> <span class='rubyid_spire identifier id'>spire</span>
+  <span class='rubyid_else else kw'>else</span> 
+    <span class='rubyid_if if kw'>if</span> <span class='notop op'>!</span><span class='rubyid_config identifier id'>config</span><span class='lbrack token'>[</span><span class='symbol val'>:secret</span><span class='rbrack token'>]</span>
+      <span class='rubyid_if if kw'>if</span> <span class='rubyid_CLI constant id'>CLI</span><span class='dot token'>.</span><span class='rubyid_rc identifier id'>rc</span><span class='lbrack token'>[</span><span class='string val'>&quot;secret&quot;</span><span class='rbrack token'>]</span>
+        <span class='rubyid_config identifier id'>config</span><span class='lbrack token'>[</span><span class='symbol val'>:secret</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_CLI constant id'>CLI</span><span class='dot token'>.</span><span class='rubyid_rc identifier id'>rc</span><span class='lbrack token'>[</span><span class='string val'>&quot;secret&quot;</span><span class='rbrack token'>]</span>
+      <span class='rubyid_else else kw'>else</span>
+        <span class='rubyid_raise identifier id'>raise</span> <span class='string val'>&quot;No secret provided or found in ~/.spirerc&quot;</span>
+      <span class='rubyid_end end kw'>end</span>
+    <span class='rubyid_end end kw'>end</span>
+    <span class='rubyid_spire identifier id'>spire</span> <span class='assign token'>=</span> <span class='rubyid_Spire constant id'>Spire</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_CLI constant id'>CLI</span><span class='dot token'>.</span><span class='rubyid_url identifier id'>url</span><span class='rparen token'>)</span>
+    <span class='rubyid_spire identifier id'>spire</span><span class='dot token'>.</span><span class='rubyid_start identifier id'>start</span><span class='lparen token'>(</span><span class='rubyid_config identifier id'>config</span><span class='lbrack token'>[</span><span class='symbol val'>:secret</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+    <span class='rubyid_return return kw'>return</span> <span class='rubyid_spire identifier id'>spire</span>
+  <span class='rubyid_end end kw'>end</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -297,9 +299,9 @@
 </div>
     
     <div id="footer">
-  Generated on Thu Feb 16 18:34:43 2012 by 
+  Generated on Thu May 24 12:58:15 2012 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.7.5 (ruby-1.9.2).
+  0.7.5 (ruby-1.8.7).
 </div>
 
   </body>

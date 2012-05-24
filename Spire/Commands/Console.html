@@ -223,9 +223,10 @@ This is the spire command
     <td>
       <pre class="code"><span class="info file"># File 'lib/spire/commands/console.rb', line 19</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_run'>run</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
-  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='period'>.</span><span class='id identifier rubyid_run'>run</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_run identifier id'>run</span><span class='lparen token'>(</span><span class='rubyid_args identifier id'>args</span><span class='rparen token'>)</span>
+  <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='dot token'>.</span><span class='rubyid_run identifier id'>run</span><span class='lparen token'>(</span><span class='rubyid_args identifier id'>args</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -260,12 +261,13 @@ This is the spire command
     <td>
       <pre class="code"><span class="info file"># File 'lib/spire/commands/console.rb', line 23</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_run'>run</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_parse_options'>parse_options</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
-  <span class='gvar'>$spire</span> <span class='op'>=</span> <span class='id identifier rubyid_connect'>connect</span>
-  <span class='const'>ARGV</span><span class='period'>.</span><span class='id identifier rubyid_clear'>clear</span>
-  <span class='const'>IRB</span><span class='period'>.</span><span class='id identifier rubyid_start'>start</span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_run identifier id'>run</span><span class='lparen token'>(</span><span class='rubyid_args identifier id'>args</span><span class='rparen token'>)</span>
+  <span class='rubyid_parse_options identifier id'>parse_options</span><span class='lparen token'>(</span><span class='rubyid_args identifier id'>args</span><span class='rparen token'>)</span>
+  <span class='rubyid_$spire gvar id'>$spire</span> <span class='assign token'>=</span> <span class='rubyid_connect identifier id'>connect</span>
+  <span class='rubyid_ARGV constant id'>ARGV</span><span class='dot token'>.</span><span class='rubyid_clear identifier id'>clear</span>
+  <span class='rubyid_IRB constant id'>IRB</span><span class='dot token'>.</span><span class='rubyid_start identifier id'>start</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -276,9 +278,9 @@ This is the spire command
 </div>
     
     <div id="footer">
-  Generated on Thu Feb 16 18:34:43 2012 by 
+  Generated on Thu May 24 12:58:15 2012 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.7.5 (ruby-1.9.2).
+  0.7.5 (ruby-1.8.7).
 </div>
 
   </body>

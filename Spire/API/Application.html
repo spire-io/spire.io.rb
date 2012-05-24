@@ -1,0 +1,1405 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Class: Spire::API::Application
+  
+    &mdash; Documentation by YARD 0.7.5
+  
+</title>
+
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '../..';
+  if (relpath != '') relpath += '/';
+</script>
+
+  <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../../_index.html">Index (A)</a> &raquo; 
+    <span class='title'><span class='object_link'><a href="../../Spire.html" title="Spire (class)">Spire</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../API.html" title="Spire::API (class)">API</a></span></span>
+     &raquo; 
+    <span class="title">Application</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a id="class_list_link" href="#">Class List</a>
+  
+    <a id="method_list_link" href="#">Method List</a>
+  
+    <a id="file_list_link" href="#">File List</a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Class: Spire::API::Application
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName"><span class='object_link'><a href="Resource.html" title="Spire::API::Resource (class)">Resource</a></span></span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next"><span class='object_link'><a href="Resource.html" title="Spire::API::Resource (class)">Resource</a></span></li>
+          
+            <li class="next">Spire::API::Application</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/spire/api/application.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+
+
+
+
+  <h2>Instance Attribute Summary <small>(<a href="#" class="summary_toggle">collapse</a>)</small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#resources-instance_method" title="#resources (instance method)">- (Object) <strong>resources</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the value of attribute resources.
+</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+
+  
+  
+  <h3 class="inherited">Attributes inherited from <span class='object_link'><a href="Resource.html" title="Spire::API::Resource (class)">Resource</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Resource.html#capabilities-instance_method" title="Spire::API::Resource#capabilities (method)">#capabilities</a></span>, <span class='object_link'><a href="Resource.html#capability-instance_method" title="Spire::API::Resource#capability (method)">#capability</a></span>, <span class='object_link'><a href="Resource.html#properties-instance_method" title="Spire::API::Resource#properties (method)">#properties</a></span>, <span class='object_link'><a href="Resource.html#url-instance_method" title="Spire::API::Resource#url (method)">#url</a></span></p>
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#authenticate-instance_method" title="#authenticate (instance method)">- (Object) <strong>authenticate</strong>(login, password) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Authenticates with the application using basic auth.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#authenticate_with_post-instance_method" title="#authenticate_with_post (instance method)">- (Object) <strong>authenticate_with_post</strong>(login, password) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Alternative application authentication, without using basic auth.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#channels-instance_method" title="#channels (instance method)">- (Object) <strong>channels</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#channels%21-instance_method" title="#channels! (instance method)">- (Object) <strong>channels!</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#create_channel-instance_method" title="#create_channel (instance method)">- (Object) <strong>create_channel</strong>(name, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#create_member-instance_method" title="#create_member (instance method)">- (Object) <strong>create_member</strong>(member_data) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#create_subscription-instance_method" title="#create_subscription (instance method)">- (Object) <strong>create_subscription</strong>(subscription_name, channel_names) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#get_channel-instance_method" title="#get_channel (instance method)">- (Object) <strong>get_channel</strong>(name) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#get_member-instance_method" title="#get_member (instance method)">- (Object) <strong>get_member</strong>(member_login) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#get_subscription-instance_method" title="#get_subscription (instance method)">- (Object) <strong>get_subscription</strong>(name) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Application) <strong>initialize</strong>(api, data) </a>
+    
+
+    
+  </span>
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+A new instance of Application.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#members-instance_method" title="#members (instance method)">- (Object) <strong>members</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#members%21-instance_method" title="#members! (instance method)">- (Object) <strong>members!</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#request_member_password_reset-instance_method" title="#request_member_password_reset (instance method)">- (Object) <strong>request_member_password_reset</strong>(email) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Resets a members password based on email.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#reset_password-instance_method" title="#reset_password (instance method)">- (Object) <strong>reset_password</strong>(reset_key, new_password = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+If you do not give a new password, you will get back an authenticated
+member but have to change the password at a later time (using the returned
+capability).
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#resource_name-instance_method" title="#resource_name (instance method)">- (Object) <strong>resource_name</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#subscriptions-instance_method" title="#subscriptions (instance method)">- (Object) <strong>subscriptions</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#subscriptions%21-instance_method" title="#subscriptions! (instance method)">- (Object) <strong>subscriptions!</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods inherited from <span class='object_link'><a href="Resource.html" title="Spire::API::Resource (class)">Resource</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Resource.html#%5B%5D-instance_method" title="Spire::API::Resource#[] (method)">#[]</a></span>, <span class='object_link'><a href="Resource.html#delete-instance_method" title="Spire::API::Resource#delete (method)">#delete</a></span>, <span class='object_link'><a href="Resource.html#get-instance_method" title="Spire::API::Resource#get (method)">#get</a></span>, <span class='object_link'><a href="Resource.html#key-instance_method" title="Spire::API::Resource#key (method)">#key</a></span>, <span class='object_link'><a href="Resource.html#media_type-instance_method" title="Spire::API::Resource#media_type (method)">#media_type</a></span>, <span class='object_link'><a href="Resource.html#method_missing-instance_method" title="Spire::API::Resource#method_missing (method)">#method_missing</a></span>, <span class='object_link'><a href="Resource.html#schema-instance_method" title="Spire::API::Resource#schema (method)">#schema</a></span>, <span class='object_link'><a href="Resource.html#update-instance_method" title="Spire::API::Resource#update (method)">#update</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Requestable.html" title="Spire::API::Requestable (module)">Requestable</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Requestable.html#included-class_method" title="Spire::API::Requestable.included (method)">included</a></span></p>
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <p class="signature first" id="initialize-instance_method">
+  
+    - (<tt><span class='object_link'><a href="" title="Spire::API::Application (class)">Application</a></span></tt>) <strong>initialize</strong>(api, data) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+A new instance of Application
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+12
+13
+14
+15</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/application.rb', line 12</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_api identifier id'>api</span><span class='comma token'>,</span> <span class='rubyid_data identifier id'>data</span><span class='rparen token'>)</span>
+  <span class='rubyid_super super kw'>super</span>
+  <span class='rubyid_@resources ivar id'>@resources</span> <span class='assign token'>=</span> <span class='rubyid_data identifier id'>data</span><span class='lbrack token'>[</span><span class='string val'>&quot;resources&quot;</span><span class='rbrack token'>]</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+<div id="method_missing_details" class="method_details_list">
+  <h2>Dynamic Method Handling</h2>
+  <p class="notice super">
+    This class handles dynamic methods through the <tt>method_missing</tt> method
+    
+      in the class <span class='object_link'><a href="Resource.html#method_missing-instance_method" title="Spire::API::Resource#method_missing (method)">Spire::API::Resource</a></span>
+    
+  </p>
+  
+</div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id=""></span>
+      <span id="resources-instance_method"></span>
+      <div class="method_details first">
+  <p class="signature first" id="resources-instance_method">
+  
+    - (<tt>Object</tt>) <strong>resources</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the value of attribute resources
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+6
+7
+8</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/application.rb', line 6</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_resources identifier id'>resources</span>
+  <span class='rubyid_@resources ivar id'>@resources</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="authenticate-instance_method">
+  
+    - (<tt>Object</tt>) <strong>authenticate</strong>(login, password) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Authenticates with the application using basic auth
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+202
+203
+204
+205
+206
+207
+208</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/application.rb', line 202</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_authenticate identifier id'>authenticate</span><span class='lparen token'>(</span><span class='rubyid_login identifier id'>login</span><span class='comma token'>,</span> <span class='rubyid_password identifier id'>password</span><span class='rparen token'>)</span>
+  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_request identifier id'>request</span><span class='lparen token'>(</span><span class='symbol val'>:authenticate</span><span class='comma token'>,</span> <span class='lbrace token'>{</span><span class='symbol val'>:login</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_login identifier id'>login</span><span class='comma token'>,</span> <span class='symbol val'>:password</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_password identifier id'>password</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
+  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_status identifier id'>status</span> <span class='eq op'>==</span> <span class='integer val'>200</span>
+    <span class='rubyid_raise identifier id'>raise</span> <span class='dstring node'>&quot;Error authenticating for application #{self.name}: (#{response.status}) #{response.body}&quot;</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_API constant id'>API</span><span class='colon2 op'>::</span><span class='rubyid_Member constant id'>Member</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_@api ivar id'>@api</span><span class='comma token'>,</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_data identifier id'>data</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="authenticate_with_post-instance_method">
+  
+    - (<tt>Object</tt>) <strong>authenticate_with_post</strong>(login, password) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Alternative application authentication, without using basic auth
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+211
+212
+213
+214
+215
+216
+217</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/application.rb', line 211</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_authenticate_with_post identifier id'>authenticate_with_post</span><span class='lparen token'>(</span><span class='rubyid_login identifier id'>login</span><span class='comma token'>,</span> <span class='rubyid_password identifier id'>password</span><span class='rparen token'>)</span>
+  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_request identifier id'>request</span><span class='lparen token'>(</span><span class='symbol val'>:authenticate_with_post</span><span class='comma token'>,</span> <span class='lbrace token'>{</span><span class='symbol val'>:login</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_login identifier id'>login</span><span class='comma token'>,</span> <span class='symbol val'>:password</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_password identifier id'>password</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
+  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_status identifier id'>status</span> <span class='eq op'>==</span> <span class='integer val'>201</span>
+    <span class='rubyid_raise identifier id'>raise</span> <span class='dstring node'>&quot;Error authenticating for application #{self.name}: (#{response.status}) #{response.body}&quot;</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_API constant id'>API</span><span class='colon2 op'>::</span><span class='rubyid_Member constant id'>Member</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_@api ivar id'>@api</span><span class='comma token'>,</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_data identifier id'>data</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="channels-instance_method">
+  
+    - (<tt>Object</tt>) <strong>channels</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+313
+314
+315</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/application.rb', line 313</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_channels identifier id'>channels</span>
+  <span class='rubyid_@channels ivar id'>@channels</span> <span class='opasgn op'>||=</span> <span class='rubyid_channels! fid id'>channels!</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="channels!-instance_method">
+  
+    - (<tt>Object</tt>) <strong>channels!</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/application.rb', line 300</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_channels! fid id'>channels!</span>
+  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_request identifier id'>request</span><span class='lparen token'>(</span><span class='symbol val'>:channels</span><span class='rparen token'>)</span>
+  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_status identifier id'>status</span> <span class='eq op'>==</span> <span class='integer val'>200</span>
+    <span class='rubyid_raise identifier id'>raise</span> <span class='dstring node'>&quot;Error retrieving Channels: (#{response.status}) #{response.body}&quot;</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_channels_data identifier id'>channels_data</span> <span class='assign token'>=</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_data identifier id'>data</span>
+  <span class='rubyid_@channels ivar id'>@channels</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+  <span class='rubyid_channels_data identifier id'>channels_data</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_name identifier id'>name</span><span class='comma token'>,</span> <span class='rubyid_properties identifier id'>properties</span><span class='bitor op'>|</span>
+    <span class='rubyid_@channels ivar id'>@channels</span><span class='lbrack token'>[</span><span class='rubyid_name identifier id'>name</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_API constant id'>API</span><span class='colon2 op'>::</span><span class='rubyid_Channel constant id'>Channel</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_@api ivar id'>@api</span><span class='comma token'>,</span> <span class='rubyid_properties identifier id'>properties</span><span class='rparen token'>)</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_@channels ivar id'>@channels</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="create_channel-instance_method">
+  
+    - (<tt>Object</tt>) <strong>create_channel</strong>(name, options = {}) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/application.rb', line 275</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_create_channel identifier id'>create_channel</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='comma token'>,</span> <span class='rubyid_options identifier id'>options</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
+  <span class='rubyid_message_limit identifier id'>message_limit</span> <span class='assign token'>=</span> <span class='rubyid_options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:message_limit</span><span class='rbrack token'>]</span>
+  <span class='rubyid_message_ttl identifier id'>message_ttl</span> <span class='assign token'>=</span> <span class='rubyid_options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:message_ttl</span><span class='rbrack token'>]</span>
+  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_request identifier id'>request</span><span class='lparen token'>(</span><span class='symbol val'>:create_channel</span><span class='comma token'>,</span> <span class='rubyid_name identifier id'>name</span><span class='comma token'>,</span> <span class='rubyid_message_limit identifier id'>message_limit</span><span class='comma token'>,</span> <span class='rubyid_message_ttl identifier id'>message_ttl</span><span class='rparen token'>)</span>
+  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_status identifier id'>status</span> <span class='eq op'>==</span> <span class='integer val'>201</span>
+    <span class='rubyid_raise identifier id'>raise</span> <span class='dstring node'>&quot;Error creating Channel: (#{response.status}) #{response.body}&quot;</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_properties identifier id'>properties</span> <span class='assign token'>=</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_data identifier id'>data</span>
+  <span class='rubyid_channels identifier id'>channels</span><span class='lbrack token'>[</span><span class='rubyid_name identifier id'>name</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_API constant id'>API</span><span class='colon2 op'>::</span><span class='rubyid_Channel constant id'>Channel</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_@api ivar id'>@api</span><span class='comma token'>,</span> <span class='rubyid_properties identifier id'>properties</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="create_member-instance_method">
+  
+    - (<tt>Object</tt>) <strong>create_member</strong>(member_data) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+231
+232
+233
+234
+235
+236
+237</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/application.rb', line 231</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_create_member identifier id'>create_member</span><span class='lparen token'>(</span><span class='rubyid_member_data identifier id'>member_data</span><span class='rparen token'>)</span>
+  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_request identifier id'>request</span><span class='lparen token'>(</span><span class='symbol val'>:create_member</span><span class='comma token'>,</span> <span class='rubyid_member_data identifier id'>member_data</span><span class='rparen token'>)</span>
+  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_status identifier id'>status</span> <span class='eq op'>==</span> <span class='integer val'>201</span>
+    <span class='rubyid_raise identifier id'>raise</span> <span class='dstring node'>&quot;Error creating member for application #{self.name}: (#{response.status}) #{response.body}&quot;</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_API constant id'>API</span><span class='colon2 op'>::</span><span class='rubyid_Member constant id'>Member</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_@api ivar id'>@api</span><span class='comma token'>,</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_data identifier id'>data</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="create_subscription-instance_method">
+  
+    - (<tt>Object</tt>) <strong>create_subscription</strong>(subscription_name, channel_names) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/application.rb', line 286</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_create_subscription identifier id'>create_subscription</span><span class='lparen token'>(</span><span class='rubyid_subscription_name identifier id'>subscription_name</span><span class='comma token'>,</span> <span class='rubyid_channel_names identifier id'>channel_names</span><span class='rparen token'>)</span>
+  <span class='rubyid_channel_urls identifier id'>channel_urls</span> <span class='assign token'>=</span> <span class='rubyid_channel_names identifier id'>channel_names</span><span class='dot token'>.</span><span class='rubyid_flatten identifier id'>flatten</span><span class='dot token'>.</span><span class='rubyid_map identifier id'>map</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_name identifier id'>name</span><span class='bitor op'>|</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_channels identifier id'>channels</span><span class='lbrack token'>[</span><span class='rubyid_name identifier id'>name</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_url identifier id'>url</span> <span class='rubyid_rescue rescue kw'>rescue</span> <span class='rubyid_nil nil kw'>nil</span> <span class='rbrace token'>}</span><span class='dot token'>.</span><span class='rubyid_compact identifier id'>compact</span>
+  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_request identifier id'>request</span><span class='lparen token'>(</span><span class='symbol val'>:create_subscription</span><span class='comma token'>,</span> <span class='rubyid_subscription_name identifier id'>subscription_name</span><span class='comma token'>,</span> <span class='rubyid_channel_urls identifier id'>channel_urls</span><span class='rparen token'>)</span>
+  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_status identifier id'>status</span> <span class='eq op'>==</span> <span class='integer val'>201</span>
+    <span class='rubyid_raise identifier id'>raise</span> <span class='dstring node'>&quot;Error creating Subscription: (#{response.status}) #{response.body}&quot;</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_data identifier id'>data</span> <span class='assign token'>=</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_data identifier id'>data</span>
+  <span class='rubyid_subscription identifier id'>subscription</span> <span class='assign token'>=</span> <span class='rubyid_API constant id'>API</span><span class='colon2 op'>::</span><span class='rubyid_Subscription constant id'>Subscription</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_@api ivar id'>@api</span><span class='comma token'>,</span> <span class='rubyid_data identifier id'>data</span><span class='rparen token'>)</span> 
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_subscription_name identifier id'>subscription_name</span>
+    <span class='rubyid_subscriptions identifier id'>subscriptions</span><span class='lbrack token'>[</span><span class='rubyid_data identifier id'>data</span><span class='lbrack token'>[</span><span class='string val'>&quot;name&quot;</span><span class='rbrack token'>]</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_subscription identifier id'>subscription</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_subscription identifier id'>subscription</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="get_channel-instance_method">
+  
+    - (<tt>Object</tt>) <strong>get_channel</strong>(name) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/application.rb', line 333</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_get_channel identifier id'>get_channel</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
+  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_request identifier id'>request</span><span class='lparen token'>(</span><span class='symbol val'>:channel_by_name</span><span class='comma token'>,</span> <span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
+  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_status identifier id'>status</span> <span class='eq op'>==</span> <span class='integer val'>200</span>
+    <span class='rubyid_raise identifier id'>raise</span> <span class='dstring node'>&quot;Error finding channel with name #{name}: (#{response.status}) #{response.body}&quot;</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_properties identifier id'>properties</span> <span class='assign token'>=</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_data identifier id'>data</span><span class='lbrack token'>[</span><span class='rubyid_name identifier id'>name</span><span class='rbrack token'>]</span>
+  <span class='rubyid_channel identifier id'>channel</span> <span class='assign token'>=</span> <span class='rubyid_API constant id'>API</span><span class='colon2 op'>::</span><span class='rubyid_Channel constant id'>Channel</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_@api ivar id'>@api</span><span class='comma token'>,</span> <span class='rubyid_properties identifier id'>properties</span><span class='rparen token'>)</span>
+  <span class='rubyid_@channels ivar id'>@channels</span><span class='lbrack token'>[</span><span class='rubyid_name identifier id'>name</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_channel identifier id'>channel</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_@channels ivar id'>@channels</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_Hash constant id'>Hash</span><span class='rparen token'>)</span>
+  <span class='rubyid_channel identifier id'>channel</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="get_member-instance_method">
+  
+    - (<tt>Object</tt>) <strong>get_member</strong>(member_login) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/application.rb', line 264</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_get_member identifier id'>get_member</span><span class='lparen token'>(</span><span class='rubyid_member_login identifier id'>member_login</span><span class='rparen token'>)</span>
+  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_request identifier id'>request</span><span class='lparen token'>(</span><span class='symbol val'>:member_by_login</span><span class='comma token'>,</span> <span class='rubyid_member_login identifier id'>member_login</span><span class='rparen token'>)</span>
+  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_status identifier id'>status</span> <span class='eq op'>==</span> <span class='integer val'>200</span>
+    <span class='rubyid_raise identifier id'>raise</span> <span class='dstring node'>&quot;Error finding member with login #{member_login}: (#{response.status}) #{response.body}&quot;</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_properties identifier id'>properties</span> <span class='assign token'>=</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_data identifier id'>data</span><span class='lbrack token'>[</span><span class='rubyid_member_login identifier id'>member_login</span><span class='rbrack token'>]</span>
+  <span class='rubyid_member identifier id'>member</span> <span class='assign token'>=</span> <span class='rubyid_API constant id'>API</span><span class='colon2 op'>::</span><span class='rubyid_Member constant id'>Member</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_@api ivar id'>@api</span><span class='comma token'>,</span> <span class='rubyid_properties identifier id'>properties</span><span class='rparen token'>)</span>
+  <span class='rubyid_@members ivar id'>@members</span><span class='lbrack token'>[</span><span class='rubyid_member_login identifier id'>member_login</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_member identifier id'>member</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_@members ivar id'>@members</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_Hash constant id'>Hash</span><span class='rparen token'>)</span>
+  <span class='rubyid_member identifier id'>member</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="get_subscription-instance_method">
+  
+    - (<tt>Object</tt>) <strong>get_subscription</strong>(name) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/application.rb', line 344</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_get_subscription identifier id'>get_subscription</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
+  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_request identifier id'>request</span><span class='lparen token'>(</span><span class='symbol val'>:subscription_by_name</span><span class='comma token'>,</span> <span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
+  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_status identifier id'>status</span> <span class='eq op'>==</span> <span class='integer val'>200</span>
+    <span class='rubyid_raise identifier id'>raise</span> <span class='dstring node'>&quot;Error finding subscription with name #{name}: (#{response.status}) #{response.body}&quot;</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_properties identifier id'>properties</span> <span class='assign token'>=</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_data identifier id'>data</span><span class='lbrack token'>[</span><span class='rubyid_name identifier id'>name</span><span class='rbrack token'>]</span>
+  <span class='rubyid_sub identifier id'>sub</span> <span class='assign token'>=</span> <span class='rubyid_API constant id'>API</span><span class='colon2 op'>::</span><span class='rubyid_Subscription constant id'>Subscription</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_@api ivar id'>@api</span><span class='comma token'>,</span> <span class='rubyid_properties identifier id'>properties</span><span class='rparen token'>)</span>
+  <span class='rubyid_@subscriptions ivar id'>@subscriptions</span><span class='lbrack token'>[</span><span class='rubyid_name identifier id'>name</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_sub identifier id'>sub</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_@subscriptions ivar id'>@subscriptions</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_Hash constant id'>Hash</span><span class='rparen token'>)</span>
+  <span class='rubyid_sub identifier id'>sub</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="members-instance_method">
+  
+    - (<tt>Object</tt>) <strong>members</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+248
+249
+250</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/application.rb', line 248</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_members identifier id'>members</span>
+  <span class='rubyid_@members ivar id'>@members</span> <span class='orop op'>||</span> <span class='rubyid_members! fid id'>members!</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="members!-instance_method">
+  
+    - (<tt>Object</tt>) <strong>members!</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/application.rb', line 252</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_members! fid id'>members!</span>
+  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_request identifier id'>request</span><span class='lparen token'>(</span><span class='symbol val'>:members</span><span class='rparen token'>)</span>
+  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_status identifier id'>status</span> <span class='eq op'>==</span> <span class='integer val'>200</span>
+    <span class='rubyid_raise identifier id'>raise</span> <span class='dstring node'>&quot;Error getting members for application #{self.name}: (#{response.status}) #{response.body}&quot;</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_@members ivar id'>@members</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+  <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_data identifier id'>data</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_login identifier id'>login</span><span class='comma token'>,</span> <span class='rubyid_properties identifier id'>properties</span><span class='bitor op'>|</span>
+    <span class='rubyid_@members ivar id'>@members</span><span class='lbrack token'>[</span><span class='rubyid_login identifier id'>login</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_API constant id'>API</span><span class='colon2 op'>::</span><span class='rubyid_Member constant id'>Member</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_@api ivar id'>@api</span><span class='comma token'>,</span> <span class='rubyid_properties identifier id'>properties</span><span class='rparen token'>)</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_@members ivar id'>@members</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="request_member_password_reset-instance_method">
+  
+    - (<tt>Object</tt>) <strong>request_member_password_reset</strong>(email) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Resets a members password based on email
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+240
+241
+242
+243
+244
+245
+246</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/application.rb', line 240</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_request_member_password_reset identifier id'>request_member_password_reset</span><span class='lparen token'>(</span><span class='rubyid_email identifier id'>email</span><span class='rparen token'>)</span>
+  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_request identifier id'>request</span><span class='lparen token'>(</span><span class='symbol val'>:reset_member_password</span><span class='comma token'>,</span> <span class='rubyid_email identifier id'>email</span><span class='rparen token'>)</span>
+  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_status identifier id'>status</span> <span class='eq op'>==</span> <span class='integer val'>202</span>
+    <span class='rubyid_raise identifier id'>raise</span> <span class='dstring node'>&quot;Error reseting password for email #{email} in app #{self.name}: (#{response.status}) #{response.body}&quot;</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_true true kw'>true</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="reset_password-instance_method">
+  
+    - (<tt>Object</tt>) <strong>reset_password</strong>(reset_key, new_password = nil) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+If you do not give a new password, you will get back an authenticated
+member but have to change the password at a later time (using the returned
+capability)
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+221
+222
+223
+224
+225
+226
+227
+228
+229</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/application.rb', line 221</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_reset_password identifier id'>reset_password</span><span class='lparen token'>(</span><span class='rubyid_reset_key identifier id'>reset_key</span><span class='comma token'>,</span> <span class='rubyid_new_password identifier id'>new_password</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='rparen token'>)</span>
+  <span class='rubyid_hsh identifier id'>hsh</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='symbol val'>:reset_key</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_reset_key identifier id'>reset_key</span><span class='rbrace token'>}</span>
+  <span class='rubyid_hsh identifier id'>hsh</span><span class='lbrack token'>[</span><span class='symbol val'>:password</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_new_password identifier id'>new_password</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_new_password identifier id'>new_password</span>
+  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_request identifier id'>request</span><span class='lparen token'>(</span><span class='symbol val'>:authenticate_with_post</span><span class='comma token'>,</span> <span class='rubyid_hsh identifier id'>hsh</span><span class='rparen token'>)</span>
+  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_status identifier id'>status</span> <span class='eq op'>==</span> <span class='integer val'>201</span>
+    <span class='rubyid_raise identifier id'>raise</span> <span class='dstring node'>&quot;Error reseting password for application #{self.name}: (#{response.status}) #{response.body}&quot;</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_API constant id'>API</span><span class='colon2 op'>::</span><span class='rubyid_Member constant id'>Member</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_@api ivar id'>@api</span><span class='comma token'>,</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_data identifier id'>data</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="resource_name-instance_method">
+  
+    - (<tt>Object</tt>) <strong>resource_name</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+8
+9
+10</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/application.rb', line 8</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_resource_name identifier id'>resource_name</span>
+  <span class='string val'>&quot;application&quot;</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="subscriptions-instance_method">
+  
+    - (<tt>Object</tt>) <strong>subscriptions</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+317
+318
+319</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/application.rb', line 317</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_subscriptions identifier id'>subscriptions</span>
+  <span class='rubyid_@subscriptions ivar id'>@subscriptions</span> <span class='opasgn op'>||=</span> <span class='rubyid_subscriptions! fid id'>subscriptions!</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="subscriptions!-instance_method">
+  
+    - (<tt>Object</tt>) <strong>subscriptions!</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/application.rb', line 321</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_subscriptions! fid id'>subscriptions!</span>
+  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_request identifier id'>request</span><span class='lparen token'>(</span><span class='symbol val'>:subscriptions</span><span class='rparen token'>)</span>
+  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_status identifier id'>status</span> <span class='eq op'>==</span> <span class='integer val'>200</span>
+    <span class='rubyid_raise identifier id'>raise</span> <span class='dstring node'>&quot;Error retrieving Subscriptions: (#{response.status}) #{response.body}&quot;</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_@subscriptions ivar id'>@subscriptions</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+  <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_data identifier id'>data</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_name identifier id'>name</span><span class='comma token'>,</span> <span class='rubyid_properties identifier id'>properties</span><span class='bitor op'>|</span>
+    <span class='rubyid_@subscriptions ivar id'>@subscriptions</span><span class='lbrack token'>[</span><span class='rubyid_name identifier id'>name</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_API constant id'>API</span><span class='colon2 op'>::</span><span class='rubyid_Subscription constant id'>Subscription</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_@api ivar id'>@api</span><span class='comma token'>,</span> <span class='rubyid_properties identifier id'>properties</span><span class='rparen token'>)</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_@subscriptions ivar id'>@subscriptions</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Thu May 24 12:58:14 2012 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.7.5 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

@@ -94,6 +94,63 @@
 </dl>
 <div class="clear"></div>
 
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>
+The subscription class represents a read connection to a Spire channel
+</p>
+<p>
+You can get a subscription by calling subscribe on a spire object with the
+name of the channel or by calling subscribe on a channel object
+</p>
+<ul>
+<li>spire = Spire.new
+
+</li>
+<li>spire.start(&quot;your api secret&quot;)
+
+</li>
+</ul>
+<p>
+<b>THEN</b>
+</p>
+<ul>
+<li>subscription = spire.subscribe(&quot;subscription name&quot;, &quot;channel
+name&quot;)
+
+</li>
+</ul>
+<p>
+<b>OR</b>
+</p>
+<ul>
+<li>channel = spire[&quot;channel name&quot;]
+
+</li>
+<li>subscription = channel.subscribe(&quot;subscription name&quot;)
+
+</li>
+</ul>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+  <h2>Constant Summary</h2>
+  
+    <dl class="constants">
+      
+        <dt id="EVENT_TYPES-constant" class="">EVENT_TYPES =
+          
+        </dt>
+        <dd><pre class="code"><span class='lbrack token'>[</span><span class='string val'>&quot;message&quot;</span><span class='comma token'>,</span> <span class='string val'>&quot;join&quot;</span><span class='comma token'>,</span> <span class='string val'>&quot;part&quot;</span><span class='rbrack token'>]</span>
+</pre></dd>
+      
+    </dl>
+  
 
 
 
@@ -111,7 +168,7 @@
   </span>
   
   
-    <span class="note title readonly">readonly</span>
+    
     
   
   
@@ -135,7 +192,7 @@ Returns the value of attribute last.
   
   
   <h3 class="inherited">Attributes inherited from <span class='object_link'><a href="Resource.html" title="Spire::API::Resource (class)">Resource</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Resource.html#capability-instance_method" title="Spire::API::Resource#capability (method)">#capability</a></span>, <span class='object_link'><a href="Resource.html#properties-instance_method" title="Spire::API::Resource#properties (method)">#properties</a></span>, <span class='object_link'><a href="Resource.html#url-instance_method" title="Spire::API::Resource#url (method)">#url</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Resource.html#capabilities-instance_method" title="Spire::API::Resource#capabilities (method)">#capabilities</a></span>, <span class='object_link'><a href="Resource.html#capability-instance_method" title="Spire::API::Resource#capability (method)">#capability</a></span>, <span class='object_link'><a href="Resource.html#properties-instance_method" title="Spire::API::Resource#properties (method)">#properties</a></span>, <span class='object_link'><a href="Resource.html#url-instance_method" title="Spire::API::Resource#url (method)">#url</a></span></p>
 
 
   
@@ -149,7 +206,7 @@ Returns the value of attribute last.
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#add_listener-instance_method" title="#add_listener (instance method)">- (Object) <strong>add_listener</strong>(&amp;block) </a>
+      <a href="#add_listener-instance_method" title="#add_listener (instance method)">- (Object) <strong>add_listener</strong>(type, listener_name = nil, &amp;block) </a>
     
 
     
@@ -162,7 +219,10 @@ Returns the value of attribute last.
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'><p>
+provided named listeners, threading, and a stop_listening method.
+</p>
+</div></span>
   
 </li>
 
@@ -170,7 +230,7 @@ Returns the value of attribute last.
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#listen-instance_method" title="#listen (instance method)">- (Object) <strong>listen</strong>(options = {}) </a>
+      <a href="#generate_listener_name-instance_method" title="#generate_listener_name (instance method)">- (Object) <strong>generate_listener_name</strong> </a>
     
 
     
@@ -254,6 +314,27 @@ Returns the value of attribute last.
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#remove_listener-instance_method" title="#remove_listener (instance method)">- (Object) <strong>remove_listener</strong>(type, arg) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#resource_name-instance_method" title="#resource_name (instance method)">- (Object) <strong>resource_name</strong> </a>
     
 
@@ -275,7 +356,70 @@ Returns the value of attribute last.
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#retrieve_messages-instance_method" title="#retrieve_messages (instance method)">- (Object) <strong>retrieve_messages</strong>(options = {}) </a>
+      <a href="#retrieve_events-instance_method" title="#retrieve_events (instance method)">- (Object) <strong>retrieve_events</strong>(options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#start_listening-instance_method" title="#start_listening (instance method)">- (Object) <strong>start_listening</strong>(options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#stop_listening-instance_method" title="#stop_listening (instance method)">- (Object) <strong>stop_listening</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#wrap_listener-instance_method" title="#wrap_listener (instance method)">- (Object) <strong>wrap_listener</strong>(&amp;block) </a>
     
 
     
@@ -305,7 +449,7 @@ Returns the value of attribute last.
   
   
   <h3 class="inherited">Methods inherited from <span class='object_link'><a href="Resource.html" title="Spire::API::Resource (class)">Resource</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Resource.html#%5B%5D-instance_method" title="Spire::API::Resource#[] (method)">#[]</a></span>, <span class='object_link'><a href="Resource.html#delete-instance_method" title="Spire::API::Resource#delete (method)">#delete</a></span>, <span class='object_link'><a href="Resource.html#get-instance_method" title="Spire::API::Resource#get (method)">#get</a></span>, <span class='object_link'><a href="Resource.html#initialize-instance_method" title="Spire::API::Resource#initialize (method)">#initialize</a></span>, <span class='object_link'><a href="Resource.html#inspect-instance_method" title="Spire::API::Resource#inspect (method)">#inspect</a></span>, <span class='object_link'><a href="Resource.html#key-instance_method" title="Spire::API::Resource#key (method)">#key</a></span>, <span class='object_link'><a href="Resource.html#media_type-instance_method" title="Spire::API::Resource#media_type (method)">#media_type</a></span>, <span class='object_link'><a href="Resource.html#method_missing-instance_method" title="Spire::API::Resource#method_missing (method)">#method_missing</a></span>, <span class='object_link'><a href="Resource.html#schema-instance_method" title="Spire::API::Resource#schema (method)">#schema</a></span>, <span class='object_link'><a href="Resource.html#update-instance_method" title="Spire::API::Resource#update (method)">#update</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Resource.html#%5B%5D-instance_method" title="Spire::API::Resource#[] (method)">#[]</a></span>, <span class='object_link'><a href="Resource.html#delete-instance_method" title="Spire::API::Resource#delete (method)">#delete</a></span>, <span class='object_link'><a href="Resource.html#get-instance_method" title="Spire::API::Resource#get (method)">#get</a></span>, <span class='object_link'><a href="Resource.html#initialize-instance_method" title="Spire::API::Resource#initialize (method)">#initialize</a></span>, <span class='object_link'><a href="Resource.html#key-instance_method" title="Spire::API::Resource#key (method)">#key</a></span>, <span class='object_link'><a href="Resource.html#media_type-instance_method" title="Spire::API::Resource#media_type (method)">#media_type</a></span>, <span class='object_link'><a href="Resource.html#method_missing-instance_method" title="Spire::API::Resource#method_missing (method)">#method_missing</a></span>, <span class='object_link'><a href="Resource.html#schema-instance_method" title="Spire::API::Resource#schema (method)">#schema</a></span>, <span class='object_link'><a href="Resource.html#update-instance_method" title="Spire::API::Resource#update (method)">#update</a></span></p>
 
   
   
@@ -337,12 +481,12 @@ Returns the value of attribute last.
     <h2>Instance Attribute Details</h2>
     
       
-      <span id=""></span>
+      <span id="last=-instance_method"></span>
       <span id="last-instance_method"></span>
       <div class="method_details first">
   <p class="signature first" id="last-instance_method">
   
-    - (<tt>Object</tt>) <strong>last</strong>  <span class="extras">(readonly)</span>
+    - (<tt>Object</tt>) <strong>last</strong> 
   
 
   
@@ -364,16 +508,17 @@ Returns the value of attribute last
       <pre class="lines">
 
 
-6
-7
-8</pre>
+18
+19
+20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 6</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 18</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_last'>last</span>
-  <span class='ivar'>@last</span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_last identifier id'>last</span>
+  <span class='rubyid_@last ivar id'>@last</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -389,37 +534,81 @@ Returns the value of attribute last
       <div class="method_details first">
   <p class="signature first" id="add_listener-instance_method">
   
-    - (<tt>Object</tt>) <strong>add_listener</strong>(&amp;block) 
+    - (<tt>Object</tt>) <strong>add_listener</strong>(type, listener_name = nil, &amp;block) 
   
 
   
-</p><table class="source_code">
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+provided named listeners, threading, and a stop_listening method.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<h3>Raises:</h3>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>ArgumentError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-32
-33
-34
-35</pre>
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 59</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_add_listener'>add_listener</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_listeners'>listeners</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_block'>block</span>
-  <span class='id identifier rubyid_block'>block</span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_add_listener identifier id'>add_listener</span><span class='lparen token'>(</span><span class='rubyid_type identifier id'>type</span><span class='comma token'>,</span> <span class='rubyid_listener_name identifier id'>listener_name</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='rubyid_block identifier id'>block</span><span class='rparen token'>)</span>
+  <span class='rubyid_type identifier id'>type</span> <span class='opasgn op'>||=</span> <span class='string val'>&quot;&quot;</span>
+  <span class='rubyid_type identifier id'>type</span><span class='dot token'>.</span><span class='rubyid_downcase! fid id'>downcase!</span>
+  <span class='rubyid_if if kw'>if</span> <span class='notop op'>!</span><span class='rubyid_EVENT_TYPES constant id'>EVENT_TYPES</span><span class='dot token'>.</span><span class='rubyid_include? fid id'>include?</span><span class='lparen token'>(</span><span class='rubyid_type identifier id'>type</span><span class='rparen token'>)</span>
+    <span class='rubyid_throw identifier id'>throw</span> <span class='dstring node'>&quot;Listener type must be one of #{EVENT_TYPES}&quot;</span>
+  <span class='rubyid_end end kw'>end</span>
+
+  <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_ArgumentError constant id'>ArgumentError</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_block_given? fid id'>block_given?</span>
+  <span class='rubyid_listener_name identifier id'>listener_name</span> <span class='opasgn op'>||=</span> <span class='rubyid_generate_listener_name identifier id'>generate_listener_name</span>
+  <span class='rubyid_listener identifier id'>listener</span> <span class='assign token'>=</span> <span class='rubyid_wrap_listener identifier id'>wrap_listener</span><span class='lparen token'>(</span><span class='bitand op'>&amp;</span><span class='rubyid_block identifier id'>block</span><span class='rparen token'>)</span>
+  <span class='rubyid_listeners identifier id'>listeners</span><span class='lbrack token'>[</span><span class='rubyid_type identifier id'>type</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='rubyid_listener_name identifier id'>listener_name</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_listener identifier id'>listener</span>
+  <span class='rubyid_listener_name identifier id'>listener_name</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="listen-instance_method">
+  <p class="signature " id="generate_listener_name-instance_method">
   
-    - (<tt>Object</tt>) <strong>listen</strong>(options = {}) 
+    - (<tt>Object</tt>) <strong>generate_listener_name</strong> 
   
 
   
@@ -429,20 +618,27 @@ Returns the value of attribute last
       <pre class="lines">
 
 
-70
-71
-72
-73
-74</pre>
+102
+103
+104
+105
+106
+107
+108
+109</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 70</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 102</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_listen'>listen</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_loop'>loop</span> <span class='kw'>do</span>
-    <span class='kw'>break</span> <span class='kw'>unless</span> <span class='kw'>yield</span><span class='lparen'>(</span><span class='id identifier rubyid_long_poll'>long_poll</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_generate_listener_name identifier id'>generate_listener_name</span>
+  <span class='rubyid_listener_name identifier id'>listener_name</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span>
+  <span class='rubyid_while while kw'>while</span> <span class='notop op'>!</span><span class='rubyid_listener_name identifier id'>listener_name</span>
+    <span class='rubyid_new_name identifier id'>new_name</span> <span class='assign token'>=</span> <span class='dstring node'>&quot;Listener-#{rand(9999999)}&quot;</span>
+    <span class='rubyid_listener_name identifier id'>listener_name</span> <span class='assign token'>=</span> <span class='rubyid_new_name identifier id'>new_name</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_listeners identifier id'>listeners</span><span class='dot token'>.</span><span class='rubyid_has_key? fid id'>has_key?</span><span class='lparen token'>(</span><span class='rubyid_new_name identifier id'>new_name</span><span class='rparen token'>)</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_listener_name identifier id'>listener_name</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -461,16 +657,33 @@ Returns the value of attribute last
       <pre class="lines">
 
 
-28
-29
-30</pre>
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 45</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_listeners'>listeners</span>
-  <span class='ivar'>@listeners</span> <span class='op'>||=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_listeners identifier id'>listeners</span>
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_@listeners ivar id'>@listeners</span>
+    <span class='rubyid_@listeners ivar id'>@listeners</span>
+  <span class='rubyid_else else kw'>else</span>
+    <span class='rubyid_@listeners ivar id'>@listeners</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span> <span class='rbrace token'>}</span>
+    <span class='rubyid_EVENT_TYPES constant id'>EVENT_TYPES</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_type identifier id'>type</span><span class='bitor op'>|</span>
+      <span class='rubyid_@listeners ivar id'>@listeners</span><span class='lbrack token'>[</span><span class='rubyid_type identifier id'>type</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+    <span class='rubyid_end end kw'>end</span>
+    <span class='rubyid_@listeners ivar id'>@listeners</span>
+  <span class='rubyid_end end kw'>end</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -489,20 +702,21 @@ Returns the value of attribute last
       <pre class="lines">
 
 
-64
-65
-66
-67
-68</pre>
+158
+159
+160
+161
+162</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 158</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_long_poll'>long_poll</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:timeout</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='int'>30</span>
-  <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:last</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='ivar'>@last</span>
-  <span class='id identifier rubyid_retrieve_messages'>retrieve_messages</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_long_poll identifier id'>long_poll</span><span class='lparen token'>(</span><span class='rubyid_options identifier id'>options</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
+  <span class='rubyid_options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:timeout</span><span class='rbrack token'>]</span> <span class='opasgn op'>||=</span> <span class='integer val'>30</span>
+  <span class='rubyid_options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:last</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_@last ivar id'>@last</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_@last ivar id'>@last</span>
+  <span class='rubyid_retrieve_events identifier id'>retrieve_events</span><span class='lparen token'>(</span><span class='rubyid_options identifier id'>options</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -521,24 +735,82 @@ Returns the value of attribute last
       <pre class="lines">
 
 
-56
-57
-58
-59
-60
-61
-62</pre>
+151
+152
+153
+154
+155
+156</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 151</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_poll'>poll</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='comment'># timeout option of 0 means no long poll,
-</span>  <span class='comment'># so we force it here.
-</span>  <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:timeout</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='int'>0</span>
-  <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:last</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='ivar'>@last</span>
-  <span class='id identifier rubyid_retrieve_messages'>retrieve_messages</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_poll identifier id'>poll</span><span class='lparen token'>(</span><span class='rubyid_options identifier id'>options</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
+  <span class='comment val'># timeout option of 0 means no long poll,</span>
+  <span class='comment val'># so we force it here.</span>
+  <span class='rubyid_options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:timeout</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='integer val'>0</span>
+  <span class='rubyid_long_poll identifier id'>long_poll</span><span class='lparen token'>(</span><span class='rubyid_options identifier id'>options</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="remove_listener-instance_method">
+  
+    - (<tt>Object</tt>) <strong>remove_listener</strong>(type, arg) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 73</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_remove_listener identifier id'>remove_listener</span><span class='lparen token'>(</span><span class='rubyid_type identifier id'>type</span><span class='comma token'>,</span> <span class='rubyid_arg identifier id'>arg</span><span class='rparen token'>)</span>
+  <span class='rubyid_type identifier id'>type</span> <span class='opasgn op'>||=</span> <span class='string val'>&quot;&quot;</span>
+  <span class='rubyid_type identifier id'>type</span><span class='dot token'>.</span><span class='rubyid_downcase! fid id'>downcase!</span>
+  <span class='rubyid_if if kw'>if</span> <span class='notop op'>!</span><span class='rubyid_EVENT_TYPES constant id'>EVENT_TYPES</span><span class='dot token'>.</span><span class='rubyid_include? fid id'>include?</span><span class='lparen token'>(</span><span class='rubyid_type identifier id'>type</span><span class='rparen token'>)</span>
+    <span class='rubyid_throw identifier id'>throw</span> <span class='dstring node'>&quot;Listener type must be one of #{EVENT_TYPES}&quot;</span>
+  <span class='rubyid_end end kw'>end</span>
+
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_arg identifier id'>arg</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span> <span class='rubyid_String constant id'>String</span>
+    <span class='rubyid_listener identifier id'>listener</span> <span class='assign token'>=</span> <span class='rubyid_listeners identifier id'>listeners</span><span class='lbrack token'>[</span><span class='rubyid_type identifier id'>type</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_delete identifier id'>delete</span><span class='lparen token'>(</span><span class='rubyid_arg identifier id'>arg</span><span class='rparen token'>)</span>
+  <span class='rubyid_else else kw'>else</span>
+    <span class='rubyid_listener_name identifier id'>listener_name</span><span class='comma token'>,</span> <span class='rubyid__listener identifier id'>_listener</span> <span class='assign token'>=</span> <span class='rubyid_listeners identifier id'>listeners</span><span class='dot token'>.</span><span class='rubyid_detect identifier id'>detect</span> <span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='rubyid_k identifier id'>k</span><span class='comma token'>,</span><span class='rubyid_v identifier id'>v</span><span class='bitor op'>|</span> <span class='rubyid_v identifier id'>v</span> <span class='eq op'>==</span> <span class='rubyid_arg identifier id'>arg</span> <span class='rbrace token'>}</span>
+    <span class='rubyid_listener identifier id'>listener</span> <span class='assign token'>=</span> <span class='rubyid_listeners identifier id'>listeners</span><span class='lbrack token'>[</span><span class='rubyid_type identifier id'>type</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_delete identifier id'>delete</span><span class='lparen token'>(</span><span class='rubyid_listener_name identifier id'>listener_name</span><span class='rparen token'>)</span>
+  <span class='rubyid_end end kw'>end</span>
+
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_listener identifier id'>listener</span>
+    <span class='rubyid_listeners identifier id'>listeners</span><span class='lbrack token'>[</span><span class='rubyid_type identifier id'>type</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_delete identifier id'>delete</span><span class='lparen token'>(</span><span class='rubyid_listener identifier id'>listener</span><span class='rparen token'>)</span>
+  <span class='rubyid_end end kw'>end</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -557,25 +829,26 @@ Returns the value of attribute last
       <pre class="lines">
 
 
-7
-8
-9</pre>
+19
+20
+21</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 7</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 19</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_resource_name'>resource_name</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>subscription</span><span class='tstring_end'>&quot;</span></span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_resource_name identifier id'>resource_name</span>
+  <span class='string val'>&quot;subscription&quot;</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="retrieve_messages-instance_method">
+  <p class="signature " id="retrieve_events-instance_method">
   
-    - (<tt>Object</tt>) <strong>retrieve_messages</strong>(options = {}) 
+    - (<tt>Object</tt>) <strong>retrieve_events</strong>(options = {}) 
   
 
   
@@ -585,46 +858,172 @@ Returns the value of attribute last
       <pre class="lines">
 
 
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54</pre>
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 122</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_retrieve_messages'>retrieve_messages</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:last</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0</span><span class='tstring_end'>&quot;</span></span>
-  <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:delay</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='int'>0</span>
-  <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:order_by</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>desc</span><span class='tstring_end'>&quot;</span></span>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_retrieve_events identifier id'>retrieve_events</span><span class='lparen token'>(</span><span class='rubyid_options identifier id'>options</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
+  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_request identifier id'>request</span><span class='lparen token'>(</span><span class='symbol val'>:events</span><span class='comma token'>,</span> <span class='rubyid_options identifier id'>options</span><span class='rparen token'>)</span>
+  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_status identifier id'>status</span> <span class='eq op'>==</span> <span class='integer val'>200</span>
+    <span class='rubyid_raise identifier id'>raise</span> <span class='dstring node'>&quot;Error retrieving messages from #{self.class.name}: (#{response.status}) #{response.body}&quot;</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_@last ivar id'>@last</span> <span class='assign token'>=</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_data identifier id'>data</span><span class='lbrack token'>[</span><span class='string val'>&quot;last&quot;</span><span class='rbrack token'>]</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_data identifier id'>data</span> <span class='rubyid_and and kw'>and</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_data identifier id'>data</span><span class='lbrack token'>[</span><span class='string val'>&quot;last&quot;</span><span class='rbrack token'>]</span>
 
-  <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_request'>request</span><span class='lparen'>(</span><span class='symbol'>:messages</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-  <span class='kw'>unless</span> <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span> <span class='op'>==</span> <span class='int'>200</span>
-    <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Error retrieving messages from </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='rbrace'>}</span><span class='tstring_content'>: (</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span><span class='rbrace'>}</span><span class='tstring_content'>) </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
-  <span class='kw'>end</span>
-  <span class='id identifier rubyid_messages'>messages</span> <span class='op'>=</span> <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>messages</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
-  <span class='ivar'>@last</span> <span class='op'>=</span> <span class='id identifier rubyid_messages'>messages</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>timestamp</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_messages'>messages</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
-  <span class='id identifier rubyid_messages'>messages</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_message'>message</span><span class='op'>|</span>
-    <span class='id identifier rubyid_listeners'>listeners</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_listener'>listener</span><span class='op'>|</span>
-      <span class='id identifier rubyid_listener'>listener</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
-    <span class='kw'>end</span>
-  <span class='kw'>end</span>
-  <span class='id identifier rubyid_messages'>messages</span>
-<span class='kw'>end</span></pre>
+  <span class='rubyid_event_hash identifier id'>event_hash</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span>
+    <span class='symbol val'>:first</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_data identifier id'>data</span><span class='lbrack token'>[</span><span class='string val'>&quot;first&quot;</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
+    <span class='symbol val'>:last</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_data identifier id'>data</span><span class='lbrack token'>[</span><span class='string val'>&quot;last&quot;</span><span class='rbrack token'>]</span>
+  <span class='rbrace token'>}</span>
+
+  <span class='rubyid_EVENT_TYPES constant id'>EVENT_TYPES</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_type identifier id'>type</span><span class='bitor op'>|</span>
+    <span class='rubyid_type_pl identifier id'>type_pl</span> <span class='assign token'>=</span> <span class='dstring node'>&quot;#{type}s&quot;</span>
+    <span class='rubyid_event_hash identifier id'>event_hash</span><span class='lbrack token'>[</span><span class='rubyid_type_pl identifier id'>type_pl</span><span class='dot token'>.</span><span class='rubyid_to_sym identifier id'>to_sym</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
+    <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_data identifier id'>data</span><span class='lbrack token'>[</span><span class='rubyid_type_pl identifier id'>type_pl</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_event identifier id'>event</span><span class='bitor op'>|</span>
+      <span class='rubyid_klass_name identifier id'>klass_name</span> <span class='assign token'>=</span> <span class='rubyid_type identifier id'>type</span><span class='dot token'>.</span><span class='rubyid_capitalize identifier id'>capitalize</span>
+      <span class='rubyid_klass identifier id'>klass</span> <span class='assign token'>=</span> <span class='rubyid_API constant id'>API</span><span class='dot token'>.</span><span class='rubyid_const_get identifier id'>const_get</span><span class='lparen token'>(</span><span class='rubyid_klass_name identifier id'>klass_name</span><span class='rparen token'>)</span>
+      <span class='rubyid_event_obj identifier id'>event_obj</span> <span class='assign token'>=</span> <span class='rubyid_klass identifier id'>klass</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_@api ivar id'>@api</span><span class='comma token'>,</span> <span class='rubyid_event identifier id'>event</span><span class='rparen token'>)</span>
+      <span class='rubyid_event_hash identifier id'>event_hash</span><span class='lbrack token'>[</span><span class='rubyid_type_pl identifier id'>type_pl</span><span class='dot token'>.</span><span class='rubyid_to_sym identifier id'>to_sym</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_push identifier id'>push</span><span class='lparen token'>(</span><span class='rubyid_event_obj identifier id'>event_obj</span><span class='rparen token'>)</span>
+
+      <span class='rubyid_listeners identifier id'>listeners</span><span class='lbrack token'>[</span><span class='rubyid_type identifier id'>type</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_each_value identifier id'>each_value</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_listener identifier id'>listener</span><span class='bitor op'>|</span>
+        <span class='rubyid_listener identifier id'>listener</span><span class='dot token'>.</span><span class='rubyid_call identifier id'>call</span><span class='lparen token'>(</span><span class='rubyid_event_obj identifier id'>event_obj</span><span class='rparen token'>)</span>
+      <span class='rubyid_end end kw'>end</span>
+    <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_event_hash identifier id'>event_hash</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="start_listening-instance_method">
+  
+    - (<tt>Object</tt>) <strong>start_listening</strong>(options = {}) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+111
+112
+113
+114
+115
+116</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 111</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_start_listening identifier id'>start_listening</span><span class='lparen token'>(</span><span class='rubyid_options identifier id'>options</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
+  <span class='rubyid_@listening ivar id'>@listening</span> <span class='assign token'>=</span> <span class='rubyid_true true kw'>true</span>
+  <span class='rubyid_Thread constant id'>Thread</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span> <span class='rubyid_do do kw'>do</span>
+    <span class='rubyid_long_poll identifier id'>long_poll</span><span class='lparen token'>(</span><span class='rubyid_options identifier id'>options</span><span class='rparen token'>)</span> <span class='rubyid_while while_mod kw'>while</span> <span class='rubyid_@listening ivar id'>@listening</span>
+  <span class='rubyid_end end kw'>end</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="stop_listening-instance_method">
+  
+    - (<tt>Object</tt>) <strong>stop_listening</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+118
+119
+120</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 118</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_stop_listening identifier id'>stop_listening</span>
+  <span class='rubyid_@listening ivar id'>@listening</span> <span class='assign token'>=</span> <span class='rubyid_false false kw'>false</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="wrap_listener-instance_method">
+  
+    - (<tt>Object</tt>) <strong>wrap_listener</strong>(&amp;block) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+92
+93
+94
+95
+96
+97
+98
+99
+100</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 92</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_wrap_listener identifier id'>wrap_listener</span><span class='lparen token'>(</span><span class='bitand op'>&amp;</span><span class='rubyid_block identifier id'>block</span><span class='rparen token'>)</span>
+  <span class='rubyid_lambda identifier id'>lambda</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_message identifier id'>message</span><span class='bitor op'>|</span>
+    <span class='rubyid_Thread constant id'>Thread</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span> <span class='rubyid_do do kw'>do</span>
+      <span class='comment val'># Messages received after a call to stop_listening</span>
+      <span class='comment val'># will not be processed.</span>
+      <span class='rubyid_yield yield kw'>yield</span> <span class='rubyid_message identifier id'>message</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_@listening ivar id'>@listening</span>
+    <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_end end kw'>end</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -635,9 +1034,9 @@ Returns the value of attribute last
 </div>
     
     <div id="footer">
-  Generated on Thu Feb 16 18:34:43 2012 by 
+  Generated on Thu May 24 12:58:14 2012 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.7.5 (ruby-1.9.2).
+  0.7.5 (ruby-1.8.7).
 </div>
 
   </body>

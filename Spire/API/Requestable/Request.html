@@ -324,15 +324,16 @@ A new instance of Request
     <td>
       <pre class="code"><span class="info file"># File 'lib/spire/api/requestable.rb', line 52</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_client'>client</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-  <span class='ivar'>@client</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span>
-  <span class='ivar'>@method</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:method</span><span class='rparen'>)</span> 
-  <span class='ivar'>@url</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:url</span><span class='rparen'>)</span> 
-  <span class='ivar'>@options</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span>
-  <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:headers</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lbrace'>{</span>
-    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>User-Agent</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Ruby spire.io client</span><span class='tstring_end'>&quot;</span></span>
-  <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:headers</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_client identifier id'>client</span><span class='comma token'>,</span> <span class='rubyid_options identifier id'>options</span><span class='rparen token'>)</span>
+  <span class='rubyid_@client ivar id'>@client</span> <span class='assign token'>=</span> <span class='rubyid_client identifier id'>client</span>
+  <span class='rubyid_@method ivar id'>@method</span> <span class='assign token'>=</span> <span class='rubyid_options identifier id'>options</span><span class='dot token'>.</span><span class='rubyid_delete identifier id'>delete</span><span class='lparen token'>(</span><span class='symbol val'>:method</span><span class='rparen token'>)</span> 
+  <span class='rubyid_@url ivar id'>@url</span> <span class='assign token'>=</span> <span class='rubyid_options identifier id'>options</span><span class='dot token'>.</span><span class='rubyid_delete identifier id'>delete</span><span class='lparen token'>(</span><span class='symbol val'>:url</span><span class='rparen token'>)</span> 
+  <span class='rubyid_@options ivar id'>@options</span> <span class='assign token'>=</span> <span class='rubyid_options identifier id'>options</span>
+  <span class='rubyid_@options ivar id'>@options</span><span class='lbrack token'>[</span><span class='symbol val'>:headers</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span>
+    <span class='string val'>&quot;User-Agent&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;Ruby spire.io client&quot;</span>
+  <span class='rbrace token'>}</span><span class='dot token'>.</span><span class='rubyid_merge identifier id'>merge</span><span class='lparen token'>(</span><span class='rubyid_@options ivar id'>@options</span><span class='lbrack token'>[</span><span class='symbol val'>:headers</span><span class='rbrack token'>]</span> <span class='orop op'>||</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -378,9 +379,10 @@ Returns the value of attribute url
     <td>
       <pre class="code"><span class="info file"># File 'lib/spire/api/requestable.rb', line 51</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_url'>url</span>
-  <span class='ivar'>@url</span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_url identifier id'>url</span>
+  <span class='rubyid_@url ivar id'>@url</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -413,9 +415,10 @@ Returns the value of attribute url
     <td>
       <pre class="code"><span class="info file"># File 'lib/spire/api/requestable.rb', line 66</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_body'>body</span>
-  <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_body identifier id'>body</span>
+  <span class='rubyid_@options ivar id'>@options</span><span class='lbrack token'>[</span><span class='symbol val'>:body</span><span class='rbrack token'>]</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -441,9 +444,10 @@ Returns the value of attribute url
     <td>
       <pre class="code"><span class="info file"># File 'lib/spire/api/requestable.rb', line 70</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_body='>body=</span><span class='lparen'>(</span><span class='id identifier rubyid_val'>val</span><span class='rparen'>)</span>
-  <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_val'>val</span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_body= identifier id'>body=</span><span class='lparen token'>(</span><span class='rubyid_val identifier id'>val</span><span class='rparen token'>)</span>
+  <span class='rubyid_@options ivar id'>@options</span><span class='lbrack token'>[</span><span class='symbol val'>:body</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_val identifier id'>val</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -479,19 +483,20 @@ Returns the value of attribute url
     <td>
       <pre class="code"><span class="info file"># File 'lib/spire/api/requestable.rb', line 78</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_exec'>exec</span>
-  <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='const'>Response</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='ivar'>@method</span><span class='comma'>,</span> <span class='ivar'>@url</span><span class='comma'>,</span> <span class='ivar'>@options</span><span class='rparen'>)</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_headers'>headers</span> <span class='op'>=</span> <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_headers'>headers</span>
-  <span class='id identifier rubyid_content_type'>content_type</span> <span class='op'>=</span> <span class='id identifier rubyid_headers'>headers</span><span class='period'>.</span><span class='id identifier rubyid_values_at'>values_at</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Content-Type</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>content-type</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_content_type'>content_type</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>json</span><span class='regexp_end'>/</span></span> <span class='op'>&amp;&amp;</span> <span class='lbracket'>[</span><span class='int'>200</span><span class='comma'>,</span> <span class='int'>201</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span><span class='rparen'>)</span>
-    <span class='comment'># FIXME: detect appropriate response headers, rather than rescuing
-</span>    <span class='kw'>begin</span>
-      <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='const'>API</span><span class='period'>.</span><span class='id identifier rubyid_deserialize'>deserialize</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span>
-    <span class='kw'>rescue</span>
-    <span class='kw'>end</span>
-  <span class='kw'>end</span>
-  <span class='id identifier rubyid_response'>response</span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_exec identifier id'>exec</span>
+  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_Response constant id'>Response</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_send identifier id'>send</span><span class='lparen token'>(</span><span class='rubyid_@method ivar id'>@method</span><span class='comma token'>,</span> <span class='rubyid_@url ivar id'>@url</span><span class='comma token'>,</span> <span class='rubyid_@options ivar id'>@options</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+  <span class='rubyid_headers identifier id'>headers</span> <span class='assign token'>=</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_headers identifier id'>headers</span>
+  <span class='rubyid_content_type identifier id'>content_type</span> <span class='assign token'>=</span> <span class='rubyid_headers identifier id'>headers</span><span class='dot token'>.</span><span class='rubyid_values_at identifier id'>values_at</span><span class='lparen token'>(</span><span class='string val'>&quot;Content-Type&quot;</span><span class='comma token'>,</span> <span class='string val'>&quot;content-type&quot;</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_compact identifier id'>compact</span><span class='dot token'>.</span><span class='rubyid_first identifier id'>first</span>
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_content_type identifier id'>content_type</span> <span class='match op'>=~</span> <span class='regexp val'>/json/</span> <span class='andop op'>&amp;&amp;</span> <span class='lbrack token'>[</span><span class='integer val'>200</span><span class='comma token'>,</span> <span class='integer val'>201</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_include? fid id'>include?</span><span class='lparen token'>(</span><span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_status identifier id'>status</span><span class='rparen token'>)</span>
+    <span class='comment val'># FIXME: detect appropriate response headers, rather than rescuing</span>
+    <span class='rubyid_begin begin kw'>begin</span>
+      <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_data identifier id'>data</span> <span class='assign token'>=</span> <span class='rubyid_API constant id'>API</span><span class='dot token'>.</span><span class='rubyid_deserialize identifier id'>deserialize</span><span class='lparen token'>(</span><span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_body identifier id'>body</span><span class='rparen token'>)</span>
+    <span class='rubyid_rescue rescue kw'>rescue</span>
+    <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_response identifier id'>response</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -517,9 +522,10 @@ Returns the value of attribute url
     <td>
       <pre class="code"><span class="info file"># File 'lib/spire/api/requestable.rb', line 62</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_headers'>headers</span>
-  <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:headers</span><span class='rbracket'>]</span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_headers identifier id'>headers</span>
+  <span class='rubyid_@options ivar id'>@options</span><span class='lbrack token'>[</span><span class='symbol val'>:headers</span><span class='rbrack token'>]</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -545,9 +551,10 @@ Returns the value of attribute url
     <td>
       <pre class="code"><span class="info file"># File 'lib/spire/api/requestable.rb', line 74</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_query'>query</span>
-  <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:query</span><span class='rbracket'>]</span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_query identifier id'>query</span>
+  <span class='rubyid_@options ivar id'>@options</span><span class='lbrack token'>[</span><span class='symbol val'>:query</span><span class='rbrack token'>]</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -558,9 +565,9 @@ Returns the value of attribute url
 </div>
     
     <div id="footer">
-  Generated on Thu Feb 16 18:34:43 2012 by 
+  Generated on Thu May 24 12:58:15 2012 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.7.5 (ruby-1.9.2).
+  0.7.5 (ruby-1.8.7).
 </div>
 
   </body>

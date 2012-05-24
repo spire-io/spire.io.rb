@@ -92,7 +92,7 @@
   
     <dt class="r1 last">Defined in:</dt>
     <dd class="r1 last">lib/spire/api.rb<span class="defines">,<br />
-  lib/spire/api/channel.rb,<br /> lib/spire/api/session.rb,<br /> lib/spire/api/account.rb,<br /> lib/spire/api/resource.rb,<br /> lib/spire/api/requestable.rb,<br /> lib/spire/api/subscription.rb</span>
+  lib/spire/api/event.rb,<br /> lib/spire/api/member.rb,<br /> lib/spire/api/session.rb,<br /> lib/spire/api/channel.rb,<br /> lib/spire/api/account.rb,<br /> lib/spire/api/resource.rb,<br /> lib/spire/api/requestable.rb,<br /> lib/spire/api/application.rb,<br /> lib/spire/api/notification.rb,<br /> lib/spire/api/subscription.rb</span>
 </dd>
   
 </dl>
@@ -106,7 +106,7 @@
     
    
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="API/Account.html" title="Spire::API::Account (class)">Account</a></span>, <span class='object_link'><a href="API/Billing.html" title="Spire::API::Billing (class)">Billing</a></span>, <span class='object_link'><a href="API/Channel.html" title="Spire::API::Channel (class)">Channel</a></span>, <span class='object_link'><a href="API/Resource.html" title="Spire::API::Resource (class)">Resource</a></span>, <span class='object_link'><a href="API/Session.html" title="Spire::API::Session (class)">Session</a></span>, <span class='object_link'><a href="API/Subscription.html" title="Spire::API::Subscription (class)">Subscription</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="API/Account.html" title="Spire::API::Account (class)">Account</a></span>, <span class='object_link'><a href="API/Application.html" title="Spire::API::Application (class)">Application</a></span>, <span class='object_link'><a href="API/Channel.html" title="Spire::API::Channel (class)">Channel</a></span>, <span class='object_link'><a href="API/Event.html" title="Spire::API::Event (class)">Event</a></span>, <span class='object_link'><a href="API/Join.html" title="Spire::API::Join (class)">Join</a></span>, <span class='object_link'><a href="API/Member.html" title="Spire::API::Member (class)">Member</a></span>, <span class='object_link'><a href="API/Message.html" title="Spire::API::Message (class)">Message</a></span>, <span class='object_link'><a href="API/Notification.html" title="Spire::API::Notification (class)">Notification</a></span>, <span class='object_link'><a href="API/Part.html" title="Spire::API::Part (class)">Part</a></span>, <span class='object_link'><a href="API/Resource.html" title="Spire::API::Resource (class)">Resource</a></span>, <span class='object_link'><a href="API/Session.html" title="Spire::API::Session (class)">Session</a></span>, <span class='object_link'><a href="API/Subscription.html" title="Spire::API::Subscription (class)">Subscription</a></span>
     
   
 </p>
@@ -244,30 +244,6 @@ Returns the value of attribute schema.
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#billing-instance_method" title="#billing (instance method)">- (Billing) <strong>billing</strong>(info = nil) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>
-Returns a billing object than contains a list of all the plans available.
-</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
       <a href="#create_account-instance_method" title="#create_account (instance method)">- (Object) <strong>create_account</strong>(info) </a>
     
 
@@ -293,7 +269,7 @@ account.
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#create_session-instance_method" title="#create_session (instance method)">- (Object) <strong>create_session</strong>(key) </a>
+      <a href="#create_session-instance_method" title="#create_session (instance method)">- (Object) <strong>create_session</strong>(secret) </a>
     
 
     
@@ -335,7 +311,32 @@ account.
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#initialize-instance_method" title="#initialize (instance method)">- (API) <strong>initialize</strong>(url = &quot;https://api.spire.io&quot;, options = {}) </a>
+      <a href="#get_application-instance_method" title="#get_application (instance method)">- (Object) <strong>get_application</strong>(application_key) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Gets an application resource from a key without requiring any
+authentication.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (API) <strong>initialize</strong>(url = &quot;https://api.spire.io&quot;, spire = nil, options = {}) </a>
     
 
     
@@ -354,27 +355,6 @@ account.
 A new instance of API.
 </p>
 </div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#inspect-instance_method" title="#inspect (instance method)">- (Object) <strong>inspect</strong> </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -464,7 +444,7 @@ Authenticates a session using a login and password.
     <div class="method_details first">
   <p class="signature first" id="initialize-instance_method">
   
-    - (<tt><span class='object_link'><a href="" title="Spire::API (class)">API</a></span></tt>) <strong>initialize</strong>(url = &quot;https://api.spire.io&quot;, options = {}) 
+    - (<tt><span class='object_link'><a href="" title="Spire::API (class)">API</a></span></tt>) <strong>initialize</strong>(url = &quot;https://api.spire.io&quot;, spire = nil, options = {}) 
   
 
   
@@ -486,20 +466,23 @@ A new instance of API
       <pre class="lines">
 
 
-24
-25
-26
-27
-28</pre>
+28
+29
+30
+31
+32
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 28</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span><span class='op'>=</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://api.spire.io</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='ivar'>@version</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:version</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>1.0</span><span class='tstring_end'>&quot;</span></span>
-  <span class='ivar'>@client</span> <span class='op'>=</span> <span class='const'>Excon</span>
-  <span class='ivar'>@url</span> <span class='op'>=</span> <span class='id identifier rubyid_url'>url</span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_url identifier id'>url</span><span class='assign token'>=</span><span class='string val'>&quot;https://api.spire.io&quot;</span><span class='comma token'>,</span> <span class='rubyid_spire identifier id'>spire</span><span class='assign token'>=</span><span class='rubyid_nil nil kw'>nil</span><span class='comma token'>,</span> <span class='rubyid_options identifier id'>options</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
+  <span class='rubyid_@version ivar id'>@version</span> <span class='assign token'>=</span> <span class='rubyid_options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:version</span><span class='rbrack token'>]</span> <span class='orop op'>||</span> <span class='string val'>&quot;1.0&quot;</span>
+  <span class='rubyid_@client ivar id'>@client</span> <span class='assign token'>=</span> <span class='rubyid_Excon constant id'>Excon</span>
+  <span class='rubyid_@url ivar id'>@url</span> <span class='assign token'>=</span> <span class='rubyid_url identifier id'>url</span>
+  <span class='rubyid_@spire ivar id'>@spire</span> <span class='assign token'>=</span> <span class='rubyid_spire identifier id'>spire</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -538,16 +521,17 @@ Returns the value of attribute client
       <pre class="lines">
 
 
-23
-24
-25</pre>
+27
+28
+29</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 27</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_client'>client</span>
-  <span class='ivar'>@client</span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_client identifier id'>client</span>
+  <span class='rubyid_@client ivar id'>@client</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -581,16 +565,17 @@ Returns the value of attribute description
       <pre class="lines">
 
 
-23
-24
-25</pre>
+27
+28
+29</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 27</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_description'>description</span>
-  <span class='ivar'>@description</span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_description identifier id'>description</span>
+  <span class='rubyid_@description ivar id'>@description</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -624,16 +609,17 @@ Returns the value of attribute schema
       <pre class="lines">
 
 
-23
-24
-25</pre>
+27
+28
+29</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 27</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_schema'>schema</span>
-  <span class='ivar'>@schema</span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_schema identifier id'>schema</span>
+  <span class='rubyid_@schema ivar id'>@schema</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -659,16 +645,17 @@ Returns the value of attribute schema
       <pre class="lines">
 
 
-19
-20
-21</pre>
+23
+24
+25</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 19</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 23</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_deserialize'>deserialize</span><span class='lparen'>(</span><span class='id identifier rubyid_string'>string</span><span class='rparen'>)</span>
-  <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_string'>string</span><span class='comma'>,</span> <span class='symbol'>:symbolize_names</span> <span class='op'>=&gt;</span> <span class='kw'>false</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_deserialize identifier id'>deserialize</span><span class='lparen token'>(</span><span class='rubyid_string identifier id'>string</span><span class='rparen token'>)</span>
+  <span class='rubyid_JSON constant id'>JSON</span><span class='dot token'>.</span><span class='rubyid_parse identifier id'>parse</span><span class='lparen token'>(</span><span class='rubyid_string identifier id'>string</span><span class='comma token'>,</span> <span class='symbol val'>:symbolize_names</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_false false kw'>false</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -681,87 +668,7 @@ Returns the value of attribute schema
     
     
       <div class="method_details first">
-  <p class="signature first" id="billing-instance_method">
-  
-    - (<tt><span class='object_link'><a href="API/Billing.html" title="Spire::API::Billing (class)">Billing</a></span></tt>) <strong>billing</strong>(info = nil) 
-  
-
-  
-</p><div class="docstring">
-  <div class="discussion">
-    <p>
-Returns a billing object than contains a list of all the plans available
-</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <h3>Parameters:</h3>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>info</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>nil</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>
-optional object description
-</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<h3>Returns:</h3>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="API/Billing.html" title="Spire::API::Billing (class)">Billing</a></span></tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-151
-152
-153
-154
-155</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 151</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_billing'>billing</span><span class='lparen'>(</span><span class='id identifier rubyid_info'>info</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_request'>request</span><span class='lparen'>(</span><span class='symbol'>:billing</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Error getting billing plans: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span> <span class='op'>!=</span> <span class='int'>200</span>
-  <span class='const'>API</span><span class='op'>::</span><span class='const'>Billing</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <p class="signature " id="create_account-instance_method">
+  <p class="signature first" id="create_account-instance_method">
   
     - (<tt>Object</tt>) <strong>create_account</strong>(info) 
   
@@ -824,26 +731,27 @@ Password of new account
       <pre class="lines">
 
 
-131
-132
-133
-134
-135
-136
-137
-138</pre>
+144
+145
+146
+147
+148
+149
+150
+151</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 131</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 144</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_create_account'>create_account</span><span class='lparen'>(</span><span class='id identifier rubyid_info'>info</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_request'>request</span><span class='lparen'>(</span><span class='symbol'>:create_account</span><span class='comma'>,</span> <span class='id identifier rubyid_info'>info</span><span class='rparen'>)</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span> <span class='op'>!=</span> <span class='int'>201</span>
-    <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Error attempting to register: (</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span><span class='rbrace'>}</span><span class='tstring_content'>) </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
-  <span class='kw'>end</span>
-  <span class='id identifier rubyid_session_data'>session_data</span> <span class='op'>=</span> <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span>
-  <span class='const'>API</span><span class='op'>::</span><span class='const'>Session</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_session_data'>session_data</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_create_account identifier id'>create_account</span><span class='lparen token'>(</span><span class='rubyid_info identifier id'>info</span><span class='rparen token'>)</span>
+  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_request identifier id'>request</span><span class='lparen token'>(</span><span class='symbol val'>:create_account</span><span class='comma token'>,</span> <span class='rubyid_info identifier id'>info</span><span class='rparen token'>)</span>
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_status identifier id'>status</span> <span class='neq op'>!=</span> <span class='integer val'>201</span>
+    <span class='rubyid_raise identifier id'>raise</span> <span class='dstring node'>&quot;Error attempting to register: (#{response.status}) #{response.body}&quot;</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_session_data identifier id'>session_data</span> <span class='assign token'>=</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_data identifier id'>data</span>
+  <span class='rubyid_API constant id'>API</span><span class='colon2 op'>::</span><span class='rubyid_Session constant id'>Session</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_self self kw'>self</span><span class='comma token'>,</span> <span class='rubyid_session_data identifier id'>session_data</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -852,7 +760,7 @@ Password of new account
       <div class="method_details ">
   <p class="signature " id="create_session-instance_method">
   
-    - (<tt>Object</tt>) <strong>create_session</strong>(key) 
+    - (<tt>Object</tt>) <strong>create_session</strong>(secret) 
   
 
   
@@ -862,22 +770,23 @@ Password of new account
       <pre class="lines">
 
 
-113
-114
-115
-116
-117
-118</pre>
+126
+127
+128
+129
+130
+131</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 113</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 126</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_create_session'>create_session</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_request'>request</span><span class='lparen'>(</span><span class='symbol'>:create_session</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Error starting a key-based session</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span> <span class='op'>!=</span> <span class='int'>201</span>
-  <span class='id identifier rubyid_session_data'>session_data</span> <span class='op'>=</span> <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span>
-  <span class='const'>API</span><span class='op'>::</span><span class='const'>Session</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_session_data'>session_data</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_create_session identifier id'>create_session</span><span class='lparen token'>(</span><span class='rubyid_secret identifier id'>secret</span><span class='rparen token'>)</span>
+  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_request identifier id'>request</span><span class='lparen token'>(</span><span class='symbol val'>:create_session</span><span class='comma token'>,</span> <span class='rubyid_secret identifier id'>secret</span><span class='rparen token'>)</span>
+  <span class='rubyid_raise identifier id'>raise</span> <span class='string val'>&quot;Error starting a secret-based session&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_status identifier id'>status</span> <span class='neq op'>!=</span> <span class='integer val'>201</span>
+  <span class='rubyid_session_data identifier id'>session_data</span> <span class='assign token'>=</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_data identifier id'>data</span>
+  <span class='rubyid_API constant id'>API</span><span class='colon2 op'>::</span><span class='rubyid_Session constant id'>Session</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_self self kw'>self</span><span class='comma token'>,</span> <span class='rubyid_session_data identifier id'>session_data</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -896,50 +805,94 @@ Password of new account
       <pre class="lines">
 
 
-102
-103
-104
-105
-106
-107</pre>
+115
+116
+117
+118
+119
+120</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 102</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 115</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_discover'>discover</span>
-  <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_request'>request</span><span class='lparen'>(</span><span class='symbol'>:discover</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Error during discovery: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span> <span class='op'>!=</span> <span class='int'>200</span>
-  <span class='ivar'>@description</span> <span class='op'>=</span> <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span>
-  <span class='ivar'>@schema</span> <span class='op'>=</span> <span class='ivar'>@description</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>schema</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='ivar'>@version</span><span class='rbracket'>]</span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_discover identifier id'>discover</span>
+  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_request identifier id'>request</span><span class='lparen token'>(</span><span class='symbol val'>:discover</span><span class='rparen token'>)</span>
+  <span class='rubyid_raise identifier id'>raise</span> <span class='dstring node'>&quot;Error during discovery: #{response.status}&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_status identifier id'>status</span> <span class='neq op'>!=</span> <span class='integer val'>200</span>
+  <span class='rubyid_@description ivar id'>@description</span> <span class='assign token'>=</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_data identifier id'>data</span>
+  <span class='rubyid_@schema ivar id'>@schema</span> <span class='assign token'>=</span> <span class='rubyid_@description ivar id'>@description</span><span class='lbrack token'>[</span><span class='string val'>&quot;schema&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='rubyid_@version ivar id'>@version</span><span class='rbrack token'>]</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="inspect-instance_method">
+  <p class="signature " id="get_application-instance_method">
   
-    - (<tt>Object</tt>) <strong>inspect</strong> 
+    - (<tt>Object</tt>) <strong>get_application</strong>(application_key) 
   
 
   
-</p><table class="source_code">
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Gets an application resource from a key without requiring any
+authentication
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>application_key</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+The application key
+</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-30
-31
-32</pre>
+163
+164
+165
+166
+167
+168
+169</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 163</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_inspect'>inspect</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>#&lt;Spire::API:0x</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_object_id'>object_id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='lparen'>(</span><span class='int'>16</span><span class='rparen'>)</span><span class='rbrace'>}</span><span class='tstring_content'> @url=</span><span class='embexpr_beg'>#{</span><span class='ivar'>@url</span><span class='period'>.</span><span class='id identifier rubyid_dump'>dump</span><span class='rbrace'>}</span><span class='tstring_content'>&gt;</span><span class='tstring_end'>&quot;</span></span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_get_application identifier id'>get_application</span><span class='lparen token'>(</span><span class='rubyid_application_key identifier id'>application_key</span><span class='rparen token'>)</span>
+  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_request identifier id'>request</span><span class='lparen token'>(</span><span class='symbol val'>:get_application</span><span class='comma token'>,</span> <span class='rubyid_application_key identifier id'>application_key</span><span class='rparen token'>)</span>
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_status identifier id'>status</span> <span class='neq op'>!=</span> <span class='integer val'>200</span>
+    <span class='rubyid_raise identifier id'>raise</span> <span class='dstring node'>&quot;Error attempting to retrieve application (#{response.status}) #{response.body}&quot;</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_API constant id'>API</span><span class='colon2 op'>::</span><span class='rubyid_Application constant id'>Application</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_self self kw'>self</span><span class='comma token'>,</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_data identifier id'>data</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -970,22 +923,23 @@ Authenticates a session using a login and password
       <pre class="lines">
 
 
-121
-122
-123
-124
-125
-126</pre>
+134
+135
+136
+137
+138
+139</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 121</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 134</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_login'>login</span><span class='lparen'>(</span><span class='id identifier rubyid_login'>login</span><span class='comma'>,</span> <span class='id identifier rubyid_password'>password</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_request'>request</span><span class='lparen'>(</span><span class='symbol'>:login</span><span class='comma'>,</span> <span class='id identifier rubyid_login'>login</span><span class='comma'>,</span> <span class='id identifier rubyid_password'>password</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Error attemping to login:  (</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span><span class='rbrace'>}</span><span class='tstring_content'>) </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span> <span class='op'>!=</span> <span class='int'>201</span>
-  <span class='id identifier rubyid_session_data'>session_data</span> <span class='op'>=</span> <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span>
-  <span class='const'>API</span><span class='op'>::</span><span class='const'>Session</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_session_data'>session_data</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_login identifier id'>login</span><span class='lparen token'>(</span><span class='rubyid_login identifier id'>login</span><span class='comma token'>,</span> <span class='rubyid_password identifier id'>password</span><span class='rparen token'>)</span>
+  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_request identifier id'>request</span><span class='lparen token'>(</span><span class='symbol val'>:login</span><span class='comma token'>,</span> <span class='rubyid_login identifier id'>login</span><span class='comma token'>,</span> <span class='rubyid_password identifier id'>password</span><span class='rparen token'>)</span>
+  <span class='rubyid_raise identifier id'>raise</span> <span class='dstring node'>&quot;Error attemping to login:  (#{response.status}) #{response.body}&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_status identifier id'>status</span> <span class='neq op'>!=</span> <span class='integer val'>201</span>
+  <span class='rubyid_session_data identifier id'>session_data</span> <span class='assign token'>=</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_data identifier id'>data</span>
+  <span class='rubyid_API constant id'>API</span><span class='colon2 op'>::</span><span class='rubyid_Session constant id'>Session</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_self self kw'>self</span><span class='comma token'>,</span> <span class='rubyid_session_data identifier id'>session_data</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -1004,16 +958,17 @@ Authenticates a session using a login and password
       <pre class="lines">
 
 
-109
-110
-111</pre>
+122
+123
+124</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 109</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 122</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_mediaType'>mediaType</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_schema'>schema</span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mediaType</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
+  <span class='rubyid_schema identifier id'>schema</span><span class='lbrack token'>[</span><span class='rubyid_name identifier id'>name</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;mediaType&quot;</span><span class='rbrack token'>]</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -1032,24 +987,25 @@ Authenticates a session using a login and password
       <pre class="lines">
 
 
-140
-141
-142
-143
-144
-145
-146</pre>
+153
+154
+155
+156
+157
+158
+159</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 140</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 153</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_password_reset_request'>password_reset_request</span><span class='lparen'>(</span><span class='id identifier rubyid_email'>email</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_request'>request</span><span class='lparen'>(</span><span class='symbol'>:password_reset</span><span class='rparen'>)</span>
-  <span class='kw'>unless</span> <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span> <span class='op'>==</span> <span class='int'>202</span>
-    <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Error requesting password reset: (</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span><span class='rbrace'>}</span><span class='tstring_content'>) </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
-  <span class='kw'>end</span>
-  <span class='id identifier rubyid_response'>response</span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_password_reset_request identifier id'>password_reset_request</span><span class='lparen token'>(</span><span class='rubyid_email identifier id'>email</span><span class='rparen token'>)</span>
+  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_request identifier id'>request</span><span class='lparen token'>(</span><span class='symbol val'>:password_reset</span><span class='rparen token'>)</span>
+  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_status identifier id'>status</span> <span class='eq op'>==</span> <span class='integer val'>202</span>
+    <span class='rubyid_raise identifier id'>raise</span> <span class='dstring node'>&quot;Error requesting password reset: (#{response.status}) #{response.body}&quot;</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_response identifier id'>response</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -1060,9 +1016,9 @@ Authenticates a session using a login and password
 </div>
     
     <div id="footer">
-  Generated on Thu Feb 16 18:34:43 2012 by 
+  Generated on Thu May 24 12:58:14 2012 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.7.5 (ruby-1.9.2).
+  0.7.5 (ruby-1.8.7).
 </div>
 
   </body>

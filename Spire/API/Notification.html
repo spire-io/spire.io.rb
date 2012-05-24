@@ -1,0 +1,449 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Class: Spire::API::Notification
+  
+    &mdash; Documentation by YARD 0.7.5
+  
+</title>
+
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '../..';
+  if (relpath != '') relpath += '/';
+</script>
+
+  <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../../_index.html">Index (N)</a> &raquo; 
+    <span class='title'><span class='object_link'><a href="../../Spire.html" title="Spire (class)">Spire</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../API.html" title="Spire::API (class)">API</a></span></span>
+     &raquo; 
+    <span class="title">Notification</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a id="class_list_link" href="#">Class List</a>
+  
+    <a id="method_list_link" href="#">Method List</a>
+  
+    <a id="file_list_link" href="#">File List</a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Class: Spire::API::Notification
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName"><span class='object_link'><a href="Resource.html" title="Spire::API::Resource (class)">Resource</a></span></span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next"><span class='object_link'><a href="Resource.html" title="Spire::API::Resource (class)">Resource</a></span></li>
+          
+            <li class="next">Spire::API::Notification</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/spire/api/notification.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+
+
+
+
+
+
+  <h2>Instance Attribute Summary</h2>
+  
+  <h3 class="inherited">Attributes inherited from <span class='object_link'><a href="Resource.html" title="Spire::API::Resource (class)">Resource</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Resource.html#capabilities-instance_method" title="Spire::API::Resource#capabilities (method)">#capabilities</a></span>, <span class='object_link'><a href="Resource.html#capability-instance_method" title="Spire::API::Resource#capability (method)">#capability</a></span>, <span class='object_link'><a href="Resource.html#properties-instance_method" title="Spire::API::Resource#properties (method)">#properties</a></span>, <span class='object_link'><a href="Resource.html#url-instance_method" title="Spire::API::Resource#url (method)">#url</a></span></p>
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#devices-instance_method" title="#devices (instance method)">- (Object) <strong>devices</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#devices%21-instance_method" title="#devices! (instance method)">- (Object) <strong>devices!</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#register_device-instance_method" title="#register_device (instance method)">- (Object) <strong>register_device</strong>(device_token) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#resource_name-instance_method" title="#resource_name (instance method)">- (Object) <strong>resource_name</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#send_notification-instance_method" title="#send_notification (instance method)">- (Object) <strong>send_notification</strong>(options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods inherited from <span class='object_link'><a href="Resource.html" title="Spire::API::Resource (class)">Resource</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Resource.html#%5B%5D-instance_method" title="Spire::API::Resource#[] (method)">#[]</a></span>, <span class='object_link'><a href="Resource.html#delete-instance_method" title="Spire::API::Resource#delete (method)">#delete</a></span>, <span class='object_link'><a href="Resource.html#get-instance_method" title="Spire::API::Resource#get (method)">#get</a></span>, <span class='object_link'><a href="Resource.html#initialize-instance_method" title="Spire::API::Resource#initialize (method)">#initialize</a></span>, <span class='object_link'><a href="Resource.html#key-instance_method" title="Spire::API::Resource#key (method)">#key</a></span>, <span class='object_link'><a href="Resource.html#media_type-instance_method" title="Spire::API::Resource#media_type (method)">#media_type</a></span>, <span class='object_link'><a href="Resource.html#method_missing-instance_method" title="Spire::API::Resource#method_missing (method)">#method_missing</a></span>, <span class='object_link'><a href="Resource.html#schema-instance_method" title="Spire::API::Resource#schema (method)">#schema</a></span>, <span class='object_link'><a href="Resource.html#update-instance_method" title="Spire::API::Resource#update (method)">#update</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Requestable.html" title="Spire::API::Requestable (module)">Requestable</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Requestable.html#included-class_method" title="Spire::API::Requestable.included (method)">included</a></span></p>
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <p class="notice">This class inherits a constructor from <span class='object_link'><a href="Resource.html#initialize-instance_method" title="Spire::API::Resource#initialize (method)">Spire::API::Resource</a></span></p>
+  
+</div>
+<div id="method_missing_details" class="method_details_list">
+  <h2>Dynamic Method Handling</h2>
+  <p class="notice super">
+    This class handles dynamic methods through the <tt>method_missing</tt> method
+    
+      in the class <span class='object_link'><a href="Resource.html#method_missing-instance_method" title="Spire::API::Resource#method_missing (method)">Spire::API::Resource</a></span>
+    
+  </p>
+  
+</div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="devices-instance_method">
+  
+    - (<tt>Object</tt>) <strong>devices</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+93
+94
+95</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/notification.rb', line 93</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_devices identifier id'>devices</span>
+  <span class='rubyid_@devices ivar id'>@devices</span> <span class='opasgn op'>||=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="devices!-instance_method">
+  
+    - (<tt>Object</tt>) <strong>devices!</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+76
+77
+78
+79
+80
+81
+82</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/notification.rb', line 76</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_devices! fid id'>devices!</span>
+  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_request identifier id'>request</span><span class='lparen token'>(</span><span class='symbol val'>:devices</span><span class='rparen token'>)</span>
+  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_status identifier id'>status</span> <span class='eq op'>==</span> <span class='integer val'>200</span>
+    <span class='rubyid_raise identifier id'>raise</span> <span class='dstring node'>&quot;Error getting device list #{self.class.name}: (#{response.status}) #{response.body}&quot;</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_data identifier id'>data</span><span class='lbrack token'>[</span><span class='string val'>&quot;devices&quot;</span><span class='rbrack token'>]</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="register_device-instance_method">
+  
+    - (<tt>Object</tt>) <strong>register_device</strong>(device_token) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+84
+85
+86
+87
+88
+89
+90
+91</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/notification.rb', line 84</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_register_device identifier id'>register_device</span><span class='lparen token'>(</span><span class='rubyid_device_token identifier id'>device_token</span><span class='rparen token'>)</span>
+  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_request identifier id'>request</span><span class='lparen token'>(</span><span class='symbol val'>:register_device</span><span class='comma token'>,</span> <span class='symbol val'>:token</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_device_token identifier id'>device_token</span><span class='rparen token'>)</span>
+  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_status identifier id'>status</span> <span class='eq op'>==</span> <span class='integer val'>200</span>
+    <span class='rubyid_raise identifier id'>raise</span> <span class='dstring node'>&quot;Error adding device #{self.class.name}: (#{response.status}) #{response.body}&quot;</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_token identifier id'>token</span> <span class='assign token'>=</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_data identifier id'>data</span><span class='lbrack token'>[</span><span class='string val'>&quot;token&quot;</span><span class='rbrack token'>]</span>
+  <span class='rubyid_devices identifier id'>devices</span><span class='lbrack token'>[</span><span class='rubyid_token identifier id'>token</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_data identifier id'>data</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="resource_name-instance_method">
+  
+    - (<tt>Object</tt>) <strong>resource_name</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+5
+6
+7</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/notification.rb', line 5</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_resource_name identifier id'>resource_name</span>
+  <span class='string val'>&quot;notification&quot;</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="send_notification-instance_method">
+  
+    - (<tt>Object</tt>) <strong>send_notification</strong>(options = {}) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+68
+69
+70
+71
+72
+73
+74</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/notification.rb', line 68</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_send_notification identifier id'>send_notification</span><span class='lparen token'>(</span><span class='rubyid_options identifier id'>options</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
+  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_request identifier id'>request</span><span class='lparen token'>(</span><span class='symbol val'>:push</span><span class='comma token'>,</span> <span class='rubyid_options identifier id'>options</span><span class='rparen token'>)</span>
+  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_status identifier id'>status</span> <span class='eq op'>==</span> <span class='integer val'>200</span>
+    <span class='rubyid_raise identifier id'>raise</span> <span class='dstring node'>&quot;Error sending push notification #{self.class.name}: (#{response.status}) #{response.body}&quot;</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_data identifier id'>data</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Thu May 24 12:58:16 2012 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.7.5 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>
