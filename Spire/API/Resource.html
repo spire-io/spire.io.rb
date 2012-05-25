@@ -127,34 +127,7 @@
 
   
     <span class="summary_desc"><div class='inline'><p>
-Returns the value of attribute capabilities.
-</p>
-</div></span>
-  
-</li>
-
-    
-      <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#capability-instance_method" title="#capability (instance method)">- (Object) <strong>capability</strong> </a>
-    
-
-    
-  </span>
-  
-  
-    <span class="note title readonly">readonly</span>
-    
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>
-Returns the value of attribute capability.
+@!attribute [r] url.
 </p>
 </div></span>
   
@@ -181,7 +154,7 @@ Returns the value of attribute capability.
 
   
     <span class="summary_desc"><div class='inline'><p>
-Returns the value of attribute properties.
+@!attribute [r] url.
 </p>
 </div></span>
   
@@ -208,7 +181,7 @@ Returns the value of attribute properties.
 
   
     <span class="summary_desc"><div class='inline'><p>
-Returns the value of attribute url.
+@!attribute [r] url.
 </p>
 </div></span>
   
@@ -463,16 +436,16 @@ A new instance of Resource
       <pre class="lines">
 
 
-44
-45
-46
-47
 48
 49
-50</pre>
+50
+51
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api/resource.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/resource.rb', line 48</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_api identifier id'>api</span><span class='comma token'>,</span> <span class='rubyid_data identifier id'>data</span><span class='rparen token'>)</span>
   <span class='rubyid_@api ivar id'>@api</span> <span class='assign token'>=</span> <span class='rubyid_api identifier id'>api</span>
@@ -508,16 +481,16 @@ A new instance of Resource
       <pre class="lines">
 
 
-56
-57
-58
-59
 60
 61
-62</pre>
+62
+63
+64
+65
+66</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api/resource.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/resource.rb', line 60</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_method_missing identifier id'>method_missing</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='comma token'>,</span> <span class='mult op'>*</span><span class='rubyid_args identifier id'>args</span><span class='rparen token'>)</span>
   <span class='rubyid_if if kw'>if</span> <span class='rubyid_description identifier id'>description</span> <span class='assign token'>=</span> <span class='rubyid_schema identifier id'>schema</span><span class='lbrack token'>[</span><span class='string val'>&quot;properties&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='rubyid_name identifier id'>name</span><span class='dot token'>.</span><span class='rubyid_to_s identifier id'>to_s</span><span class='rbrack token'>]</span>
@@ -550,8 +523,17 @@ A new instance of Resource
 </p><div class="docstring">
   <div class="discussion">
     <p>
-Returns the value of attribute capabilities
+@!attribute [r] url
 </p>
+<pre class="code ruby"><code>
+  <span class='rubyid_Url constant id'>Url</span> <span class='rubyid_of identifier id'>of</span> <span class='rubyid_the identifier id'>the</span> <span class='rubyid_resource identifier id'>resource</span>
+</code></pre>
+<p>
+@!attribute [r] capabilities
+</p>
+<pre class="code ruby"><code>
+  <span class='rubyid_Capabilities constant id'>Capabilities</span> <span class='rubyid_for for kw'>for</span> <span class='rubyid_the identifier id'>the</span> <span class='rubyid_resource identifier id'>resource</span>
+</code></pre>
 
 
   </div>
@@ -565,59 +547,15 @@ Returns the value of attribute capabilities
       <pre class="lines">
 
 
-42
-43
-44</pre>
+46
+47
+48</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api/resource.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/resource.rb', line 46</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_capabilities identifier id'>capabilities</span>
   <span class='rubyid_@capabilities ivar id'>@capabilities</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      
-      <span id=""></span>
-      <span id="capability-instance_method"></span>
-      <div class="method_details ">
-  <p class="signature " id="capability-instance_method">
-  
-    - (<tt>Object</tt>) <strong>capability</strong>  <span class="extras">(readonly)</span>
-  
-
-  
-</p><div class="docstring">
-  <div class="discussion">
-    <p>
-Returns the value of attribute capability
-</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-42
-43
-44</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api/resource.rb', line 42</span>
-
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_capability identifier id'>capability</span>
-  <span class='rubyid_@capability ivar id'>@capability</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -638,8 +576,17 @@ Returns the value of attribute capability
 </p><div class="docstring">
   <div class="discussion">
     <p>
-Returns the value of attribute properties
+@!attribute [r] url
 </p>
+<pre class="code ruby"><code>
+  <span class='rubyid_Url constant id'>Url</span> <span class='rubyid_of identifier id'>of</span> <span class='rubyid_the identifier id'>the</span> <span class='rubyid_resource identifier id'>resource</span>
+</code></pre>
+<p>
+@!attribute [r] capabilities
+</p>
+<pre class="code ruby"><code>
+  <span class='rubyid_Capabilities constant id'>Capabilities</span> <span class='rubyid_for for kw'>for</span> <span class='rubyid_the identifier id'>the</span> <span class='rubyid_resource identifier id'>resource</span>
+</code></pre>
 
 
   </div>
@@ -653,12 +600,12 @@ Returns the value of attribute properties
       <pre class="lines">
 
 
-42
-43
-44</pre>
+46
+47
+48</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api/resource.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/resource.rb', line 46</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_properties identifier id'>properties</span>
   <span class='rubyid_@properties ivar id'>@properties</span>
@@ -682,8 +629,17 @@ Returns the value of attribute properties
 </p><div class="docstring">
   <div class="discussion">
     <p>
-Returns the value of attribute url
+@!attribute [r] url
 </p>
+<pre class="code ruby"><code>
+  <span class='rubyid_Url constant id'>Url</span> <span class='rubyid_of identifier id'>of</span> <span class='rubyid_the identifier id'>the</span> <span class='rubyid_resource identifier id'>resource</span>
+</code></pre>
+<p>
+@!attribute [r] capabilities
+</p>
+<pre class="code ruby"><code>
+  <span class='rubyid_Capabilities constant id'>Capabilities</span> <span class='rubyid_for for kw'>for</span> <span class='rubyid_the identifier id'>the</span> <span class='rubyid_resource identifier id'>resource</span>
+</code></pre>
 
 
   </div>
@@ -697,12 +653,12 @@ Returns the value of attribute url
       <pre class="lines">
 
 
-42
-43
-44</pre>
+46
+47
+48</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api/resource.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/resource.rb', line 46</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_url identifier id'>url</span>
   <span class='rubyid_@url ivar id'>@url</span>
@@ -733,12 +689,12 @@ Returns the value of attribute url
       <pre class="lines">
 
 
-64
-65
-66</pre>
+68
+69
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api/resource.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/resource.rb', line 68</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='aref op'>[]</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
   <span class='rubyid_properties identifier id'>properties</span><span class='lbrack token'>[</span><span class='rubyid_name identifier id'>name</span><span class='rbrack token'>]</span>
@@ -762,16 +718,16 @@ Returns the value of attribute url
       <pre class="lines">
 
 
-86
-87
-88
-89
 90
 91
-92</pre>
+92
+93
+94
+95
+96</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api/resource.rb', line 86</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/resource.rb', line 90</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_delete identifier id'>delete</span>
   <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_request identifier id'>request</span><span class='lparen token'>(</span><span class='symbol val'>:delete</span><span class='rparen token'>)</span>
@@ -799,17 +755,17 @@ Returns the value of attribute url
       <pre class="lines">
 
 
-68
-69
-70
-71
 72
 73
 74
-75</pre>
+75
+76
+77
+78
+79</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api/resource.rb', line 68</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/resource.rb', line 72</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_get identifier id'>get</span>
   <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_request identifier id'>request</span><span class='lparen token'>(</span><span class='symbol val'>:get</span><span class='rparen token'>)</span>
@@ -838,12 +794,12 @@ Returns the value of attribute url
       <pre class="lines">
 
 
-52
-53
-54</pre>
+56
+57
+58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api/resource.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/resource.rb', line 56</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_key identifier id'>key</span>
   <span class='rubyid_properties identifier id'>properties</span><span class='lbrack token'>[</span><span class='string val'>&quot;key&quot;</span><span class='rbrack token'>]</span>
@@ -867,12 +823,12 @@ Returns the value of attribute url
       <pre class="lines">
 
 
-98
-99
-100</pre>
+102
+103
+104</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api/resource.rb', line 98</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/resource.rb', line 102</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_media_type identifier id'>media_type</span>
   <span class='rubyid_schema identifier id'>schema</span><span class='lbrack token'>[</span><span class='string val'>&quot;mediaType&quot;</span><span class='rbrack token'>]</span>
@@ -896,12 +852,12 @@ Returns the value of attribute url
       <pre class="lines">
 
 
-94
-95
-96</pre>
+98
+99
+100</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api/resource.rb', line 94</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/resource.rb', line 98</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_schema identifier id'>schema</span>
   <span class='rubyid_@api ivar id'>@api</span><span class='dot token'>.</span><span class='rubyid_schema identifier id'>schema</span><span class='lbrack token'>[</span><span class='rubyid_resource_name identifier id'>resource_name</span><span class='rbrack token'>]</span>
@@ -925,17 +881,17 @@ Returns the value of attribute url
       <pre class="lines">
 
 
-77
-78
-79
-80
 81
 82
 83
-84</pre>
+84
+85
+86
+87
+88</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api/resource.rb', line 77</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/resource.rb', line 81</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_update identifier id'>update</span><span class='lparen token'>(</span><span class='rubyid_properties identifier id'>properties</span><span class='rparen token'>)</span>
   <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_request identifier id'>request</span><span class='lparen token'>(</span><span class='symbol val'>:update</span><span class='comma token'>,</span> <span class='rubyid_properties identifier id'>properties</span><span class='rparen token'>)</span>
@@ -956,7 +912,7 @@ Returns the value of attribute url
 </div>
     
     <div id="footer">
-  Generated on Thu May 24 12:58:15 2012 by 
+  Generated on Thu May 24 18:20:04 2012 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.5 (ruby-1.8.7).
 </div>

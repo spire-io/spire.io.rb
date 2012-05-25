@@ -137,7 +137,7 @@
 
   
     <span class="summary_desc"><div class='inline'><p>
-Returns the value of attribute client.
+@!attribute [r] client.
 </p>
 </div></span>
   
@@ -164,7 +164,7 @@ Returns the value of attribute client.
 
   
     <span class="summary_desc"><div class='inline'><p>
-Returns the value of attribute description.
+@!attribute [r] client.
 </p>
 </div></span>
   
@@ -191,7 +191,7 @@ Returns the value of attribute description.
 
   
     <span class="summary_desc"><div class='inline'><p>
-Returns the value of attribute schema.
+@!attribute [r] client.
 </p>
 </div></span>
   
@@ -466,15 +466,15 @@ A new instance of API
       <pre class="lines">
 
 
-28
-29
-30
-31
-32
-33</pre>
+35
+36
+37
+38
+39
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 35</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_url identifier id'>url</span><span class='assign token'>=</span><span class='string val'>&quot;https://api.spire.io&quot;</span><span class='comma token'>,</span> <span class='rubyid_spire identifier id'>spire</span><span class='assign token'>=</span><span class='rubyid_nil nil kw'>nil</span><span class='comma token'>,</span> <span class='rubyid_options identifier id'>options</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
   <span class='rubyid_@version ivar id'>@version</span> <span class='assign token'>=</span> <span class='rubyid_options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:version</span><span class='rbrack token'>]</span> <span class='orop op'>||</span> <span class='string val'>&quot;1.0&quot;</span>
@@ -506,8 +506,23 @@ A new instance of API
 </p><div class="docstring">
   <div class="discussion">
     <p>
-Returns the value of attribute client
+@!attribute [r] client
 </p>
+<pre class="code ruby"><code>
+  <span class='rubyid_HTTP constant id'>HTTP</span> <span class='rubyid_client identifier id'>client</span><span class='dot token'>.</span>
+</code></pre>
+<p>
+@!attribute [r] description
+</p>
+<pre class="code ruby"><code>
+  <span class='rubyid_Description constant id'>Description</span> <span class='rubyid_of identifier id'>of</span> <span class='rubyid_the identifier id'>the</span> <span class='rubyid_Spire constant id'>Spire</span><span class='dot token'>.</span><span class='rubyid_io identifier id'>io</span> <span class='rubyid_API constant id'>API</span> <span class='rubyid_from identifier id'>from</span> <span class='rubyid_discovery identifier id'>discovery</span><span class='dot token'>.</span>
+</code></pre>
+<p>
+@!attribute [r] schema
+</p>
+<pre class="code ruby"><code>
+  <span class='rubyid_The constant id'>The</span> <span class='rubyid_Spire constant id'>Spire</span><span class='dot token'>.</span><span class='rubyid_io identifier id'>io</span> <span class='rubyid_API constant id'>API</span> <span class='rubyid_schema identifier id'>schema</span><span class='dot token'>.</span>
+</code></pre>
 
 
   </div>
@@ -521,12 +536,12 @@ Returns the value of attribute client
       <pre class="lines">
 
 
-27
-28
-29</pre>
+33
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 33</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_client identifier id'>client</span>
   <span class='rubyid_@client ivar id'>@client</span>
@@ -550,8 +565,23 @@ Returns the value of attribute client
 </p><div class="docstring">
   <div class="discussion">
     <p>
-Returns the value of attribute description
+@!attribute [r] client
 </p>
+<pre class="code ruby"><code>
+  <span class='rubyid_HTTP constant id'>HTTP</span> <span class='rubyid_client identifier id'>client</span><span class='dot token'>.</span>
+</code></pre>
+<p>
+@!attribute [r] description
+</p>
+<pre class="code ruby"><code>
+  <span class='rubyid_Description constant id'>Description</span> <span class='rubyid_of identifier id'>of</span> <span class='rubyid_the identifier id'>the</span> <span class='rubyid_Spire constant id'>Spire</span><span class='dot token'>.</span><span class='rubyid_io identifier id'>io</span> <span class='rubyid_API constant id'>API</span> <span class='rubyid_from identifier id'>from</span> <span class='rubyid_discovery identifier id'>discovery</span><span class='dot token'>.</span>
+</code></pre>
+<p>
+@!attribute [r] schema
+</p>
+<pre class="code ruby"><code>
+  <span class='rubyid_The constant id'>The</span> <span class='rubyid_Spire constant id'>Spire</span><span class='dot token'>.</span><span class='rubyid_io identifier id'>io</span> <span class='rubyid_API constant id'>API</span> <span class='rubyid_schema identifier id'>schema</span><span class='dot token'>.</span>
+</code></pre>
 
 
   </div>
@@ -565,12 +595,12 @@ Returns the value of attribute description
       <pre class="lines">
 
 
-27
-28
-29</pre>
+33
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 33</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_description identifier id'>description</span>
   <span class='rubyid_@description ivar id'>@description</span>
@@ -594,8 +624,23 @@ Returns the value of attribute description
 </p><div class="docstring">
   <div class="discussion">
     <p>
-Returns the value of attribute schema
+@!attribute [r] client
 </p>
+<pre class="code ruby"><code>
+  <span class='rubyid_HTTP constant id'>HTTP</span> <span class='rubyid_client identifier id'>client</span><span class='dot token'>.</span>
+</code></pre>
+<p>
+@!attribute [r] description
+</p>
+<pre class="code ruby"><code>
+  <span class='rubyid_Description constant id'>Description</span> <span class='rubyid_of identifier id'>of</span> <span class='rubyid_the identifier id'>the</span> <span class='rubyid_Spire constant id'>Spire</span><span class='dot token'>.</span><span class='rubyid_io identifier id'>io</span> <span class='rubyid_API constant id'>API</span> <span class='rubyid_from identifier id'>from</span> <span class='rubyid_discovery identifier id'>discovery</span><span class='dot token'>.</span>
+</code></pre>
+<p>
+@!attribute [r] schema
+</p>
+<pre class="code ruby"><code>
+  <span class='rubyid_The constant id'>The</span> <span class='rubyid_Spire constant id'>Spire</span><span class='dot token'>.</span><span class='rubyid_io identifier id'>io</span> <span class='rubyid_API constant id'>API</span> <span class='rubyid_schema identifier id'>schema</span><span class='dot token'>.</span>
+</code></pre>
 
 
   </div>
@@ -609,12 +654,12 @@ Returns the value of attribute schema
       <pre class="lines">
 
 
-27
-28
-29</pre>
+33
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 33</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_schema identifier id'>schema</span>
   <span class='rubyid_@schema ivar id'>@schema</span>
@@ -731,17 +776,17 @@ Password of new account
       <pre class="lines">
 
 
-144
-145
-146
-147
-148
-149
-150
-151</pre>
+151
+152
+153
+154
+155
+156
+157
+158</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 144</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 151</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_create_account identifier id'>create_account</span><span class='lparen token'>(</span><span class='rubyid_info identifier id'>info</span><span class='rparen token'>)</span>
   <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_request identifier id'>request</span><span class='lparen token'>(</span><span class='symbol val'>:create_account</span><span class='comma token'>,</span> <span class='rubyid_info identifier id'>info</span><span class='rparen token'>)</span>
@@ -770,15 +815,15 @@ Password of new account
       <pre class="lines">
 
 
-126
-127
-128
-129
-130
-131</pre>
+133
+134
+135
+136
+137
+138</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 126</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 133</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_create_session identifier id'>create_session</span><span class='lparen token'>(</span><span class='rubyid_secret identifier id'>secret</span><span class='rparen token'>)</span>
   <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_request identifier id'>request</span><span class='lparen token'>(</span><span class='symbol val'>:create_session</span><span class='comma token'>,</span> <span class='rubyid_secret identifier id'>secret</span><span class='rparen token'>)</span>
@@ -805,15 +850,15 @@ Password of new account
       <pre class="lines">
 
 
-115
-116
-117
-118
-119
-120</pre>
+122
+123
+124
+125
+126
+127</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 115</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 122</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_discover identifier id'>discover</span>
   <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_request identifier id'>request</span><span class='lparen token'>(</span><span class='symbol val'>:discover</span><span class='rparen token'>)</span>
@@ -874,16 +919,16 @@ The application key
       <pre class="lines">
 
 
-163
-164
-165
-166
-167
-168
-169</pre>
+170
+171
+172
+173
+174
+175
+176</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 163</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 170</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_get_application identifier id'>get_application</span><span class='lparen token'>(</span><span class='rubyid_application_key identifier id'>application_key</span><span class='rparen token'>)</span>
   <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_request identifier id'>request</span><span class='lparen token'>(</span><span class='symbol val'>:get_application</span><span class='comma token'>,</span> <span class='rubyid_application_key identifier id'>application_key</span><span class='rparen token'>)</span>
@@ -923,15 +968,15 @@ Authenticates a session using a login and password
       <pre class="lines">
 
 
-134
-135
-136
-137
-138
-139</pre>
+141
+142
+143
+144
+145
+146</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 134</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 141</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_login identifier id'>login</span><span class='lparen token'>(</span><span class='rubyid_login identifier id'>login</span><span class='comma token'>,</span> <span class='rubyid_password identifier id'>password</span><span class='rparen token'>)</span>
   <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_request identifier id'>request</span><span class='lparen token'>(</span><span class='symbol val'>:login</span><span class='comma token'>,</span> <span class='rubyid_login identifier id'>login</span><span class='comma token'>,</span> <span class='rubyid_password identifier id'>password</span><span class='rparen token'>)</span>
@@ -958,12 +1003,12 @@ Authenticates a session using a login and password
       <pre class="lines">
 
 
-122
-123
-124</pre>
+129
+130
+131</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 122</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 129</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_mediaType identifier id'>mediaType</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
   <span class='rubyid_schema identifier id'>schema</span><span class='lbrack token'>[</span><span class='rubyid_name identifier id'>name</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;mediaType&quot;</span><span class='rbrack token'>]</span>
@@ -987,16 +1032,16 @@ Authenticates a session using a login and password
       <pre class="lines">
 
 
-153
-154
-155
-156
-157
-158
-159</pre>
+160
+161
+162
+163
+164
+165
+166</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 153</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api.rb', line 160</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_password_reset_request identifier id'>password_reset_request</span><span class='lparen token'>(</span><span class='rubyid_email identifier id'>email</span><span class='rparen token'>)</span>
   <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_request identifier id'>request</span><span class='lparen token'>(</span><span class='symbol val'>:password_reset</span><span class='rparen token'>)</span>
@@ -1016,7 +1061,7 @@ Authenticates a session using a login and password
 </div>
     
     <div id="footer">
-  Generated on Thu May 24 12:58:14 2012 by 
+  Generated on Thu May 24 18:20:03 2012 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.5 (ruby-1.8.7).
 </div>

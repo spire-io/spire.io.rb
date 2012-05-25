@@ -178,7 +178,7 @@ name&quot;)
 
   
     <span class="summary_desc"><div class='inline'><p>
-Returns the value of attribute last.
+@!attribute [rw].
 </p>
 </div></span>
   
@@ -192,7 +192,7 @@ Returns the value of attribute last.
   
   
   <h3 class="inherited">Attributes inherited from <span class='object_link'><a href="Resource.html" title="Spire::API::Resource (class)">Resource</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Resource.html#capabilities-instance_method" title="Spire::API::Resource#capabilities (method)">#capabilities</a></span>, <span class='object_link'><a href="Resource.html#capability-instance_method" title="Spire::API::Resource#capability (method)">#capability</a></span>, <span class='object_link'><a href="Resource.html#properties-instance_method" title="Spire::API::Resource#properties (method)">#properties</a></span>, <span class='object_link'><a href="Resource.html#url-instance_method" title="Spire::API::Resource#url (method)">#url</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Resource.html#capabilities-instance_method" title="Spire::API::Resource#capabilities (method)">#capabilities</a></span>, <span class='object_link'><a href="Resource.html#properties-instance_method" title="Spire::API::Resource#properties (method)">#properties</a></span>, <span class='object_link'><a href="Resource.html#url-instance_method" title="Spire::API::Resource#url (method)">#url</a></span></p>
 
 
   
@@ -493,8 +493,11 @@ provided named listeners, threading, and a stop_listening method.
 </p><div class="docstring">
   <div class="discussion">
     <p>
-Returns the value of attribute last
+@!attribute [rw]
 </p>
+<pre class="code ruby"><code>
+  <span class='rubyid_Timestamp constant id'>Timestamp</span> <span class='lparen token'>(</span><span class='rubyid_in in kw'>in</span> <span class='rubyid_microseconds identifier id'>microseconds</span><span class='rparen token'>)</span> <span class='rubyid_of identifier id'>of</span> <span class='rubyid_the identifier id'>the</span> <span class='rubyid_last identifier id'>last</span> <span class='rubyid_event identifier id'>event</span> <span class='rubyid_received identifier id'>received</span>
+</code></pre>
 
 
   </div>
@@ -508,12 +511,12 @@ Returns the value of attribute last
       <pre class="lines">
 
 
-18
-19
-20</pre>
+20
+21
+22</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 20</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_last identifier id'>last</span>
   <span class='rubyid_@last ivar id'>@last</span>
@@ -569,9 +572,6 @@ provided named listeners, threading, and a stop_listening method.
       <pre class="lines">
 
 
-59
-60
-61
 62
 63
 64
@@ -581,10 +581,13 @@ provided named listeners, threading, and a stop_listening method.
 68
 69
 70
-71</pre>
+71
+72
+73
+74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 59</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 62</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_add_listener identifier id'>add_listener</span><span class='lparen token'>(</span><span class='rubyid_type identifier id'>type</span><span class='comma token'>,</span> <span class='rubyid_listener_name identifier id'>listener_name</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='rubyid_block identifier id'>block</span><span class='rparen token'>)</span>
   <span class='rubyid_type identifier id'>type</span> <span class='opasgn op'>||=</span> <span class='string val'>&quot;&quot;</span>
@@ -618,17 +621,17 @@ provided named listeners, threading, and a stop_listening method.
       <pre class="lines">
 
 
-102
-103
-104
 105
 106
 107
 108
-109</pre>
+109
+110
+111
+112</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 102</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 105</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_generate_listener_name identifier id'>generate_listener_name</span>
   <span class='rubyid_listener_name identifier id'>listener_name</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span>
@@ -657,9 +660,6 @@ provided named listeners, threading, and a stop_listening method.
       <pre class="lines">
 
 
-45
-46
-47
 48
 49
 50
@@ -667,10 +667,13 @@ provided named listeners, threading, and a stop_listening method.
 52
 53
 54
-55</pre>
+55
+56
+57
+58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 48</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_listeners identifier id'>listeners</span>
   <span class='rubyid_if if kw'>if</span> <span class='rubyid_@listeners ivar id'>@listeners</span>
@@ -702,14 +705,14 @@ provided named listeners, threading, and a stop_listening method.
       <pre class="lines">
 
 
-158
-159
-160
 161
-162</pre>
+162
+163
+164
+165</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 158</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 161</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_long_poll identifier id'>long_poll</span><span class='lparen token'>(</span><span class='rubyid_options identifier id'>options</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
   <span class='rubyid_options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:timeout</span><span class='rbrack token'>]</span> <span class='opasgn op'>||=</span> <span class='integer val'>30</span>
@@ -735,15 +738,15 @@ provided named listeners, threading, and a stop_listening method.
       <pre class="lines">
 
 
-151
-152
-153
 154
 155
-156</pre>
+156
+157
+158
+159</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 151</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 154</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_poll identifier id'>poll</span><span class='lparen token'>(</span><span class='rubyid_options identifier id'>options</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
   <span class='comment val'># timeout option of 0 means no long poll,</span>
@@ -770,9 +773,6 @@ provided named listeners, threading, and a stop_listening method.
       <pre class="lines">
 
 
-73
-74
-75
 76
 77
 78
@@ -787,10 +787,13 @@ provided named listeners, threading, and a stop_listening method.
 87
 88
 89
-90</pre>
+90
+91
+92
+93</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 73</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 76</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_remove_listener identifier id'>remove_listener</span><span class='lparen token'>(</span><span class='rubyid_type identifier id'>type</span><span class='comma token'>,</span> <span class='rubyid_arg identifier id'>arg</span><span class='rparen token'>)</span>
   <span class='rubyid_type identifier id'>type</span> <span class='opasgn op'>||=</span> <span class='string val'>&quot;&quot;</span>
@@ -829,12 +832,12 @@ provided named listeners, threading, and a stop_listening method.
       <pre class="lines">
 
 
-19
-20
-21</pre>
+22
+23
+24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 19</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 22</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_resource_name identifier id'>resource_name</span>
   <span class='string val'>&quot;subscription&quot;</span>
@@ -858,9 +861,6 @@ provided named listeners, threading, and a stop_listening method.
       <pre class="lines">
 
 
-122
-123
-124
 125
 126
 127
@@ -885,10 +885,13 @@ provided named listeners, threading, and a stop_listening method.
 146
 147
 148
-149</pre>
+149
+150
+151
+152</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 122</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 125</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_retrieve_events identifier id'>retrieve_events</span><span class='lparen token'>(</span><span class='rubyid_options identifier id'>options</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
   <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_request identifier id'>request</span><span class='lparen token'>(</span><span class='symbol val'>:events</span><span class='comma token'>,</span> <span class='rubyid_options identifier id'>options</span><span class='rparen token'>)</span>
@@ -937,15 +940,15 @@ provided named listeners, threading, and a stop_listening method.
       <pre class="lines">
 
 
-111
-112
-113
 114
 115
-116</pre>
+116
+117
+118
+119</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 111</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 114</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_start_listening identifier id'>start_listening</span><span class='lparen token'>(</span><span class='rubyid_options identifier id'>options</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
   <span class='rubyid_@listening ivar id'>@listening</span> <span class='assign token'>=</span> <span class='rubyid_true true kw'>true</span>
@@ -972,12 +975,12 @@ provided named listeners, threading, and a stop_listening method.
       <pre class="lines">
 
 
-118
-119
-120</pre>
+121
+122
+123</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 118</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 121</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_stop_listening identifier id'>stop_listening</span>
   <span class='rubyid_@listening ivar id'>@listening</span> <span class='assign token'>=</span> <span class='rubyid_false false kw'>false</span>
@@ -1001,18 +1004,18 @@ provided named listeners, threading, and a stop_listening method.
       <pre class="lines">
 
 
-92
-93
-94
 95
 96
 97
 98
 99
-100</pre>
+100
+101
+102
+103</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 92</span>
+      <pre class="code"><span class="info file"># File 'lib/spire/api/subscription.rb', line 95</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_wrap_listener identifier id'>wrap_listener</span><span class='lparen token'>(</span><span class='bitand op'>&amp;</span><span class='rubyid_block identifier id'>block</span><span class='rparen token'>)</span>
   <span class='rubyid_lambda identifier id'>lambda</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_message identifier id'>message</span><span class='bitor op'>|</span>
@@ -1034,7 +1037,7 @@ provided named listeners, threading, and a stop_listening method.
 </div>
     
     <div id="footer">
-  Generated on Thu May 24 12:58:14 2012 by 
+  Generated on Thu May 24 18:20:05 2012 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.5 (ruby-1.8.7).
 </div>
