@@ -48,6 +48,8 @@ class Spire
       end
 
       class Request
+        # @!attribute [rw] url
+        #   Url of the request
         attr_accessor :url
         def initialize(client, options)
           @client = client
@@ -90,6 +92,8 @@ class Spire
         end
 
         class Response < SimpleDelegator
+          # @!attribute [rw] data
+          #   Response data
           attr_accessor :data
         end
       end

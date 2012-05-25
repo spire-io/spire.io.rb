@@ -24,7 +24,14 @@ class Spire
       JSON.parse(string, :symbolize_names => false)
     end
 
+    # @!attribute [r] client
+    #   HTTP client.
+    # @!attribute [r] description
+    #   Description of the Spire.io API from discovery.
+    # @!attribute [r] schema
+    #   The Spire.io API schema.
     attr_reader :client, :description, :schema
+
     def initialize(url="https://api.spire.io", spire=nil, options={})
       @version = options[:version] || "1.0"
       @client = Excon

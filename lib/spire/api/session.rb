@@ -186,7 +186,11 @@ class Spire
         }
       end
 
-      attr_reader :url, :resources, :schema, :capabilities, :capability
+      # @!attribute [r] url
+      #   Url of the spire.io api.
+      # @!attribute [r] schema
+      #   Spire API Schema
+      attr_reader :url, :resources, :schema, :capabilities
 
       def initialize(api, data)
         @api = api

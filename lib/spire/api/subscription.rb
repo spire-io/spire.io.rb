@@ -15,7 +15,10 @@ class Spire
     # * subscription = channel.subscribe("subscription name")
     class Subscription < Resource
 
+      # @!attribute [rw]
+      #   Timestamp (in microseconds) of the last event received
       attr_accessor :last
+
       def resource_name
         "subscription"
       end

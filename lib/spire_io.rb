@@ -8,8 +8,12 @@ class Spire
   # getting a 409 Conflict.
   RETRY_CREATION_LIMIT = 3
 
+  # @!attribute [rw] api
+  #   Spire API object.  Has low-level methods for accessing the spire.io API.
+  # @!attribute [rw] session
+  #   Spire session.  Contains methods for creating channels, subscriptions, and applications.
   attr_accessor :api, :session, :resources
-  
+
   def initialize(url="https://api.spire.io")
     @api = Spire::API.new(url)
     @url = url

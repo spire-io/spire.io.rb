@@ -38,8 +38,12 @@ class Spire
           }
         }
       end
-  
-      attr_reader :url, :properties, :capabilities, :capability
+
+      # @!attribute [r] url
+      #   Url of the resource
+      # @!attribute [r] capabilities
+      #   Capabilities for the resource
+      attr_reader :url, :properties, :capabilities
 
       def initialize(api, data)
         @api = api
