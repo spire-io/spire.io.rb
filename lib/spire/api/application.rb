@@ -132,13 +132,15 @@ class Spire
         }
       end
 
-      define_request(:members) do
+      define_request(:members) do |options|
+        options ||= {}
         collection = @resources["members"]
         capability = collection["capabilities"]["all"]
         url = collection["url"]
         {
           :method => :get,
           :url => url,
+          :query => options,
           :headers => {
             "Authorization" => "Capability #{capability}",
             "Accept" => @api.mediaType("members"),
@@ -245,20 +247,23 @@ class Spire
         true
       end
 
-      def members
-        @members || members!
+      def members(options = {})
+        @members ||= {}
+        @members[options.hash] || members!(options)
       end
 
-      def members!
-        response = request(:members)
+      def members!(options = {})
+        response = request(:members, options)
         unless response.status == 200
           raise "Error getting members for application #{self.name}: (#{response.status}) #{response.body}"
         end
-        @members = {}
+        @members ||= {}
+        hsh_key = options.hash
+        @members[hsh_key] ||= {}
         response.data.each do |login, properties|
-          @members[login] = API::Member.new(@api, properties)
+          @members[hsh_key][login] = API::Member.new(@api, properties)
         end
-        @members
+        @members[hsh_key]
       end
 
       def get_member(member_login)
