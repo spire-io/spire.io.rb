@@ -58,11 +58,15 @@ class Spire
       end
 
       def method_missing(name, *args)
-        if description = schema["properties"][name.to_s]
+        if schema["properties"][name.to_s]
           properties[name.to_s]
         else
           super
         end
+      end
+
+      def respond_to?(name)
+        schema["properties"][name.to_s] || super
       end
 
       def [](name)
